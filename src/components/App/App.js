@@ -1,37 +1,54 @@
-import React, {Component} from 'react';
-import {
-  HashRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
-
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import './App.css';
+import crypto from 'crypto'
 
-import Nav from '../Nav/Nav';
+// Not currently being called on this page
 import Footer from '../Footer/Footer';
+import Input from '../Input/Input';
 
+// FROM THE REPO
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
-import './App.css';
+// MY COMPONENTS NEEDED FOR THIS PAGE
+import Poll from '../Poll/Poll';
+import Make from '../Make/Make';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-  }
 
-  render() {
-    return (
-      <Router>
-        <div>
-          <Nav />
-          <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+    // Check to see if they have an ID in local storage, if not, give them one.
+    componentDidMount(){
+        if (localStorage.id){
+            // Store their ID in redux state
+            this.props.dispatch({type:"SET_ID", payload: localStorage.id})
+        } else {
+            // Create an random id, put it in localStorage.id
+            const id =crypto.randomBytes(20).toString('hex')
+            localStorage.setItem('id', id )
+            // Store their ID in redux state
+            this.props.dispatch({type:"SET_ID", payload: localStorage.id})
+        }
+    }
+
+    render() {
+        return (
+            <>
+            <Router>
+            <Switch>
+            {/* Visiting localhost:3000 will redirect to localhost:3000/make */}
+            <Redirect exact from="/" to="/make" />
+            <Route 
+            path="/make" 
+            exact 
+            component={Make} 
+            />
+
+
+            {/* FROM THE REPO */}
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
             <Route
@@ -55,13 +72,21 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+
+            <Route path="/:route" component={Poll} />
+
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
-  )}
-}
+            </Switch>
+            </Router>
 
-export default connect()(App);
+              <pre>{JSON.stringify(this.props,null,2)}</pre>
+              </>
+        );
+    }
+}
+const mapReduxStateToProps = (reduxState) => {
+    return reduxState
+}
+export default connect(mapReduxStateToProps)(App);
+
