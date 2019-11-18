@@ -54,8 +54,13 @@ router.get('/:url', (req,res) =>{
 });
 
 router.post('/', (req,res) =>{
-    const queryText = `INSERT INTO polls("url")VALUES($1)`;
-    const queryArgs = [req.body.url];
+    const queryText = `INSERT INTO polls("url_path",
+    "type",
+    "question",
+    "collection_period",
+    "voting_period",
+    "complete")VALUES($1,$2,$3,true,false,false)`;
+    const queryArgs = [req.body.url, req.body.type, req.body.description];
     console.log("while inserting",req.body);
     
     pool.query(queryText, queryArgs)
