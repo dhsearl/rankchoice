@@ -21,10 +21,13 @@ class Description extends Component {
         return (
             <>
             <div className="centered">
-                <textarea className="generalDescription"
+                <textarea 
+                className="generalDescription inputDarkMode"
                 onChange={this.handleInput} 
                 value={this.props.pollReducer.setup.description}
                 />
+            </div>  
+             <div className="centered"> 
                 <button onClick={this.handleSubmit} >START POLL</button>
             </div>
             </>

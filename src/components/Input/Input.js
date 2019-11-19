@@ -20,6 +20,7 @@ class Input extends Component {
 
                 <input type="text" 
                 className="inputDarkMode"
+                placeholder="desired-url"
                 value={this.props.pollReducer.setup.url} 
                 onChange={this.handleInput} />
                 

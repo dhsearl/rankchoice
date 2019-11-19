@@ -1,7 +1,7 @@
 .centered{
-    display: flex;
-  justify-content: center;
-  align-items: center;
+    /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
 }
 
 .inputDarkMode{
@@ -18,9 +18,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
   
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    justify-content: flex-start;
+    /* align-items: center; */
+    /* height: 100vh; */
     background-color: #121212;
     color:#BB86FC;
   }

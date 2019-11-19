@@ -21,6 +21,20 @@ const idea = (state=resetIdea, action)=>{
             return state
     }
 }
+
+const ideaList = (state=[], action)=>{
+    switch(action.type) {
+        case "ADD_TO_LIST":
+            return [
+                ...action.payload
+            ]
+        case "CLEAR_IDEA_LIST":
+            return []
+        default:
+            return state        
+    }
+}
 export default combineReducers({
     idea,
+    ideaList,
   });

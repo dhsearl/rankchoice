@@ -5,11 +5,11 @@ const moment = require('moment');
 
 // Get all ideas associated with poll_id
 router.get('/:id', (req,res) =>{
-    const queryText = `SELECT * FROM candidate_ideas WHERE id=$1`;
+    const queryText = `SELECT id, idea_text, created_by FROM candidate_ideas WHERE poll_id=$1`;
     const queryArgs = [req.params.id]
     pool.query(queryText, queryArgs)
     .then((response)=>{
-        res.send(response.rows[0]);
+        res.send(response.rows);
     })
     .catch((error)=>{
         console.log('ERROR in GET ROUTE',error);

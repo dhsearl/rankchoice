@@ -33,16 +33,6 @@ function* addRouteSaga(action) {
     }
 }
 
-function* addIdeaSaga(action) {
-    try {
-        console.log("In addIdeaSaga");
-        yield axios.post('/api/')
-    } catch (error) {
-
-    }
-}
-
-
 function* rootSaga() {
     yield takeEvery('ADD_ROUTE', addRouteSaga);
     yield takeEvery('FETCH_STATUS', fetchInformationSaga);
