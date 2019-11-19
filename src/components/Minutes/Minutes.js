@@ -19,14 +19,14 @@ class Minutes extends Component {
             <table>
                 <tbody>
                     <tr>
-                        <td>Has 1 minute passed?</td>
-                        <td>{this.props.pollStatus.step_one ?
+                        <td>Are we in the idea collection period?</td>
+                        <td>{this.props.pollReducer.pollStatus.collection_period ?
                         <p>yes</p>:<p>no</p> }
                         </td>
                     </tr>
                     <tr>
-                        <td>Has 2 minutes passed?</td>
-                        <td>{this.props.pollStatus.step_two ?
+                        <td>Are we in the voting period?</td>
+                        <td>{this.props.pollReducer.pollStatus.voting_period ?
                         <p>yes</p>:<p>no</p> }
                         </td>
                     </tr>

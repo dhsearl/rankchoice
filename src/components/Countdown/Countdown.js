@@ -12,7 +12,7 @@ class Countdown extends React.Component {
 
         this.interval = setInterval(() => {
 			const then = moment(this.props.time);
-			const now = moment().subtract(2, 'minutes');
+			const now = moment().subtract(10, 'minutes');
 			const countdown = moment(then - now);
 			const minutes = countdown.format('mm');
 			const seconds = countdown.format('ss');
@@ -39,7 +39,7 @@ class Countdown extends React.Component {
 		return (
 			<div>
             
-				{this.state.minutes <2 ?
+				{this.state.minutes <10 ?
 				<div className='countdown-wrapper'>
 					
 					{minutes && (

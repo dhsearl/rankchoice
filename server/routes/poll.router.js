@@ -6,35 +6,61 @@ const moment = require('moment');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-// const CronJob = require('cron').CronJob;
-// new CronJob('* * * * * *', function() {
-//     //console.log('You will see this message every second');
-//     moment.duration(2, 'minutes');
+const findWinner = () =>{
+    // get all the votes associated with the poll
+    // do the dang math
+    // return winner ID
+    return 1;
+}
 
-//     const minuteOneQuery = `UPDATE polls
-//     SET step_one = true 
-//     WHERE created_at <= NOW() - interval '1 minute' 
-//     AND step_one = false`;
-//     pool.query(minuteOneQuery)
-//     .then(()=>{
-//         //console.log('Updated a first minute');
-//     })
-//     .catch((error)=>{
-//         console.log('Error with minute one query', error);
-//     })
+const CronJob = require('cron').CronJob;
+new CronJob('*/5 * * * * *', function() {
+    //console.log('You will see this message every second');
+    moment.duration(2, 'minutes');
 
-//     const minuteTwoQuery = `UPDATE polls
-//     SET step_two = true 
-//     WHERE created_at <= NOW() - interval '2 minute' 
-//     AND step_two = false`;
-//     pool.query(minuteTwoQuery)
-//     .then(()=>{
-//         //console.log('Updated a second minute');
-//     })
-//     .catch((error)=>{
-//         console.log('Error with minute two query', error);
-//     })
-// }, null, true, 'America/Chicago');
+
+    // After 5 minutes turn off collecting and shift to voting
+    const minuteOneQuery = `UPDATE polls
+    SET collection_period = false, voting_period = true 
+    WHERE created_at <= NOW() - interval '5 minute' 
+    AND collection_period = true`;
+    pool.query(minuteOneQuery)
+    .then(()=>{
+        //console.log('Updated a first minute');
+    })
+    .catch((error)=>{
+        console.log('Error with turning collection period off', error);
+    })
+
+    // After 10 minutes turn voting off
+    const minuteTwoQuery = `UPDATE polls
+    SET voting_period = false 
+    WHERE created_at <= NOW() - interval '10 minute' 
+    AND voting_period = true`;
+    pool.query(minuteTwoQuery)
+    .then(()=>{
+        // findWinner();
+        // console.log('FINDING WINNER');
+        
+    })
+    .catch((error)=>{
+        console.log('Error with minute two query', error);
+    })
+
+    // const pollCompleteQuery = `UPDATE polls
+    // SET voting_period = false 
+    // WHERE created_at <= NOW() - interval '10 minute' 
+    // AND voting_period = true`;
+    // pool.query(minuteTwoQuery)
+    // .then(()=>{
+    //     // findWinner();
+    //     // console.log('FINDING WINNER');
+        
+    // })
+    // .catch((error)=>{
+    //     console.log('Error with minute two query', error);
+    // })
+}, null, true, 'America/Chicago');
 
 
 
@@ -54,7 +80,7 @@ router.get('/:url', (req,res) =>{
 });
 
 router.post('/', (req,res) =>{
-    const queryText = `INSERT INTO polls("url_path",
+    const queryText = `INSERT INTO polls("url",
     "type",
     "question",
     "collection_period",

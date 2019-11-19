@@ -1,26 +1,16 @@
 import { combineReducers } from 'redux';
 
-
+// Cleanup route or poll name input
 const turnIntoRoute = (inputString) =>{
     return inputString.replace(/\W+/g, '-').toLowerCase();
 }
-const newRouteInput = (state='', action) =>{
-    switch (action.type) {
-        case 'ROUTE_INPUT':
-            return turnIntoRoute(action.payload);
-        case 'CLEAR_INPUT':
-            return '';    
-        default:
-            return state;
-    }       
-}
-
+// state I want to reset the poll object to
 const resetPoll={
     type: "general",
     url: "",
     description: "",
 }
-
+// setup the poll object
 const setup = (state=resetPoll, action)=>{
     switch(action.type) {
         case "POLL_INPUT":
@@ -39,8 +29,9 @@ const setup = (state=resetPoll, action)=>{
             return state
     }
 }
+
+
 // To store the value of the Poll's status
-// DO I need this?
 const pollStatus = (state={}, action) =>{
     switch(action.type) {
         case 'SET_STATUS':
@@ -64,7 +55,7 @@ const idReducer = (state=null, action) =>{
 
 export default combineReducers({
     setup,
-    newRouteInput,
+    // newRouteInput,
     pollStatus,
     idReducer,
   });
