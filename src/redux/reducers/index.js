@@ -4,6 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import pollReducer from './pollReducer';
 import ideaReducer from './ideaReducer';
+import voteReducer from './voteReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user,
   pollReducer,
-  ideaReducer, // will have an id and username if someone is logged in
+  ideaReducer,
+  voteReducer, // will have an id and username if someone is logged in
 });
 
 export default rootReducer;

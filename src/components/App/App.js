@@ -17,6 +17,7 @@ import InfoPage from '../InfoPage/InfoPage';
 // MY COMPONENTS NEEDED FOR THIS PAGE
 import Poll from '../Poll/Poll';
 import Make from '../Make/Make';
+import DebugBar from '../DebugBar/DebugBar';
 
 class App extends Component {
 
@@ -38,6 +39,7 @@ class App extends Component {
         return (
             <>
             <Router>
+                <DebugBar />
             <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/make */}
             <Redirect exact from="/" to="/make" />

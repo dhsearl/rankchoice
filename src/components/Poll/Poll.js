@@ -6,14 +6,7 @@ import Ideas from '../Ideas/Ideas'
 
 
 class Poll extends Component {
-    // handleShouldRerenderChild() {
-    //     console.log('Called shouldComponentRerender');
-    //     return true;
-    // }
 
-    // handleChildDidRerender() {
-    //     console.log('Called componentDidRerender');
-    // }
     componentDidMount() {
         this.props.dispatch({
             type: 'FETCH_STATUS',

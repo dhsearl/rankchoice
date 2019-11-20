@@ -12,7 +12,7 @@ class Countdown extends React.Component {
 
         this.interval = setInterval(() => {
 			const then = moment(this.props.time);
-			const now = moment().subtract(10, 'minutes');
+			const now = moment().subtract(2, 'minutes');
 			const countdown = moment(then - now);
 			const minutes = countdown.format('mm');
 			const seconds = countdown.format('ss');

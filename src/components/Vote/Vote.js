@@ -4,12 +4,12 @@ import { withRouter } from 'react-router-dom';
 
 class Ideas extends Component {
     componentDidMount() {
-        // this.props.pollReducer.pollStatus.voting_period === true
-        //     && this.props.voteReducer.voteNeedsToBeInit === true
-        //     && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
+        this.props.pollReducer.pollStatus.voting_period === true
+            && this.props.voteReducer.voteNeedsToBeInit === true
+            && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
     }
     state ={
-
+        
     }
     handleInput = (e) => {
         this.props.dispatch({ type: 'IDEA_INPUT', payload: { key: "idea_text", value: e.target.value, url: this.props.route } })
@@ -24,7 +24,7 @@ class Ideas extends Component {
     }
     handleRank = (event) => {
         console.log("in handle rank with", event.target.value, " idea_id",event.target.name)
-        this.props.dispatch({ type: "VOTE", payload: { idea_id: event.target.name, value: Number(event.target.value) } })
+        this.props.dispatch({ type: "VOTE", payload: { idea_id: event.target.name, value: event.target.value } })
     }
     render() {
         return (

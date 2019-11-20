@@ -13,6 +13,10 @@ class Minutes extends Component {
                 type: 'GET_IDEA_LIST',
                 payload: { id: this.props.pollReducer.pollStatus.id }
             })
+            this.props.pollReducer.pollStatus.voting_period === true 
+            && this.props.voteReducer.voteNeedsToBeInit === true
+            && this.props.dispatch({type:"INIT_BALLOT", payload: this.props.ideaReducer.ideaList}) 
+                
         }, 1000);
     }
     componentWillUnmount() {
