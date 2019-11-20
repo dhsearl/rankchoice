@@ -25,9 +25,6 @@ class Input extends Component {
                 onChange={this.handleInput} />
                 
                 </form>
-              {/* <pre>{JSON.stringify(this.props,null,2)}</pre> */}
-              
-                
             </div>
               
               </>

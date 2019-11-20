@@ -1,21 +1,20 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const moment = require('moment');
+
 
 // Delete idea by id if voter id matches
 router.delete('/:id/:voter_id',(req,res)=>{
     const voter = req.params.voter_id;
     const idea = req.params.id;
-    console.log("idea",idea,"voter",voter)
-    const checkQuery = `
-    SELECT created_by 
+    const checkQuery = 
+    `SELECT created_by 
     FROM "candidate_ideas"
     WHERE id = $1`
     const checkArg = [idea]
+
     pool.query(checkQuery,checkArg)
     .then((result)=>{
-        // console.log("delete got", result.rows[0]);
         if(voter===result.rows[0].created_by){
             const queryText = `DELETE FROM candidate_ideas WHERE id=$1`
             pool.query(queryText,checkArg)
@@ -24,10 +23,10 @@ router.delete('/:id/:voter_id',(req,res)=>{
                 res.sendStatus(200);
             })
             .catch((error)=>{
-                console.log('ERROR deleting. Voter had rights, error between server and DB', error);
+                console.log('ERROR deleting in idea.router - Voter did create the idea, error between server and DB', error);
             })
         } else {
-            console.log('Voter ID did not match Creator ID');
+            console.log('Forbidden: Voter ID did not match Creator ID');
             res.sendStatus(403);
         }
     })
@@ -45,7 +44,7 @@ router.get('/:id', (req,res) =>{
         res.send(response.rows);
     })
     .catch((error)=>{
-        console.log('ERROR in idea.router GET',error);
+        console.log('ERROR in idea.router GET by poll id',error);
         res.sendStatus(500);
     })
 });
@@ -62,7 +61,7 @@ router.post('/', (req,res) =>{
     
     pool.query(queryText, queryArgs)
     .then((response)=>{
-        console.log('response is',response);
+        console.log('idea.router post response is',response);
         res.sendStatus(200);
     })
     .catch((error)=>{

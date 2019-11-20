@@ -6,20 +6,6 @@ const resetIdea = {
     url: ''
 }
 
-const vote = (state = resetIdea, action) => {
-    switch (action.type) {
-        case "IDEA_INPUT":
-            return {
-                ...state,
-                [action.payload.key]: action.payload.value,
-                url: action.payload.url
-            }
-        case "RESET_IDEA":
-            return resetIdea
-        default:
-            return state
-    }
-}
 
 const voteNeedsToBeInit = (state = true, action) => {
     if (action.type === "INIT_BALLOT") {
@@ -36,7 +22,7 @@ const voteNeedsToBeInit = (state = true, action) => {
 // IdeaList: Array(3)
 // 0: {id: 33, idea_text: "Idea one", created_by: "b7e5b91980efd3ebe8fbe9b2b0f16da7213977c0"}
 // 1: {id: 34, idea_text: "Idea Two", created_by: "b7e5b91980efd3ebe8fbe9b2b0f16da7213977c0"}
-// 2: {id: 35, idea_text: "Idea Three", created_by: "b7e5b91980efd
+// 2: {id: 35, idea_text: "Idea Three", created_by: "b7e5b91980efd...
 
 const voteInstance = (state = {}, action) => {
     // in init I will be passing it an array of ideas

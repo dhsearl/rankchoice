@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Vote from '../Vote/Vote'
+
 
 class Ideas extends Component {
-    componentDidMount() {
-        // this.props.pollReducer.pollStatus.voting_period === true
-        //     && this.props.voteReducer.voteNeedsToBeInit === true
-        //     && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
-    }
-    state ={
 
-    }
     handleInput = (e) => {
         this.props.dispatch({ type: 'IDEA_INPUT', payload: { key: "idea_text", value: e.target.value, url: this.props.route } })
     }
@@ -22,10 +17,7 @@ class Ideas extends Component {
     handleDelete = (id) => {
         this.props.dispatch({ type: 'DELETE_IDEA', payload: { voter_id: localStorage.id, idea_id: id } })
     }
-    handleRank = (event) => {
-        console.log("in handle rank with", event.target.value, " idea_id",event.target.name)
-        this.props.dispatch({ type: "VOTE", payload: { idea_id: event.target.name, value: Number(event.target.value) } })
-    }
+
     render() {
         return (
             <>
@@ -51,29 +43,7 @@ class Ideas extends Component {
                         </div>
                     </>
                 }
-                {/* VOTING TIME */}
-                {/* IF it is the voting period
-                    If vote hasn't been initilized
-                    Then init_ballot */}
-                {this.props.pollReducer.pollStatus.voting_period
-                    && Object.keys(this.props.voteReducer.voteInstance).length !== 0
-                    &&
-
-                    <>
-                        <div>Time to vote</div>
-                        {this.props.ideaReducer.ideaList.map(eachIdea =>
-
-                            <div><p>{eachIdea.idea_text}</p>
-                                <input type="number"
-                                    name={String(eachIdea.id)}
-                                    onChange={this.handleRank}
-                                    value={this.props.voteReducer.voteInstance[ String(eachIdea.id)]}
-                                />
-                            </div>
-                        )}
-                    </>
-                }
-
+                <Vote />
             </>
         );
     }
