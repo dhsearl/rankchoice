@@ -39,6 +39,8 @@ const voteInstance = (state = {}, action) => {
             [action.payload.idea_id]: action.payload.value
         }
 
+    } else if (action.type == "CLEAR_VOTE_INSTANCE"){
+        return {}
     } else {
         return state;
     }

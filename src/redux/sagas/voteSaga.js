@@ -1,49 +1,26 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getIdeasSaga(action) {
+
+
+function* voteSaga(action) {
     // payload of
-    // { type:'GET_IDEA_LIST', payload: {id: this.props.pollReducer.pollStatus.id}}
-    // currently called in Minutes.js because it refreshes often
+    // {type: "LOCK_VOTE_IN", payload:{
+    //     poll_id: this.props.pollReducer.pollStatus.id,
+    //     voter_id: localStorage.id,
+    //     votes: this.props.voteReducer.voteInstance
+    // }}
     try {
-        console.log("In getIdeasSaga with", action.payload)
-        const ideas = yield axios.get(`/api/idea/${action.payload.id}`);
-        console.log("got back", ideas.data)
-        yield put({type:"ADD_TO_LIST", payload:ideas.data})
+        console.log("In voteSaga with", action.payload);
+        yield axios.post('/api/vote/', action.payload);
+        yield put({type:"CLEAR_VOTE_INSTANCE"})
     } catch (error) {
-
-        console.log('Error in getIdeasSaga',error);
-        
-    }
-}
-
-function* addIdeaSaga(action) {
-    // payload of
-    //{ type: 'ADD_IDEA', payload: this.props.ideaReducer.idea }
-    try {
-        console.log("In addIdeaSaga with", action.payload);
-        yield axios.post('/api/idea/', action.payload);
-    } catch (error) {
-        console.log("addIdeaSaga error was", error)
-    }
-}
-
-function deleteIdeaSaga(action) {
-    // payload of 
-    // { type: 'DELETE_IDEA', payload: {voter_id: localStorage.id, idea_id: id}}
-    try {
-        console.log("In deleteIdeaSaga with", action.payload);
-        axios.delete(`/api/idea/${action.payload.idea_id}/${action.payload.voter_id}`)
-
-    } catch (error) {
-        console.log("deleteIdeaSaga error was",error);
+        console.log("voteSaga error was", error)
     }
 }
 
 function* rootSaga() {
-    yield takeEvery('ADD_IDEA', addIdeaSaga);
-    yield takeEvery('GET_IDEA_LIST', getIdeasSaga)
-    yield takeEvery('DELETE_IDEA', deleteIdeaSaga);
+    yield takeEvery('LOCK_VOTE_IN', voteSaga);
   }
   
   export default rootSaga;

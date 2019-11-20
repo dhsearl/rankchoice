@@ -13,6 +13,13 @@ class Ideas extends Component {
         console.log("in handle rank with", event.target.value, " idea_id",event.target.name)
         this.props.dispatch({ type: "VOTE", payload: { idea_id: event.target.name, value: Number(event.target.value) } })
     }
+    handleSubmit = () =>{
+        this.props.dispatch({type: "LOCK_VOTE_IN", payload:{
+            poll_id: this.props.pollReducer.pollStatus.id,
+            voter_id: localStorage.id,
+            votes: this.props.voteReducer.voteInstance
+        }})
+    }
     render() {
         return (
             <>
@@ -37,6 +44,7 @@ class Ideas extends Component {
                                 />
                             </div>
                         )}
+                        <button onClick={this.handleSubmit}>Lock Votes In</button>
                     </>
                 }
 

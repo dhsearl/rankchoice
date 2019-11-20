@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import pollSaga from './pollSaga';
 import ideaSaga from './ideaSaga';
 import debugSaga from './debugSaga';
+import voteSaga from './voteSaga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     pollSaga(),
     ideaSaga(),
     debugSaga(),
+    voteSaga(),
   ]);
 }
