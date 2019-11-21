@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown';
 import Minutes from '../Minutes/Minutes'
 import Ideas from '../Ideas/Ideas'
-import Vote from '../Vote/Vote'
+import Vote from '../Vote/DragVote'
 
 class Poll extends Component {
 

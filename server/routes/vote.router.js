@@ -10,6 +10,20 @@ const findWinnerMIT = require('../modules/ranked');
 //     voter_id: localStorage.id,
 //     votes: this.props.voteReducer.voteInstance // an object
 // }
+// [
+//     {
+//       "id": "30",
+//       "idea": "one two"
+//     },
+//     {
+//       "id": "31",
+//       "idea": "three four"
+//     },
+//     {
+//       "id": "32",
+//       "idea": "five six"
+//     }
+//   ]
 router.post('/', (req, res) => {
     console.log("post route of vote.router with", req.body);
     const queryText = `INSERT INTO vote_instance(
@@ -25,8 +39,8 @@ router.post('/', (req, res) => {
                 `INSERT INTO single_vote
                 ("vote_instance_id","candidate_id","rank_integer")
                 VALUES($1, $2, $3)`
-            voteArray.forEach(vote => {
-                const queryArgs = [vote_instance_id, vote[0], vote[1]]
+            req.body.votes.map((vote,i) => {
+                const queryArgs = [vote_instance_id, Number(vote.id), i+1 ]
                 pool.query(queryText, queryArgs)
                     .then(() => {
                         console.log("added vote", queryArgs);

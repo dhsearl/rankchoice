@@ -1,54 +1,104 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-// {this.props.ideaReducer.ideaList.map(eachIdea =>
+const grid = 8;
 
-//     <div><p>{eachIdea.idea_text}</p>
-//         <input type="number"
-//             name={String(eachIdea.id)}
-//             onChange={this.handleRank}
-//             value={this.props.voteReducer.voteInstance[ String(eachIdea.id)]}
-//         />
-//     </div>
-// )}
-// this.props.ideaReducer.ideaList is:
-// "ideaList": [
-//     {
-//       "id": 27,
-//       "idea_text": "Idea one",
-//       "created_by": "d84f6620459bd017dc17d93df19d72201dde4113"
-//     },
-//     {
-//       "id": 28,
-//       "idea_text": "Idea two",
-//       "created_by": "d84f6620459bd017dc17d93df19d72201dde4113"
-//     },
-//     {
-//       "id": 29,
-//       "idea_text": "Idea three",
-//       "created_by": "d84f6620459bd017dc17d93df19d72201dde4113"
-//     }
-//   ]
+const getItemStyle = (isDragging, draggableStyle) => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: "none",
+  padding: grid * 2,
+  margin: `0 0 ${grid}px 0`,
+
+  // change background colour if dragging
+  background: isDragging ? "lightgreen" : "grey",
+
+  // styles we need to apply on draggables
+  ...draggableStyle
+});
+const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+    };
+const getListStyle = isDraggingOver => ({
+  background: isDraggingOver ? "lightblue" : "lightgrey",
+  padding: grid,
+  width: 250
+});
+
 class Vote extends Component {
-    state =  {
-        ideas: this.props.ideaReducer.ideaList,  
-        columns: {
-            'column-1': {
-                id: 'column-1',
-                title: this.props.pollReducer.polStatus.question,
-                ideaIds: this.props.ideaReducer.ideaList.map(x => x.id),
-            },
-        },
-        columnOrder:['column-1']
+    handleSubmit = () =>{
+        this.props.dispatch({type: "LOCK_VOTE_IN", payload:{
+            poll_id: this.props.pollReducer.pollStatus.id,
+            voter_id: localStorage.id,
+            votes: this.props.voteReducer.voteInstance
+        }})
+    }
+    
+    onDragEnd = (result) => {
+        // dropped outside the list
+        if (!result.destination) {
+            return;
+        }
+
+        const newItems = reorder(
+            this.props.voteReducer.voteInstance,
+            result.source.index,
+            result.destination.index
+        );
+        this.props.dispatch({type:"SET_ITEM_RANKS", payload: newItems})
+        
     }
     render() {
 
-        return this.state.columnOrder.map((columnID)=>{
-            const column = this.state.columns[columnId];
-            const idea = column.ideaId
-        })
-   
+        return (
+            <>            
+            {this.props.pollReducer.pollStatus.voting_period
+                    && Object.keys(this.props.voteReducer.voteInstance).length !== 0
+                    &&
+                
+                    <>
+                        <div>Time to vote</div>
+                        <DragDropContext onDragEnd={this.onDragEnd}>
+                            <Droppable droppableId="droppable">
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={getListStyle(snapshot.isDraggingOver)}
+                                    >
+                                        {this.props.voteReducer.voteInstance.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                                        {item.idea}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </DragDropContext>
+                        <button onClick={this.handleSubmit}>Lock Votes In</button>
+                    </>
+            }
+            </>
+        )
+
     }
 }
 const mapReduxStateToProps = (reduxState) => {

@@ -5,17 +5,28 @@ class Countdown extends React.Component {
 	state = {
         start: undefined,
 		minutes: undefined,
-		seconds: undefined
+        seconds: undefined,
+        ranOnce:false
 	}
 	
 	componentDidMount() {
 
         this.interval = setInterval(() => {
 			const then = moment(this.props.time);
-			const now = moment().subtract(2, 'minutes');
-			const countdown = moment(then - now);
+            const now = moment().subtract(5, 'minutes');
+            
+            const countdown = moment(then - now);
 			const minutes = countdown.format('mm');
-			const seconds = countdown.format('ss');
+            const seconds = countdown.format('ss');
+            if (minutes === 0 && seconds === 1 && !this.state.ranOnce) {
+                then = moment(this.props.time);
+                now = moment().subtract(5, 'minutes');
+            
+                countdown = moment(then - now);
+			    minutes = countdown.format('mm');
+                seconds = countdown.format('ss');
+                this.setState({ranOnce:true});
+            }
 
 			this.setState({minutes, seconds });
 		}, 1000);
