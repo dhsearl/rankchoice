@@ -1,36 +1,36 @@
 
-const resultRows = [{ "vote_instance_id": 3, "votes": [[7, 3], [8, 2], [9, 1]] }, 
-{ "vote_instance_id": 4, "votes": [[7, 1], [9, 3], [8, 2]] },
-{ "vote_instance_id": 5, "votes": [[8, 2], [9, 3], [7, 1]] },
-{ "vote_instance_id": 6, "votes": [[7, 1], [8, 2], [9, 3]] }]
+// const resultRows = [{ "vote_instance_id": 3, "votes": [[7, 3], [8, 2], [9, 1]] }, 
+// { "vote_instance_id": 4, "votes": [[7, 1], [9, 3], [8, 2]] },
+// { "vote_instance_id": 5, "votes": [[8, 2], [9, 3], [7, 1]] },
+// { "vote_instance_id": 6, "votes": [[7, 1], [8, 2], [9, 3]] }]
 
-const voteTable = [];
+// const voteTable = [];
 
-// prints out sorted table need to strip first value
-resultRows.map(x => voteTable.push(x.votes.sort(function(a, b) {
-    return a[0] - b[0];
-  })));
+// // prints out sorted table need to strip first value
+// resultRows.map(x => voteTable.push(x.votes.sort(function(a, b) {
+//     return a[0] - b[0];
+//   })));
 
-const skinnyTable = []
-voteTable.forEach(row=> {
-    const temp = []
-    row.forEach(vote => {
-        temp.push(vote[1])
-    })
-    skinnyTable.push(temp)
-})
-const skinnyCandidates = []
-voteTable[0].forEach(vote =>{
-    skinnyCandidates.push(vote[0])
-})
+// const skinnyTable = []
+// voteTable.forEach(row=> {
+//     const temp = []
+//     row.forEach(vote => {
+//         temp.push(vote[1])
+//     })
+//     skinnyTable.push(temp)
+// })
+// const skinnyCandidates = []
+// voteTable[0].forEach(vote =>{
+//     skinnyCandidates.push(vote[0])
+// })
 
-console.log(skinnyTable);
-console.log(skinnyCandidates);
-//   const votesOnly = [];
-//   voteTable.map(x=>)
+// console.log(skinnyTable);
+// console.log(skinnyCandidates);
+// //   const votesOnly = [];
+// //   voteTable.map(x=>)
 
-  const voteOnlyTable = [[2,1,3],[1,2,3],[2,1,3],[1,2,3]]
-console.log(voteTable);
+//   const voteOnlyTable = [[2,1,3],[1,2,3],[2,1,3],[1,2,3]]
+// console.log(voteTable);
 
 const getWinner = (voteArray, numberOfvoters) => {
     const winThreshold = numberOfvoters / 2;
@@ -97,37 +97,37 @@ const getWinner = (voteArray, numberOfvoters) => {
     // }
 }
 
-console.log(getWinner(voteTable, 4))
+// console.log(getWinner(voteTable, 4))
 
 
     var candidates, dirname, fs, votes;
 
-    function loadCandidates(dir) {
-        var candidateList, data;
+    // function loadCandidates(dir) {
+    //     var candidateList, data;
 
-        /*jslint stupid:true*/
-        data = fs.readFileSync(dir + '/candidates.txt');
-        /*jslint stupid:false*/
+    //     /*jslint stupid:true*/
+    //     data = fs.readFileSync(dir + '/candidates.txt');
+    //     /*jslint stupid:false*/
 
-        candidateList = data.toString().trim().split('\n');
+    //     candidateList = data.toString().trim().split('\n');
 
-        return candidateList;
-    }
+    //     return candidateList;
+    // }
 
-    function loadVotes(dir) {
-        var data, voteList;
+    // function loadVotes(dir) {
+    //     var data, voteList;
 
-        /*jslint stupid:true*/
-        data = fs.readFileSync(dir + '/votes.txt');
-        /*jslint stupid:false*/
+    //     /*jslint stupid:true*/
+    //     data = fs.readFileSync(dir + '/votes.txt');
+    //     /*jslint stupid:false*/
 
-        voteList = data.toString().trim().split('\n');
-        voteList = voteList.map(function (line) {
-            return line.split(' ');
-        });
+    //     voteList = data.toString().trim().split('\n');
+    //     voteList = voteList.map(function (line) {
+    //         return line.split(' ');
+    //     });
 
-        return voteList;
-    }
+    //     return voteList;
+    // }
 
     function removeCandidates(voteList, lowestCandidates) {
         var result;
@@ -227,27 +227,27 @@ console.log(getWinner(voteTable, 4))
         }
     }
 
-    // dirname = process.argv[2];
-    // fs = require('fs');
+    // // dirname = process.argv[2];
+    // // fs = require('fs');
 
-    // if (!dirname) {
-    //     console.log('Specify directory name on command line');
-    // } else {
-        candidates = ["7","8","9"];
+    // // if (!dirname) {
+    // //     console.log('Specify directory name on command line');
+    // // } else {
+    //     candidates = ["7","8","9"];
 
-        if (!Array.isArray(candidates) || !candidates.length) {
-            console.log('no candidates');
-            return;
-        }
+    //     if (!Array.isArray(candidates) || !candidates.length) {
+    //         console.log('no candidates');
+    //         return;
+    //     }
 
-        votes = voteOnlyTable;
+    //     votes = voteOnlyTable;
 
-        if (!Array.isArray(votes) || !votes.length) {
-            console.log('no votes');
-            return;
-        }
+    //     if (!Array.isArray(votes) || !votes.length) {
+    //         console.log('no votes');
+    //         return;
+    //     }
 
-        console.log(findWinner(candidates, votes));
+    //     console.log(findWinner(candidates, votes));
     
 
 module.exports = findWinner;
