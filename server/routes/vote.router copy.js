@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const findWinnerMIT = require('../modules/ranked');
-
+const findWinner = require('../../rcv')
 
 // req.body is this object: 
 // {
@@ -93,20 +93,26 @@ router.get('/:id', (req, res) => {
             // console.log(skinnyCandidates);
             // console.log(skinnyTable);
 
-            let winner = findWinnerMIT(skinnyCandidates, skinnyTable, false, 90)
-            console.log("Winner is", winner);
-            if (winner.length > 1) {
+            // let winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
+            let winner = findWinner(skinnyCandidates,skinnyTable)
+
+            let winArray = winner.split( " + " )
+            console.log("Winner is", winArray);
+
+            if (winArray.length > 1) {
                 console.log("Random mode initiated")
-                const randomIndex = Math.floor(Math.random() * winner.length);
-                winner = winner[randomIndex];
+                const randomIndex = Math.floor(Math.random() * winArray.length);
+                winArray = winArray[randomIndex];
+                console.log(winArray);
             }
+
             const queryUpdatingWinner =
                 `UPDATE polls SET winning_candidate = $1 WHERE id = $2`
-            const queryUpdatingWinnerArgs = [winner[0], req.params.id]
+            const queryUpdatingWinnerArgs = [winArray[0], req.params.id]
             pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
                 .then(() => {
                     const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
-                    const queryArgs = [winner]
+                    const queryArgs = [winArray]
                     pool.query(queryText, queryArgs)
                         .then((result) => {
                             console.log('Winning Idea Text is', result.rows[0])

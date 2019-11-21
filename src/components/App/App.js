@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
-import './App.css';
+// import './App.css';
 import crypto from 'crypto'
 
 // Not currently being called on this page
@@ -15,8 +15,9 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
 // MY COMPONENTS NEEDED FOR THIS PAGE
-import Poll from '../Poll/Poll';
+import Home from '../Home/Home';
 import Make from '../Make/Make';
+import Poll from '../Poll/Poll';
 import DebugBar from '../DebugBar/DebugBar';
 
 class App extends Component {
@@ -42,7 +43,13 @@ class App extends Component {
                 <DebugBar />
             <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/make */}
-            <Redirect exact from="/" to="/make" />
+            {/* <Redirect exact from="/" to="/make" /> */}
+            
+            <Route 
+            path="/" 
+            exact 
+            component={Home} 
+            />
             <Route 
             path="/make" 
             exact 

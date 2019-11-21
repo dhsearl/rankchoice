@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown';
 import Minutes from '../Minutes/Minutes'
 import Ideas from '../Ideas/Ideas'
-
+import Vote from '../Vote/DragVote'
 
 class Poll extends Component {
 
@@ -23,6 +23,7 @@ class Poll extends Component {
                     <h1>I'm a poll</h1>
                     <h3>{poll_name}</h3>
                     <Ideas route={this.props.match.params.route}/>
+                    <Vote />
                     <Minutes route={this.props.match.params.route} />
 
                 </div>

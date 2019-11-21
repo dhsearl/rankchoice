@@ -16,13 +16,16 @@ class Type extends Component {
         return (
             <>
             <div className="centered">
+                
             <select 
             onChange={this.handleInput} 
             value={this.props.pollReducer.setup.type}>
                 <option default value="general">General</option>
                 <option disabled value="food">Food</option>
                 <option disabled value="movie">Movie</option>
-            </select></div>
+            </select>
+            
+            </div>
               </>
         );
     }
