@@ -79,7 +79,7 @@ router.get('/:id', (req, res) => {
             // console.log(skinnyCandidates);
             // console.log(skinnyTable);
 
-            const winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
+            let winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
             console.log("Winner is", winner);
             if (winner.length > 1) {
                 console.log("Random mode initiated")

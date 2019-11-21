@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 
 class Input extends Component {
     handleInput = (e) =>{
@@ -18,11 +19,21 @@ class Input extends Component {
             <div className="centered">
                 <form onSubmit={this.handleSubmit}>
 
-                <input type="text" 
+                <TextField
+                    label="desired-url"
+                    margin="normal"
+                    value={this.props.pollReducer.setup.url}
+                    onChange={this.handleInput}
+                    style ={{width:'100%'}}
+                />
+      
+
+
+                {/* <input type="text" 
                 className="inputDarkMode"
                 placeholder="desired-url"
                 value={this.props.pollReducer.setup.url} 
-                onChange={this.handleInput} />
+                onChange={this.handleInput} /> */}
                 
                 </form>
             </div>
