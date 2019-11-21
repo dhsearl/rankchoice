@@ -1,7 +1,6 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-// const findWinner = require('../modules/rcv')
 const findWinnerMIT = require('../modules/ranked');
 
 
@@ -91,7 +90,7 @@ router.get('/:id', (req, res) => {
                 `UPDATE polls SET winning_candidate = $1 WHERE id = $2`
             const queryUpdatingWinnerArgs = [winner[0], req.params.id]
             pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
-                .then((result) => {
+                .then(() => {
                     const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
                     const queryArgs = [winner[0]]
                     pool.query(queryText, queryArgs)
