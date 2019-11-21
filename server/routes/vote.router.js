@@ -1,7 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const findWinner = require('../modules/rcv')
+// const findWinner = require('../modules/rcv')
+const findWinnerMIT = require('../modules/ranked');
+
+
 // req.body is this object: 
 // {
 //     poll_id: this.props.pollReducer.pollStatus.id,
@@ -21,8 +24,8 @@ router.post('/', (req, res) => {
             const voteArray = Object.entries(req.body.votes);
             const queryText =
                 `INSERT INTO single_vote
-        ("vote_instance_id","candidate_id","rank_integer")
-        VALUES($1, $2, $3)`
+                ("vote_instance_id","candidate_id","rank_integer")
+                VALUES($1, $2, $3)`
             voteArray.forEach(vote => {
                 const queryArgs = [vote_instance_id, vote[0], vote[1]]
                 pool.query(queryText, queryArgs)
@@ -41,12 +44,14 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const queryText =
-        `SELECT array_agg(good) as votes FROM (SELECT "vote_instance_id", ARRAY[ candidate_id,rank_integer] as good
-	FROM single_vote 
-	JOIN vote_instance on vote_instance.id = single_vote.vote_instance_id
-	JOIN polls ON polls.id = vote_instance.poll_id
-	WHERE polls.id = $1) as vote_table
-    GROUP BY "vote_instance_id";`
+        `SELECT array_agg(good) as votes FROM 
+        (SELECT "vote_instance_id", 
+        ARRAY[ candidate_id,rank_integer] as good
+        FROM single_vote 
+        JOIN vote_instance on vote_instance.id = single_vote.vote_instance_id
+        JOIN polls ON polls.id = vote_instance.poll_id
+        WHERE polls.id = $1) as vote_table
+        GROUP BY "vote_instance_id";`
     const queryArgs = [req.params.id]
     pool.query(queryText, queryArgs)
         .then((result) => {
@@ -56,15 +61,15 @@ router.get('/:id', (req, res) => {
             result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
                 return a[0] - b[0];
             })));
-            
+
             // Strip out just candidates in the vote array
             const skinnyCandidates = []
-            voteTable[0].forEach(vote =>{
+            voteTable[0].forEach(vote => {
                 skinnyCandidates.push(vote[0])
             })
             // Now just the votes
             const skinnyTable = []
-            voteTable.forEach(row=> {
+            voteTable.forEach(row => {
                 const temp = []
                 row.forEach(vote => {
                     temp.push(vote[1])
@@ -74,15 +79,40 @@ router.get('/:id', (req, res) => {
 
             // console.log(skinnyCandidates);
             // console.log(skinnyTable);
-            
-            const winner = findWinner(skinnyCandidates,skinnyTable)
-            console.log(winner);
 
-            res.send(winner);
+            const winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
+            console.log("Winner is", winner);
+            if (winner.length > 1) {
+                console.log("Random mode initiated")
+                const randomIndex = Math.floor(Math.random() * winner.length);
+                winner = winner[randomIndex];
+            }
+            const queryUpdatingWinner =
+                `UPDATE polls SET winning_candidate = $1 WHERE id = $2`
+            const queryUpdatingWinnerArgs = [winner[0], req.params.id]
+            pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
+                .then((result) => {
+                    const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
+                    const queryArgs = [winner[0]]
+                    pool.query(queryText, queryArgs)
+                        .then((result) => {
+                            console.log('Winning Idea Text is', result.rows[0])
+                            res.send(result.rows[0])
+                        })
+                        .catch((error) => {
+                            console.log('Error getting back Idea text', error);
+                            res.sendStatus(500);
+                        })
+                })
+                .catch((error) => {
+                    console.log('Error updating winner of poll', error);
+                    res.sendStatus(500);
+                })
+
         })
-        .catch((error)=>{
-            console.log('Error in vote.router /:id route',error);
-            
+        .catch((error) => {
+            console.log('Error in vote.router /:id route', error);
+
         })
 })
 

@@ -1,16 +1,9 @@
 import { combineReducers } from 'redux';
 
-const resetIdea = {
-    idea_text: '',
-    created_by: localStorage.id || "ideanumber",
-    url: ''
-}
-
-
 const voteNeedsToBeInit = (state = true, action) => {
     if (action.type === "INIT_BALLOT") {
         return false
-    } else if (action.type==="FLIP_INIT"){
+    } else if (action.type === "FLIP_INIT") {
         return !state;
     } else {
         return state;
@@ -39,14 +32,23 @@ const voteInstance = (state = {}, action) => {
             [action.payload.idea_id]: action.payload.value
         }
 
-    } else if (action.type == "CLEAR_VOTE_INSTANCE"){
+    } else if (action.type == "CLEAR_VOTE_INSTANCE") {
         return {}
     } else {
         return state;
     }
 }
 
+const winner = (state = {}, action) => {
+    if (action.type === 'SET_WINNER') {
+        console.log("In winner reducer", action.payload)
+        return action.payload
+    }
+    return state
+}
+
 export default combineReducers({
     voteInstance,
     voteNeedsToBeInit,
+    winner,
 });

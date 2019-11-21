@@ -13,6 +13,9 @@ class DebugBar extends Component {
     handleRankMode = () => {
         this.props.dispatch({ type: 'FLIP_INIT' })
     }
+    handleWinnerMode = () => {
+        this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id })
+    }
     render() {
         return (
             <>
@@ -21,6 +24,7 @@ class DebugBar extends Component {
                     <button onClick={this.handleCollectMode}>Collect Mode</button>
                     <button onClick={this.handleVoteMode}>Vote Mode</button>
                     <button onClick={this.handleRankMode}>Rank Mode</button>
+                    <button onClick={this.handleWinnerMode}>Decide Winner</button>
                 </div>
             </>
         );

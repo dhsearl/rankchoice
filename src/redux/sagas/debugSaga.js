@@ -17,12 +17,20 @@ function* voteMode(action) {
         console.log(error);
     }
 }
+function* winnerMode(action) {
+    try {
+        const winner = yield axios.get(`/api/vote/${action.payload}`);
+        yield put ({type:'SET_WINNER', payload: winner.data})
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 function* rootSaga() {
     yield takeEvery('FLIP_COLLECT', collectMode);
     yield takeEvery('FLIP_VOTE', voteMode)
-    // yield takeEvery('FLIP_INITIALIZE', rankMode);
+    yield takeEvery('CALC_WINNER', winnerMode);
   }
   
   export default rootSaga;
