@@ -1,6 +1,7 @@
 # Mac Auto-Generated Files
 .DS_Store
 .DS_STORE/
+server/modules/rcv.js
 
 # Logs
 logs

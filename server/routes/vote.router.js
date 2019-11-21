@@ -56,7 +56,13 @@ router.get('/:id', (req, res) => {
             result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
                 return a[0] - b[0];
             })));
-            // Just the votes
+            
+            // Strip out just candidates in the vote array
+            const skinnyCandidates = []
+            voteTable[0].forEach(vote =>{
+                skinnyCandidates.push(vote[0])
+            })
+            // Now just the votes
             const skinnyTable = []
             voteTable.forEach(row=> {
                 const temp = []
@@ -65,17 +71,13 @@ router.get('/:id', (req, res) => {
                 })
                 skinnyTable.push(temp)
             })
-            // Just candidates in the vote array
-            const skinnyCandidates = []
-            voteTable[0].forEach(vote =>{
-                skinnyCandidates.push(vote[0])
-            })
 
-            console.log(skinnyTable);
-            console.log(skinnyCandidates);
-            // candidates, votes
+            // console.log(skinnyCandidates);
+            // console.log(skinnyTable);
+            
             const winner = findWinner(skinnyCandidates,skinnyTable)
             console.log(winner);
+
             res.send(winner);
         })
         .catch((error)=>{
