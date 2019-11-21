@@ -6,29 +6,17 @@ class Countdown extends React.Component {
         start: undefined,
 		minutes: undefined,
         seconds: undefined,
-        ranOnce:false
 	}
 	
 	componentDidMount() {
 
         this.interval = setInterval(() => {
 			const then = moment(this.props.time);
-            const now = moment().subtract(5, 'minutes');
-            
+            const now = moment().subtract(2, 'minutes');
             const countdown = moment(then - now);
 			const minutes = countdown.format('mm');
             const seconds = countdown.format('ss');
-            if (minutes === 0 && seconds === 1 && !this.state.ranOnce) {
-                then = moment(this.props.time);
-                now = moment().subtract(5, 'minutes');
-            
-                countdown = moment(then - now);
-			    minutes = countdown.format('mm');
-                seconds = countdown.format('ss');
-                this.setState({ranOnce:true});
-            }
-
-			this.setState({minutes, seconds });
+          	this.setState({minutes, seconds });
 		}, 1000);
     }
 
@@ -50,7 +38,7 @@ class Countdown extends React.Component {
 		return (
 			<div>
             
-				{this.state.minutes <10 ?
+				{this.state.minutes <2 ?
 				<div className='countdown-wrapper'>
 					
 					{minutes && (
