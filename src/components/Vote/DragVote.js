@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Button } from '@material-ui/core'
 
 const grid = 8;
 
@@ -10,9 +11,9 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-
+  width: '100%',
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  background: isDragging ? "grey" : "white",
 
   // styles we need to apply on draggables
   ...draggableStyle
@@ -25,7 +26,7 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
     };
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
+  background: isDraggingOver ? "white" : "white",
   padding: grid,
   width: 250
 });
@@ -57,9 +58,9 @@ class Vote extends Component {
 
         return (
             <>            
-            {this.props.pollReducer.pollStatus.voting_period
+            {/* {this.props.pollReducer.pollStatus.voting_period
                     && Object.keys(this.props.voteReducer.voteInstance).length !== 0
-                    &&
+                    && */}
                 
                     <>
                         <div>Time to vote</div>
@@ -93,9 +94,9 @@ class Vote extends Component {
                                 )}
                             </Droppable>
                         </DragDropContext>
-                        <button onClick={this.handleSubmit}>Lock Votes In</button>
+                        <Button onClick={this.handleSubmit}>Lock Votes In</Button>
                     </>
-            }
+            
             </>
         )
 

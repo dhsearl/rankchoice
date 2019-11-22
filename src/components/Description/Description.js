@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField'
-
+import { Button } from '@material-ui/core'
 // Input of General Poll Question / description
 class Description extends Component {
     handleInput = (e) => {
@@ -31,20 +31,20 @@ class Description extends Component {
                         value={this.props.pollReducer.setup.description}
                     /> */}
                     <TextField
-                        style ={{width:'100%'}}
-                            id="outlined-multiline-static"
-                            label="Lets vote on"
-                            placeholder="The question here will be seen by all voters"
-                            multiline
-                            rows="2"
-                            onChange={this.handleInput}
-                            value={this.props.pollReducer.setup.description}
-                            margin="normal"
-                            variant="outlined"
-                        />
+                        style={{ width: '100%' }}
+                        id="outlined-multiline-static"
+                        label="Lets vote on"
+                        placeholder="The question here will be seen by all voters"
+                        multiline
+                        rows="4"
+                        onChange={this.handleInput}
+                        value={this.props.pollReducer.setup.description}
+                        margin="normal"
+                        variant="outlined"
+                    />
                 </div>
                 <div className="centered">
-                    <button onClick={this.handleSubmit} >START POLL</button>
+                    <Button onClick={this.handleSubmit} >Start Poll</Button>
                 </div>
             </>
         );

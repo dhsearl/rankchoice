@@ -2,6 +2,7 @@
 .DS_Store
 .DS_STORE/
 rcv.js
+vote.router copy.js
 
 # Logs
 logs

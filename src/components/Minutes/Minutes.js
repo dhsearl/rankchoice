@@ -5,10 +5,13 @@ class Minutes extends Component {
 
     componentDidMount() {
         this.interval = setInterval(() => {
+            !this.props.voteReducer.winner.idea_text  &&
             this.props.dispatch({
                 type: 'FETCH_STATUS',
                 payload: { url: this.props.route }
             })
+
+            this.props.pollReducer.pollStatus.collection_period &&
             this.props.dispatch({
                 type: 'GET_IDEA_LIST',
                 payload: { id: this.props.pollReducer.pollStatus.id }
@@ -16,6 +19,10 @@ class Minutes extends Component {
             this.props.pollReducer.pollStatus.voting_period === true 
             && this.props.voteReducer.voteNeedsToBeInit === true
             && this.props.dispatch({type:"INIT_BALLOT", payload: this.props.ideaReducer.ideaList}) 
+             
+            this.props.pollReducer.pollStatus.complete ===true
+            && !this.props.voteReducer.winner.idea_text &&
+            this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id }) 
                 
         }, 1000);
     }
@@ -25,22 +32,24 @@ class Minutes extends Component {
     render() {
 
         return (
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Are we in the idea collection period?</td>
-                        <td>{this.props.pollReducer.pollStatus.collection_period ?
-                            <p>yes</p> : <p>no</p>}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Are we in the voting period?</td>
-                        <td>{this.props.pollReducer.pollStatus.voting_period ?
-                            <p>yes</p> : <p>no</p>}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <>
+            </>
+            // <table>
+            //     <tbody>
+            //         <tr>
+            //             <td>Are we in the idea collection period?</td>
+            //             <td>{this.props.pollReducer.pollStatus.collection_period ?
+            //                 <p>yes</p> : <p>no</p>}
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td>Are we in the voting period?</td>
+            //             <td>{this.props.pollReducer.pollStatus.voting_period ?
+            //                 <p>yes</p> : <p>no</p>}
+            //             </td>
+            //         </tr>
+            //     </tbody>
+            // </table>
         );
     }
 
