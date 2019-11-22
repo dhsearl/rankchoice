@@ -4,8 +4,10 @@
     align-items: center;
 }
 
-.ideaBlock{
-    display:block;
+.ideaBlock {
+    /* display:block; */
+    width: 100%;
+    min-width: 300px;
 }
 
 .inputDarkMode {

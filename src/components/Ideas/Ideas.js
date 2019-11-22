@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField'
-
+import {TextField, IconButton} from '@material-ui/core'
+import EditSharpIcon from '@material-ui/icons/EditSharp';
+import HighlightOffSharpIcon from '@material-ui/icons/HighlightOffSharp';
 
 class Ideas extends Component {
 
@@ -46,12 +47,12 @@ class Ideas extends Component {
                     
                 </div>
                 {/* Idea List */}
-                <div className="centered">
+                <div className="centered" style={{width:'100%'}}>
                     {this.props.ideaReducer.ideaList.map(eachIdea =>
-                        <div className="ideaBlock" key={eachIdea.id}>{eachIdea.idea_text}
+                        <div className="ideaBlock"style={{width:'100%'}} key={eachIdea.id}>{eachIdea.idea_text}
                             {eachIdea.created_by === localStorage.id && <>
-                            <button onClick={() => this.handleEdit(eachIdea.id)}> edit </button>
-                            <button onClick={() => this.handleDelete(eachIdea.id)}> delete </button></>}
+                            <IconButton onClick={() => this.handleEdit(eachIdea.id)}><EditSharpIcon edge="end" /></IconButton>
+                            <IconButton onClick={() => this.handleDelete(eachIdea.id)}><HighlightOffSharpIcon edge="end" /></IconButton></>}
 
                         </div>
                     )}
