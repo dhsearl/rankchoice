@@ -27,7 +27,7 @@ new CronJob('*/5 * * * * *', function () {
 
     // After 10 minutes turn voting off
     const minuteTwoQuery = `UPDATE polls
-        SET voting_period = false 
+        SET voting_period = false, complete= true 
         WHERE created_at <= NOW() - interval '${poll_length} minute' 
         AND voting_period = true`;
     pool.query(minuteTwoQuery)

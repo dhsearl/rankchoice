@@ -1,10 +1,16 @@
-.centered{
-    /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.inputDarkMode{
+.ideaBlock {
+    /* display:block; */
+    width: 100%;
+    min-width: 300px;
+}
+
+.inputDarkMode {
     height: 2rem;
     font-size: large;
     background-color: #121212;
@@ -12,25 +18,25 @@
 }
 
 /*  Imported from Index.css */
+
 body {
     font-family: -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  
     display: flex;
     justify-content: flex-start;
     /* align-items: center; */
-    /* height: 100vh; */
+    min-width: 300px;
+    height: 100vh;
     background-color: #121212;
-    color:#BB86FC;
-  }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-      monospace;
-  }
+    color: #BB86FC;
+}
 
-  .generalDescription {
-      height: 200px;
-      width: 300px;
-  }
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.generalDescription {
+    height: 200px;
+    width: 300px;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
+import {Button} from '@material-ui/core'
 
 class Home extends Component {
     createButton =()=> {
@@ -16,8 +16,8 @@ class Home extends Component {
         <div>
             <div>
             <p>
-                HOME
-                <button onClick={this.createButton}>Make Poll</button>
+                
+                <Button className="makeButton" onClick={this.createButton}><h1>Make Poll</h1></Button>
             </p>
             </div>
         </div>

@@ -74,7 +74,7 @@ router.get('/:id', (req, res) => {
             result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
                 return a[0] - b[0];
             })));
-
+            
             // Strip out just candidates in the vote array
             const skinnyCandidates = []
             voteTable[0].forEach(vote => {
@@ -98,15 +98,23 @@ router.get('/:id', (req, res) => {
             if (winner.length > 1) {
                 console.log("Random mode initiated")
                 const randomIndex = Math.floor(Math.random() * winner.length);
-                winner = winner[randomIndex];
+                winner = [winner[randomIndex]];
             }
+            
             const queryUpdatingWinner =
-                `UPDATE polls SET winning_candidate = $1 WHERE id = $2`
+                `UPDATE polls 
+                    SET winning_candidate = 
+                        CASE 
+                            WHEN polls.winning_candidate IS NULL THEN $1
+                            ELSE polls.winning_candidate
+                            END
+                        WHERE id = $2`
+            console.log("one winner is",winner)
             const queryUpdatingWinnerArgs = [winner[0], req.params.id]
             pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
                 .then(() => {
                     const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
-                    const queryArgs = [winner]
+                    const queryArgs = [winner[0]]
                     pool.query(queryText, queryArgs)
                         .then((result) => {
                             console.log('Winning Idea Text is', result.rows[0])
