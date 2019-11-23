@@ -41,7 +41,7 @@ class App extends Component {
         return (
             <>
                 <Router>
-                    <DebugBar />
+                    {/* <DebugBar /> */}
                     <Header />
                     <Switch>
                         {/* Visiting localhost:3000 will redirect to localhost:3000/make */}
@@ -91,7 +91,7 @@ class App extends Component {
                     </Switch>
                 </Router>
 
-                <pre>{JSON.stringify(this.props, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(this.props, null, 2)}</pre> */}
             </>
         );
     }
