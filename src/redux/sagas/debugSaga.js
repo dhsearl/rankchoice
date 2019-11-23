@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* collectMode(action) {
@@ -30,7 +30,7 @@ function* winnerMode(action) {
 function* rootSaga() {
     yield takeEvery('FLIP_COLLECT', collectMode);
     yield takeEvery('FLIP_VOTE', voteMode)
-    yield takeEvery('CALC_WINNER', winnerMode);
+    yield takeLatest('CALC_WINNER', winnerMode);
   }
   
   export default rootSaga;

@@ -1,42 +1,38 @@
 import React, { Component } from 'react'
-import {Button} from '@material-ui/core'
+import { Button } from '@material-ui/core'
+import Clipboard from 'clipboard'
 
 class ToClipboard extends Component {
     state = {
-        copySuccess : '',
+        copySuccess: '',
     }
-    // copyToClipboard = (e) => {
-    //     this.textArea.select();
-    //     document.execCommand('copy');
-    //     // This is just personal preference.
-    //     // I prefer to not show the the whole text area selected.
-    //     e.target.focus();
-    //     this.setState({ copySuccess: ' Copied!' });
-    // };
-    // handleCopy = (e) => {
-    //     let url = `localhost:3000/#/${this.props.poll_name}`
-    //     e.preventDefault();
-    //     e.clipboardData.setData('text/plain', url);
-    //     this.setState({ copySuccess: ' Copied!' });
-    // }
+    componentDidMount() {
+        const clipboard = new Clipboard(this.refs.button, {
+            text: function () {
+                return window.location.href;
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.clipboard.destroy()
+    }
+
     render() {
-        
+
         return (
 
             <div>
-                {document.queryCommandSupported('copy') &&
+                {Clipboard.isSupported() &&
                     <div>
-                        <Button onClick={() => {navigator.clipboard.writeText(`localhost:3000/#/${this.props.poll_name}`)}}>Copy link to clipboard{this.state.copySuccess}</Button>
+                        
+                        <Button ref="button"
+                            onClick={() => this.setState({ copySuccess:"?  done." })}>
+                            Copy to Clipboard {this.state.copySuccess}
+                            </Button>
                         
                     </div>
                 }
-                {/* <form>
-                    <textarea
-                        ref={(textarea) => this.textArea = textarea}
-                        value={`localhost:3000/#/${this.props.poll_name}`}
-                        style={{ width: '100%' }}
-                    />
-                </form> */}
+
             </div>
         );
     }

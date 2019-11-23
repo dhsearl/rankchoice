@@ -63,7 +63,7 @@ class Vote extends Component {
                     && */}
                 
                     <>
-                        <div>Time to vote</div>
+                    <Button onClick={this.handleSubmit}>Arrange best to worst<br/>Click here to lock Votes In</Button>
                         <DragDropContext onDragEnd={this.onDragEnd}>
                             <Droppable droppableId="droppable">
                                 {(provided, snapshot) => (
@@ -94,7 +94,7 @@ class Vote extends Component {
                                 )}
                             </Droppable>
                         </DragDropContext>
-                        <Button onClick={this.handleSubmit}>Lock Votes In</Button>
+                        
                     </>
             
             </>
