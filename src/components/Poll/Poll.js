@@ -40,7 +40,7 @@ class Poll extends Component {
 
                     {this.props.pollReducer.pollStatus.voting_period &&
                         !this.props.pollReducer.pollStatus.complete &&
-                        Object.keys(this.props.voteReducer.voteInstance).length !== 0 &&
+                        // Object.keys(this.props.voteReducer.voteInstance).length !== 0 &&
                         <Vote />}
 
                     {this.props.pollReducer.pollStatus.complete &&

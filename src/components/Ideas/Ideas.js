@@ -52,7 +52,7 @@ class Ideas extends Component {
                         <div className="ideaBlock"style={{width:'100%'}} key={eachIdea.id}>{eachIdea.idea_text}
                             {eachIdea.created_by === localStorage.id && <>
                             {/* <IconButton onClick={() => this.handleEdit(eachIdea.id)}><EditSharpIcon edge="end" /></IconButton> */}
-                            <IconButton onClick={() => this.handleDelete(eachIdea.id)}><HighlightOffSharpIcon edge="end" /></IconButton></>}
+                            <IconButton className="ideabutton" onClick={() => this.handleDelete(eachIdea.id)}><HighlightOffSharpIcon edge="end" /></IconButton></>}
 
                         </div>
                     )}

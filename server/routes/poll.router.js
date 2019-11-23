@@ -8,7 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const poll_length = 2;
 
 const CronJob = require('cron').CronJob;
-new CronJob('*/5 * * * * *', function () {
+new CronJob('* * * * * *', function () {
     console.log('You will see this message every second');
     moment.duration(2, 'minutes');
 

@@ -9,9 +9,11 @@
     width: 100%;
     min-width: 300px;
 }
-.ideaBlock IdeaButton {
+.ideabutton{
    margin-left: auto;
    margin-right: 0;
+   width:100% !important;
+   min-width: 300px;
 }
 
 .inputDarkMode {

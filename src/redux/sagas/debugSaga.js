@@ -25,12 +25,27 @@ function* winnerMode(action) {
         console.log(error)
     }
 }
-
+// When people go to vote but didn't add suggestions they need this to 
+// run when the dragvote component did mount.
+// YES!
+function* lateComer(action) {
+    try{
+        console.log("In getIdeasSagaDEBUG with", action.payload)
+        const ideas = yield axios.get(`/api/idea/${action.payload.id}`);
+        console.log("got back", ideas.data)
+        yield put({type:"ADD_TO_LIST", payload:ideas.data})
+        yield put({type:"INIT_BALLOT", payload: ideas.data})
+    } catch (error) {
+        console.log("Error in lateComer",error);
+        
+    }
+}
 
 function* rootSaga() {
     yield takeEvery('FLIP_COLLECT', collectMode);
     yield takeEvery('FLIP_VOTE', voteMode)
     yield takeLatest('CALC_WINNER', winnerMode);
+    yield takeLatest('LATE_COMER', lateComer);
   }
   
   export default rootSaga;
