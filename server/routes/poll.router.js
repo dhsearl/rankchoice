@@ -84,7 +84,7 @@ router.post('/', (req, res) => {
         "voting_period",
         "complete")
     VALUES($1,$2,$3,true,false,false)`;
-    const queryArgs = [req.body.url, req.body.type, req.body.description];
+    const queryArgs = [req.body.url.replace(/-$/,""), req.body.type, req.body.description];
     console.log("while inserting", req.body);
     pool.query(queryText, queryArgs)
         .then((response) => {

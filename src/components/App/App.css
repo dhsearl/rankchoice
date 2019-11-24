@@ -1,48 +1,135 @@
-.centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@import "../../../node_modules/nord/src/nord.css";
+@import url('https://fonts.googleapis.com/css?family=Lato');
+* {
+	box-sizing: border-box;
 }
 
+/* .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+/* } */
+
 .ideaBlock {
-    /* display:block; */
     width: 100%;
-    min-width: 300px;
+    /* min-width: 300px; */
 }
 .ideabutton{
    margin-left: auto;
    margin-right: 0;
-   width:100% !important;
-   min-width: 300px;
 }
 
-.inputDarkMode {
+/* .inputDarkMode {
     height: 2rem;
     font-size: large;
     background-color: #121212;
     color: #CCC;
-}
+} */
 
-/*  Imported from Index.css */
 
-body {
-    font-family: -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    justify-content: flex-start;
-    /* align-items: center; */
-    min-width: 300px;
-    height: 100vh;
-    background-color: #121212;
-    color: #BB86FC;
-}
-
+/* 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
+} */
 
 .generalDescription {
     height: 200px;
     width: 300px;
+}
+
+
+
+
+
+body {
+	/* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	min-height: 100vh;
+	font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding:1rem;
+    background-color:var(--nord0);
+    color: var(--nord4);
+}
+
+h1 {
+	letter-spacing: 2px;
+	text-align: center;
+    text-transform: uppercase;
+    color:var(--nord12) 
+}
+
+.countdown-wrapper {
+    color: var(--nord16);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.countdown-item {
+	color: var(--nord4);
+	font-size: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+    line-height: 30px;
+	margin: 10px;
+    padding-top: 10px;
+	position: relative;
+	width: 100px;
+	height: 100px;
+}
+
+.countdown-item span {
+	color: var(--nord7);
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.countdown-svg {
+    color: var(--nord16);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+}
+
+/* footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer i {
+    color: red;
+}
+
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+} */
+
+@media only screen and (max-width: 600px) {
+    body{
+        justify-content:flex-start;
+    }
 }

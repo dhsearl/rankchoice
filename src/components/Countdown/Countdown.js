@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import './Countdown.css'
+// import './Countdown.css'
 class Countdown extends React.Component {
 	state = {
         start: undefined,

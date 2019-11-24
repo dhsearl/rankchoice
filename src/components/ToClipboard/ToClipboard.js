@@ -7,15 +7,15 @@ class ToClipboard extends Component {
         copySuccess: '',
     }
     componentDidMount() {
-        const clipboard = new Clipboard(this.refs.button, {
+        new Clipboard(this.refs.button, {
             text: function () {
                 return window.location.href;
             }
         });
     }
-    componentWillUnmount() {
-        this.clipboard.destroy()
-    }
+    // componentWillUnmount() {
+    //     this.clipboard.destroy()
+    // }
 
     render() {
 
@@ -27,7 +27,7 @@ class ToClipboard extends Component {
                         
                         <Button ref="button"
                             onClick={() => this.setState({ copySuccess:"?  done." })}>
-                            Copy to Clipboard {this.state.copySuccess}
+                            Copy Link to Clipboard {this.state.copySuccess}
                             </Button>
                         
                     </div>

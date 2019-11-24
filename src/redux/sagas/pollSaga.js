@@ -23,7 +23,7 @@ function* addRouteSaga(action) {
         yield put({type:'RESET_INPUT'});
         
         // Push the user to that poll's url
-        const route = action.payload.poll.url;
+        const route = action.payload.poll.url.replace(/-$/,"");
         const { history } = action.payload;
         yield history.push(`/${route}`);
 

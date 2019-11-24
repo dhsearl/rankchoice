@@ -16,7 +16,7 @@ class Input extends Component {
     render() {
         return (
             <>
-            <div className="centered">
+            <div>
                 <form onSubmit={this.handleSubmit}>
 
                 <TextField

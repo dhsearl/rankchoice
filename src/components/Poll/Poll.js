@@ -23,10 +23,12 @@ class Poll extends Component {
         return (
             <>
                 <div>
+                    
                     {!this.props.pollReducer.pollStatus.complete &&
                         <>
                             <Countdown time={this.props.pollReducer.pollStatus.created_at} />
-                            <h3>{poll_name}</h3>
+                            {/* <h3>{poll_name}</h3> */}
+                            <ToClipboard poll_name={poll_name} />
                             <p>One minute to suggest ideas, <br />One minute to vote</p>
                         </>
                     }
@@ -44,9 +46,9 @@ class Poll extends Component {
                         <Vote />}
 
                     {this.props.pollReducer.pollStatus.complete &&
-                        this.props.voteReducer.winner.idea_text &&
-                        <Winner winner={this.props.voteReducer.winner.idea_text} />}
-                    <ToClipboard poll_name={poll_name} />
+                        // this.props.voteReducer.winner.idea_text &&
+                        <Winner winner={this.props.voteReducer.winner}/>}
+                    
                     <Minutes route={this.props.match.params.route} />
 
                 </div>
