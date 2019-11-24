@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-// import './Countdown.css'
+
 class Countdown extends React.Component {
 	state = {
         start: undefined,
@@ -12,7 +12,7 @@ class Countdown extends React.Component {
 
         this.interval = setInterval(() => {
 			const then = moment(this.props.time);
-            const now = moment().subtract(2, 'minutes');
+            const now = moment().subtract(10, 'minutes');
             const countdown = moment(then - now);
 			const minutes = countdown.format('mm');
             const seconds = countdown.format('ss');
@@ -37,8 +37,9 @@ class Countdown extends React.Component {
 		
 		return (
 			<div>
+            <pre>{JSON.stringify(this.state,null,2)}</pre>
             
-				{this.state.minutes <2 ?
+				{this.state.minutes <10 ?
 				<div className='countdown-wrapper'>
 					
 					{minutes && (
@@ -65,7 +66,7 @@ class Countdown extends React.Component {
 
 const SVGCircle = ({ radius }) => (
 	<svg className='countdown-svg'>
-		<path fill="none" stroke="#333" strokeWidth="4" d={describeArc(50, 50, 48, 0, radius)}/>
+		<path fill="none" stroke="#E5E9F0" strokeWidth="4" d={describeArc(50, 50, 48, 0, radius)}/>
 	</svg>
 );
 

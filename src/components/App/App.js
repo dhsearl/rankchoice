@@ -20,7 +20,7 @@ import Make from '../Make/Make';
 import Poll from '../Poll/Poll';
 import Header from '../Header/Header'
 import DebugBar from '../DebugBar/DebugBar';
-
+import FAQ from '../FAQ/FAQ'
 class App extends Component {
 
     // Check to see if they have an ID in local storage, if not, give them one.
@@ -57,7 +57,11 @@ class App extends Component {
                             exact
                             component={Make}
                         />
-
+                        <Route
+                            exact
+                            path="/FAQ"
+                            component={FAQ}
+                        />
 
                         {/* FROM THE REPO */}
                         {/* Visiting localhost:3000/about will show the about page.

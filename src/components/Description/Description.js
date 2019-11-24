@@ -2,23 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField'
-import { Button } from '@material-ui/core'
+// import { Button } from '@material-ui/core'
+import { Button } from 'semantic-ui-react'
 // Input of General Poll Question / description
 class Description extends Component {
     handleInput = (e) => {
         this.props.dispatch({ type: 'POLL_INPUT', payload: { key: "description", value: e.target.value } })
     }
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.dispatch({
-            type: 'ADD_ROUTE',
-            payload: {
-                poll: this.props.pollReducer.setup,
-                history: this.props.history
-            }
-        })
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     this.props.dispatch({
+    //         type: 'ADD_ROUTE',
+    //         payload: {
+    //             poll: this.props.pollReducer.setup,
+    //             history: this.props.history
+    //         }
+    //     })
 
-    }
+    // }
 
     render() {
         return (
@@ -33,7 +34,7 @@ class Description extends Component {
                     <TextField
                         style={{ width: '100%' }}
                         id="outlined-multiline-static"
-                        label="Lets vote on"
+                        label="The question is"
                         placeholder="The question here will be seen by all voters"
                         multiline
                         rows="4"
@@ -43,9 +44,9 @@ class Description extends Component {
                         variant="outlined"
                     />
                 </div>
-                <div className="centered">
-                    <Button onClick={this.handleSubmit} >Start Poll</Button>
-                </div>
+                {/* <div className="centered">
+                    <Button fluid onClick={this.handleSubmit} >Start Poll</Button>
+                </div> */}
             </>
         );
     }

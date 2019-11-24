@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Button } from '@material-ui/core'
+import { Button, Dimmer } from 'semantic-ui-react'
 
 const grid = 8;
 
@@ -13,8 +13,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     margin: `0 0 ${grid}px 0`,
     width: '100%',
     // change background colour if dragging
-    background: isDragging ? "grey" : "white",
-
+    // background: isDragging ? "grey" : "white",
+    background: isDragging ? '#2E3440' : '#2E3440',
     // styles we need to apply on draggables
     ...draggableStyle
 });
@@ -26,12 +26,22 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "white" : "white",
+    // background: isDraggingOver ? "white" : "white",
+    background: isDraggingOver ? "#D8DEE9" : "#D08770",
     padding: grid,
-    width: 250
+    width: '100%',
 });
 
 class Vote extends Component {
+    state = {active:false, message:'Click to Lock Vote'}
+
+    handleFlip = () => {
+        if (this.state.message ==="Click to Lock Vote") this.setState({message:'Change Vote'})
+        else this.setState({message:'Click to Lock Vote'})
+
+        this.setState({ active: !this.state.active })
+    }
+  
     handleSubmit = () => {
         this.props.dispatch({
             type: "LOCK_VOTE_IN", payload: {
@@ -40,14 +50,17 @@ class Vote extends Component {
                 votes: this.props.voteReducer.voteInstance
             }
         })
+        this.handleFlip();
     }
     componentDidMount() {
         this.props.voteReducer.voteInstance.length === 0 &&
-        this.props.dispatch({
-            type: 'LATE_COMER',
-            payload: { id: this.props.pollReducer.pollStatus.id, 
-                ideaList: this.props.ideaReducer.ideaList }
-        })
+            this.props.dispatch({
+                type: 'LATE_COMER',
+                payload: {
+                    id: this.props.pollReducer.pollStatus.id,
+                    ideaList: this.props.ideaReducer.ideaList
+                }
+            })
     }
     onDragEnd = (result) => {
         // dropped outside the list
@@ -67,19 +80,17 @@ class Vote extends Component {
 
         return (
             <>
-                {/* {this.props.pollReducer.pollStatus.voting_period
-                    && Object.keys(this.props.voteReducer.voteInstance).length !== 0
-                    && */}
+
 
                 <>
                     <Button
                         onClick={this.handleSubmit}
-                        style={{ textAlign: 'left', }}
-                        color="success"
-                    >
-                        Arrange best to worst<br />
-                        Click here to lock Votes In</Button>
-                    <DragDropContext onDragEnd={this.onDragEnd}>
+                        style={{ textAlign: 'left', borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }}
+                        fluid
+                    >{this.state.message}</Button>
+                        <Dimmer.Dimmable dimmed={this.state.active}> 
+
+                        <DragDropContext onDragEnd={this.onDragEnd}>
                         <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                                 <div
@@ -110,6 +121,14 @@ class Vote extends Component {
                         </Droppable>
                     </DragDropContext>
 
+
+          <Dimmer active={this.state.active}>
+            
+              
+              You Voted!
+            
+          </Dimmer>
+        </Dimmer.Dimmable>
                 </>
 
             </>

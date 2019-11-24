@@ -1,16 +1,16 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const moment = require('moment');
+// const moment = require('moment');
 
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+// const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-const poll_length = 2;
+const poll_length = 10;
 
 const CronJob = require('cron').CronJob;
 new CronJob('* * * * * *', function () {
-    console.log('You will see this message every second');
-    moment.duration(2, 'minutes');
+    console.log('.');
+    // moment.duration(2, 'minutes');
 
 
     // After 5 minutes turn off collecting and shift to voting
@@ -41,19 +41,19 @@ new CronJob('* * * * * *', function () {
             console.log('Error with minute two query', error);
         })
 
-    const pollCompleteQuery = `UPDATE polls
-        SET voting_period = false 
-        WHERE created_at <= NOW() - interval '2 minute' 
-        AND voting_period = true`;
-    pool.query(minuteTwoQuery)
-        .then(() => {
-            // findWinner();
-            // console.log('FINDING WINNER');
+    // const pollCompleteQuery = `UPDATE polls
+    //     SET voting_period = false 
+    //     WHERE created_at <= NOW() - interval '5 minute' 
+    //     AND voting_period = true`;
+    // pool.query(minuteTwoQuery)
+    //     .then(() => {
+    //         // findWinner();
+    //         // console.log('FINDING WINNER');
 
-        })
-        .catch((error) => {
-            console.log('Error with minute two query', error);
-        })
+    //     })
+    //     .catch((error) => {
+    //         console.log('Error with minute two query', error);
+    //     })
 }, null, true, 'America/Chicago');
 
 // Gets the poll status by URL,
