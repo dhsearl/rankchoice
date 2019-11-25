@@ -74,9 +74,6 @@ router.post('/', (req, res) => {
                     }, () => {
                         res.sendStatus(200);
                     })
-                        .catch((error) => {
-                            console.log("Error inserting in thirdquery", error)
-                        })
                 })
                 .catch((error) => {
                     console.log('Vote Intance INSERT failed', error);
@@ -85,36 +82,6 @@ router.post('/', (req, res) => {
         })
 })
 
-
-// router.post('/', (req, res) => {
-//     console.log("post route of vote.router with", req.body);
-//     const secondQueryText = `INSERT INTO vote_instance(
-//         poll_id, voter_id)
-//         VALUES($1,$2) RETURNING ID`
-//     // const queryArgs = [req.body.poll_id, req.body.voter_id]
-//     pool.query(secondQueryText, queryArgs)
-//         .then((result) => {
-//             console.log(result.rows[0])
-//             const vote_instance_id = result.rows[0].id;
-//             const queryText =
-//                 `INSERT INTO single_vote
-//                 ("vote_instance_id","candidate_id","rank_integer")
-//                 VALUES($1, $2, $3)`
-//             req.body.votes.map((vote, i) => {
-//                 const queryArgs = [vote_instance_id, Number(vote.id), i + 1]
-//                 pool.query(queryText, queryArgs)
-//                     .then(() => {
-//                         console.log("added vote", queryArgs);
-//                     })
-//             }, () => {
-//                 res.sendStatus(200);
-//             })
-//         })
-//         .catch((error) => {
-//             console.log('Vote Intance INSERT failed', error);
-//             res.sendStatus(500);
-//         })
-// })
 
 router.get('/:id', (req, res) => {
     const queryText =

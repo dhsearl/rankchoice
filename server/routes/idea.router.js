@@ -49,6 +49,29 @@ router.get('/:id', (req,res) =>{
     })
 });
 
+router.put('/:id', (req,res)=>{
+    const voter_id = req.body.voter_id
+    const idea_new_text = req.body.newText
+    const idea_id = req.params.id
+    const queryText = `UPDATE candidate_ideas 
+    SET idea_text = 
+        (CASE 
+            WHEN candidate_ideas.created_by = $1 THEN $2
+            ELSE idea_text
+        END)
+    WHERE id = $3 `
+    const queryArgs = [voter_id, idea_new_text, idea_id]
+    pool.query(queryText, queryArgs)
+    .then(()=>{
+        console.log("Deleted");
+        res.sendStatus(200);
+    })
+    .catch((error)=>{
+        console.log('Error in idea.router PUT route updating idea', error);
+        res.sendStatus(500);
+    })
+})
+
 // Post idea to candidate_ideas
 router.post('/', (req,res) =>{
     const queryText = `INSERT INTO "candidate_ideas"("poll_id",

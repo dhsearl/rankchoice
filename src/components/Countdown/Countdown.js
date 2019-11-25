@@ -9,20 +9,21 @@ class Countdown extends React.Component {
         minutes: undefined,
         seconds: undefined,
         countdownCopy: 510,
-        POLL_LENGTH: 10,
+        POLL_LENGTH: 2,
     }
     componentDidMount() {
+        
         this.interval = setInterval(() => {
             const then = moment(this.props.time);
-            const last = moment().utc().subtract(5, 'minutes');
-            const first = moment().utc().subtract(10, 'minutes');
+            const last = moment().utc().subtract(this.state.POLL_LENGTH/2, 'minutes');
+            const first = moment().utc().subtract(this.state.POLL_LENGTH, 'minutes');
             const countdown = moment(then - first);
             const countdownCopy = Number(moment(then - first).format('mmss'))
             let minutes = countdown.format('mm');
             let seconds = countdown.format('ss');
             this.setState({ minutes, seconds, countdownCopy });
 
-            this.state.countdownCopy > 990  && 
+            this.state.countdownCopy > 150  &&                                       // Change this
             !this.props.voteReducer.winner.idea_text  &&
             this.state.countdownCopy % 10 === 1 &&
             this.props.dispatch({
@@ -34,19 +35,19 @@ class Countdown extends React.Component {
             this.props.pollReducer.pollStatus.collection_period &&
                 this.state.countdownCopy % 2 === 1 &&
                 this.props.dispatch({
-                    type: 'GET_IDEA_LIST',
+                    type: 'GET_SHALLOW_IDEA_LIST',
                     payload: { id: this.props.pollReducer.pollStatus.id }
                 })
 
-            this.state.countdownCopy <= 505 &&
-                this.state.countdownCopy >= 455 &&
+            this.state.countdownCopy <= 105 &&                                         // Change this
+                this.state.countdownCopy >= 55 &&                                     // Change this     
                 this.props.dispatch({
                     type: 'FETCH_STATUS',
                     payload: { url: this.props.route }
                 })
 
             // this.props.pollReducer.pollStatus.voting_period === true
-            this.state.countdownCopy < 501
+            this.state.countdownCopy < 101
                 && this.props.voteReducer.voteNeedsToBeInit === true
                 && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
 
@@ -87,11 +88,11 @@ class Countdown extends React.Component {
 
         return (
             <div>
-                <pre>{JSON.stringify(this.state, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
                 {/* <TimerOne /> */}
                 {/* {this.state.countdownCopy < 500 && <TimerTwo time={this.props.time}  /> } */}
 
-                {this.state.minutes < 10 &&
+                {this.state.minutes < this.state.POLL_LENGTH &&
                     <>
                         <div className='countdown-wrapper'>
 

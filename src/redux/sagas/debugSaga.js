@@ -44,7 +44,7 @@ function* lateComer(action) {
 function* rootSaga() {
     yield takeEvery('FLIP_COLLECT', collectMode);
     yield takeEvery('FLIP_VOTE', voteMode)
-    yield takeLatest('CALC_WINNER', winnerMode);
+    // yield takeLatest('CALC_WINNER', winnerMode);
     yield takeLatest('LATE_COMER', lateComer);
   }
   
