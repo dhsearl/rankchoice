@@ -40,13 +40,13 @@ router.post('/', (req, res) => {
                 result.rows.forEach(oldVote => {
                     pool.query(`UPDATE vote_instance SET last_vote = FALSE WHERE id=${oldVote.id}`)
                         .then(() => {
-                            console.log('Before adding a vote, Removed old vote at vote_instance',oldVote.id);
+                            console.log('Before adding a vote, Removed old vote at vote_instance', oldVote.id);
                         })
-                        .catch((error)=>{
+                        .catch((error) => {
                             console.log("Error removing", oldVote.id, "was", error);
                         })
-
-                }}
+                    })
+                }
 
             console.log("post route of vote.router with", req.body);
 
@@ -68,9 +68,15 @@ router.post('/', (req, res) => {
                             .then(() => {
                                 console.log("added vote", thirdQueryArgs);
                             })
+                            .catch((error) => {
+                                console.log("Error adding vote", thirdQueryArgs, "was", error);
+                            })
                     }, () => {
                         res.sendStatus(200);
                     })
+                        .catch((error) => {
+                            console.log("Error inserting in thirdquery", error)
+                        })
                 })
                 .catch((error) => {
                     console.log('Vote Intance INSERT failed', error);
