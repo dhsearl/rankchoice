@@ -30,11 +30,12 @@ new CronJob('* * * * * *', function () {
     const minuteTwoQuery = `UPDATE polls
         SET voting_period = false, complete= true 
         WHERE created_at <= (now() at time zone 'utc') - interval '${poll_length} minute' 
-        AND voting_period = true`;
+        AND voting_period = true RETURNING poll.id`;
     pool.query(minuteTwoQuery)
-        .then(() => {
+        .then((result) => {
             // findWinner();
-            // console.log('FINDING WINNER');
+            
+            console.log('FINDING WINNER',result.rows);
 
         })
         .catch((error) => {
@@ -96,6 +97,10 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         })
 })
+
+// URL Input Validation 
+// returns true if TAKEN
+// returns false if NOT TAKEN
 router.post('/url',(req,res)=>{
     console.log(req.body)
     const queryText =`SELECT * FROM polls WHERE url = $1`

@@ -37,26 +37,29 @@ router.post('/', (req, res) => {
             // if result.rows[0].id  THEN delete it and post new votes
             // else just post it.
             if (result.rows[0]) {
-                pool.query(`UPDATE vote_instance SET last_vote = FALSE WHERE id=${result.rows[0].id}`)
-                .then(()=>{
-                    console.log('removed double vote');
-                    
-                })
-                
-            }
+                result.rows.forEach(oldVote => {
+                    pool.query(`UPDATE vote_instance SET last_vote = FALSE WHERE id=${oldVote.id}`)
+                        .then(() => {
+                            console.log('Before adding a vote, Removed old vote at vote_instance',oldVote.id);
+                        })
+                        .catch((error)=>{
+                            console.log("Error removing", oldVote.id, "was", error);
+                        })
+
+                }}
 
             console.log("post route of vote.router with", req.body);
 
             const secondQueryText = `INSERT INTO vote_instance(
             poll_id, voter_id)
             VALUES($1,$2) RETURNING ID`
-            
+
             pool.query(secondQueryText, queryArgs)
                 .then((result) => {
                     console.log(result.rows[0])
                     const vote_instance_id = result.rows[0].id;
                     const queryText =
-                    `INSERT INTO single_vote
+                        `INSERT INTO single_vote
                     ("vote_instance_id","candidate_id","rank_integer")
                     VALUES($1, $2, $3)`
                     votes.map((vote, i) => {
