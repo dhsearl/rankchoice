@@ -7,7 +7,10 @@ import { TextField} from '@material-ui/core'
 import { Button, Segment, Icon } from 'semantic-ui-react'
 
 class Ideas extends Component {
+    componentDidMount(){
+        this.props.dispatch({type:"CLEAR_VOTE_INSTANCE"});
 
+    }
     handleInput = (e) => {
         this.props.dispatch({ type: 'IDEA_INPUT', payload: { key: "idea_text", value: e.target.value, url: this.props.route } })
     }
@@ -32,26 +35,20 @@ class Ideas extends Component {
                             style={{ width: '100%' }}
                             id="outlined-multiline-static"
                             label="Enter Idea"
-                            // placeholder="The question here will be seen by all voters"
-                            // multiline
                             rows="1"
                             onChange={this.handleInput}
                             value={this.props.ideaReducer.idea.idea_text}
                             margin="normal"
-                        // variant="outlined"
                         />
                     </form>
-                    {/* <input type="text"
-                            className="inputDarkMode"
-                            value={this.props.ideaReducer.idea.idea_text}
-                            onChange={this.handleInput} /> */}
-
                 </div>
 
                 {/* Idea List */}
+                {this.props.ideaReducer.ideaList.length >0 &&
+
                 <div className="ideaGallery" style={{ width: '100%' }}>
                     {this.props.ideaReducer.ideaList.map(eachIdea =>
-                        <Segment raised className="ideaContainer" fluid key={eachIdea.id}>{eachIdea.idea_text}
+                        <Segment raised className="ideaContainer" key={eachIdea.id}>{eachIdea.idea_text}
                             {eachIdea.created_by === localStorage.id && <>
                                 <Button.Group icon className="ideaButton" floated='right'>
                                     <Button basic><Icon  name="edit outline"/></Button>
@@ -63,7 +60,7 @@ class Ideas extends Component {
         
                         </Segment>
                     )}
-                </div>
+                </div>}
             </>
                 );
             }

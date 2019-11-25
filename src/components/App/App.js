@@ -28,10 +28,12 @@ class App extends Component {
         if (localStorage.id) {
             // Store their ID in redux state
             this.props.dispatch({ type: "SET_ID", payload: localStorage.id })
+            localStorage.setItem('firstTime',false)
         } else {
             // Create an random id, put it in localStorage.id
             const id = crypto.randomBytes(20).toString('hex')
             localStorage.setItem('id', id)
+            localStorage.setItem('firstTime',true)
             // Store their ID in redux state
             this.props.dispatch({ type: "SET_ID", payload: localStorage.id })
         }

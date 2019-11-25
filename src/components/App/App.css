@@ -45,7 +45,7 @@ body {
 	justify-content: center;
 	flex-direction: column;
     /* min-height: 100vh; */
-    min-width: 400px;
+    min-width: 600px;
 	font-family: 'Lato', sans-serif;
     margin: 0;
     padding:1rem;
@@ -70,6 +70,8 @@ h1 {
 	text-align: center;
     text-transform: uppercase;
     color:var(--nord12) ;
+    min-width: 400px;
+    margin-bottom:1rem;
 }
 h3 {
 	letter-spacing: 2px;

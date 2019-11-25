@@ -14,6 +14,8 @@ class Poll extends Component {
             type: 'FETCH_STATUS',
             payload: { url: this.props.match.params.route }
         })
+        this.props.pollReducer.pollStatus.collection_period &&
+        this.props.dispatch({type:"CLEAR_WINNER"})
     }
 
 
@@ -23,33 +25,31 @@ class Poll extends Component {
         return (
             <>
                 <div>
-                    
-                    {!this.props.pollReducer.pollStatus.complete &&
-                        <>
-                            <Countdown time={this.props.pollReducer.pollStatus.created_at} />
-                            {/* <h3>{poll_name}</h3> */}
-                            <ToClipboard poll_name={poll_name} />
-                            <p>One minute to suggest ideas, <br />One minute to vote</p>
-                        </>
-                    }
+
+
+
+                    <Countdown route={poll_name} time={this.props.pollReducer.pollStatus.created_at} />
+                    {/* <h3>{poll_name}</h3> */}
+                    <ToClipboard poll_name={poll_name} />
+
+
 
                     {this.props.pollReducer.pollStatus.question &&
                         <h1>Q: {this.props.pollReducer.pollStatus.question}</h1>}
 
                     {this.props.pollReducer.pollStatus.collection_period &&
                         !this.props.pollReducer.pollStatus.complete &&
-                        <Ideas route={this.props.match.params.route} />}
+                        <Ideas route={poll_name} />}
 
                     {this.props.pollReducer.pollStatus.voting_period &&
                         !this.props.pollReducer.pollStatus.complete &&
-                        // Object.keys(this.props.voteReducer.voteInstance).length !== 0 &&
                         <Vote />}
 
-                    {this.props.pollReducer.pollStatus.complete &&
-                        // this.props.voteReducer.winner.idea_text &&
-                        <Winner winner={this.props.voteReducer.winner}/>}
-                    
-                    <Minutes route={this.props.match.params.route} />
+                    {
+                        this.props.voteReducer.winner.idea_text &&
+                        <Winner winner={this.props.voteReducer.winner} />}
+
+                    {/* <Minutes route={poll_name} /> */}
 
                 </div>
             </>

@@ -33,7 +33,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 class Vote extends Component {
-    state = {active:false, message:'Click to Lock Vote'}
+    state = { active:false, message:'Click to Lock Vote'}
 
     handleFlip = () => {
         if (this.state.message ==="Click to Lock Vote") this.setState({message:'Change Vote'})
@@ -43,7 +43,8 @@ class Vote extends Component {
     }
   
     handleSubmit = () => {
-        this.props.dispatch({
+        
+        !this.state.active && this.props.dispatch({
             type: "LOCK_VOTE_IN", payload: {
                 poll_id: this.props.pollReducer.pollStatus.id,
                 voter_id: localStorage.id,
