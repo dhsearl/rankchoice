@@ -30,6 +30,12 @@ const setup = (state=resetPoll, action)=>{
     }
 }
 
+const urlTaken = (state=false, action)=>{
+    if(action.type==="SET_URL_TAKEN"){
+        return action.payload
+    }
+    return state
+}
 
 // To store the value of the Poll's status
 const pollStatus = (state={}, action) =>{
@@ -55,7 +61,7 @@ const idReducer = (state=null, action) =>{
 
 export default combineReducers({
     setup,
-    // newRouteInput,
+    urlTaken,
     pollStatus,
     idReducer,
   });

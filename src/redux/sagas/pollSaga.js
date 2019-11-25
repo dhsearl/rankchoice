@@ -1,6 +1,9 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+const turnIntoRoute = (inputString) =>{
+    return inputString.replace(/\W+/g, '-').toLowerCase();
+}
 
 function* fetchInformationSaga(action){
     try {
@@ -33,7 +36,20 @@ function* addRouteSaga(action) {
     }
 }
 
+function* checkUrlSaga(action) {
+    try{
+        console.log('In checkUrlSaga with:', action.payload);
+        const urlIsTaken = yield axios.post('/api/poll/url',action.payload);
+        console.log('Got back', urlIsTaken.data);
+        yield put({type:"SET_URL_TAKEN", payload: urlIsTaken.data})
+    } catch (error) {
+        console.log('Error in checkUrlSaga', error);
+        
+    }
+}
+
 function* rootSaga() {
+    yield takeLatest('URL_INPUT', checkUrlSaga);
     yield takeEvery('ADD_ROUTE', addRouteSaga);
     yield takeEvery('FETCH_STATUS', fetchInformationSaga);
   }

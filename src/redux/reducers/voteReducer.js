@@ -44,10 +44,11 @@ const voteInstance = (state = [], action) => {
     // [ {   }, {   }, {   }]
     if (action.type === "INIT_BALLOT") {
 
-        return action.payload.map(x => ({ id: String(x.id), idea: x.idea_text}))
+        return action.payload.map(x => ({...x, id: String(x.id), idea: x.idea_text}))
         // const protoObject = action.payload.map(idea => {id: idea.id})
         // action.payload.forEach(idea => protoObject[idea.id] = idea.idea_text)
         // return protoObject
+        // spread x so I keep it all 
     }
     else if (action.type==="SET_ITEM_RANKS"){
         return action.payload
@@ -69,6 +70,8 @@ const winner = (state = {}, action) => {
     if (action.type === 'SET_WINNER') {
         console.log("In winner reducer", action.payload)
         return action.payload
+    } if (action.type === 'CLEAR_WINNER'){
+        return {}
     }
     return state
 }

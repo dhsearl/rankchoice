@@ -1,22 +1,22 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const moment = require('moment');
+// const moment = require('moment');
 
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+// const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-const poll_length = 2;
+const poll_length = 10;
 
 const CronJob = require('cron').CronJob;
 new CronJob('* * * * * *', function () {
-    console.log('You will see this message every second');
-    moment.duration(2, 'minutes');
+    console.log('.');
+    // moment.duration(2, 'minutes');
 
 
     // After 5 minutes turn off collecting and shift to voting
     const minuteOneQuery = `UPDATE polls
         SET collection_period = false, voting_period = true 
-        WHERE created_at <= NOW() - interval '${poll_length / 2} minute' 
+        WHERE created_at <= (now() at time zone 'utc') - interval '${poll_length / 2} minute' 
         AND collection_period = true`;
     pool.query(minuteOneQuery)
         .then(() => {
@@ -29,7 +29,7 @@ new CronJob('* * * * * *', function () {
     // After 10 minutes turn voting off
     const minuteTwoQuery = `UPDATE polls
         SET voting_period = false, complete= true 
-        WHERE created_at <= NOW() - interval '${poll_length} minute' 
+        WHERE created_at <= (now() at time zone 'utc') - interval '${poll_length} minute' 
         AND voting_period = true`;
     pool.query(minuteTwoQuery)
         .then(() => {
@@ -41,19 +41,19 @@ new CronJob('* * * * * *', function () {
             console.log('Error with minute two query', error);
         })
 
-    const pollCompleteQuery = `UPDATE polls
-        SET voting_period = false 
-        WHERE created_at <= NOW() - interval '2 minute' 
-        AND voting_period = true`;
-    pool.query(minuteTwoQuery)
-        .then(() => {
-            // findWinner();
-            // console.log('FINDING WINNER');
+    // const pollCompleteQuery = `UPDATE polls
+    //     SET voting_period = false 
+    //     WHERE created_at <= NOW() - interval '5 minute' 
+    //     AND voting_period = true`;
+    // pool.query(minuteTwoQuery)
+    //     .then(() => {
+    //         // findWinner();
+    //         // console.log('FINDING WINNER');
 
-        })
-        .catch((error) => {
-            console.log('Error with minute two query', error);
-        })
+    //     })
+    //     .catch((error) => {
+    //         console.log('Error with minute two query', error);
+    //     })
 }, null, true, 'America/Chicago');
 
 // Gets the poll status by URL,
@@ -95,6 +95,17 @@ router.post('/', (req, res) => {
             console.log('Error in poll.router post route', error);
             res.sendStatus(500);
         })
+})
+router.post('/url',(req,res)=>{
+    console.log(req.body)
+    const queryText =`SELECT * FROM polls WHERE url = $1`
+    const queryArgs = [req.body.value];
+    pool.query(queryText, queryArgs)
+    .then((result)=>{
+        console.log(result.rows[0]);
+        if(result.rows[0]) res.send(true)
+        else res.send(false)
+    })
 })
 
 module.exports = router;

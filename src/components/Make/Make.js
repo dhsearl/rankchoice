@@ -10,16 +10,16 @@ class Make extends Component {
     render() {
         return (
             <>
-            <div>
-                {/*  if we don't have a type show this */}
-                <Type />
+                <div>
+                    {/*  if we don't have a type show this */}
+                    <Type />
 
-                {/* if we don't have a url show this */}
-                <Input />
+                    {/* if we don't have a description show this */}
+                    <Description />
 
-                {/* if we don't have a description show this */}
-                <Description />
-            </div>
+                    {/* if we don't have a url show this */}
+                    <Input />
+                </div>
             </>
         );
     }

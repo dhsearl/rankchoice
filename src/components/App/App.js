@@ -20,7 +20,7 @@ import Make from '../Make/Make';
 import Poll from '../Poll/Poll';
 import Header from '../Header/Header'
 import DebugBar from '../DebugBar/DebugBar';
-
+import FAQ from '../FAQ/FAQ'
 class App extends Component {
 
     // Check to see if they have an ID in local storage, if not, give them one.
@@ -28,10 +28,12 @@ class App extends Component {
         if (localStorage.id) {
             // Store their ID in redux state
             this.props.dispatch({ type: "SET_ID", payload: localStorage.id })
+            localStorage.setItem('firstTime',false)
         } else {
             // Create an random id, put it in localStorage.id
             const id = crypto.randomBytes(20).toString('hex')
             localStorage.setItem('id', id)
+            localStorage.setItem('firstTime',true)
             // Store their ID in redux state
             this.props.dispatch({ type: "SET_ID", payload: localStorage.id })
         }
@@ -57,7 +59,11 @@ class App extends Component {
                             exact
                             component={Make}
                         />
-
+                        <Route
+                            exact
+                            path="/FAQ"
+                            component={FAQ}
+                        />
 
                         {/* FROM THE REPO */}
                         {/* Visiting localhost:3000/about will show the about page.

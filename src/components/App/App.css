@@ -4,32 +4,30 @@
 	box-sizing: border-box;
 }
 
-/* .centered {
-    display: flex;
-    justify-content: center;
-    align-items: center; */
-/* } */
+.ideaGallery {
+    background-color: #D08770;
+    padding:1rem;
+}
 
 .ideaBlock {
     width: 100%;
-    /* min-width: 300px; */
+    background-color: var(--nord0);
+    color: var(--nord4);
 }
-.ideabutton{
-   margin-left: auto;
-   margin-right: 0;
-}
+/* .ideabutton{
+   align-self:flex-end;
 
+} */
+.ideaContainer {
+    color: var(--nord0);
+    height: 51px;
+    align-items: center;
+}
 /* .inputDarkMode {
     height: 2rem;
     font-size: large;
     background-color: #121212;
     color: #CCC;
-} */
-
-
-/* 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 } */
 
 .generalDescription {
@@ -42,26 +40,45 @@ code {
 
 
 body {
-	/* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
-	
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-
-	min-height: 100vh;
+    /* min-height: 100vh; */
+    min-width: 600px;
 	font-family: 'Lato', sans-serif;
     margin: 0;
     padding:1rem;
     background-color:var(--nord0);
-    color: var(--nord4);
+    color: var(--nord4) !important;
 }
 
+.ui.segment {
+    color: var(--nord0);
+}
+.MuiInputBase-input{
+    color: var(--nord4) !important;
+}
+.MuiInputBase-root{
+    color: var(--nord4) !important;
+}
+.MuiFormLabel-root{
+    color: var(--nord4) !important;
+}
 h1 {
 	letter-spacing: 2px;
 	text-align: center;
     text-transform: uppercase;
-    color:var(--nord12) 
+    color:var(--nord12) ;
+    min-width: 400px;
+    margin-bottom:1rem;
+}
+h3 {
+	letter-spacing: 2px;
+    text-transform: uppercase;
+    color:var(--nord12) ;
+    margin:0;
+    padding-bottom:0;
 }
 
 .countdown-wrapper {
@@ -103,33 +120,10 @@ h1 {
 	height: 100px;
 }
 
-/* footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-} */
 
 @media only screen and (max-width: 600px) {
     body{
         justify-content:flex-start;
+        min-width: 200px;
     }
 }
