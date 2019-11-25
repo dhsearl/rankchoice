@@ -83,87 +83,87 @@ router.post('/', (req, res) => {
 })
 
 
-router.get('/:id', (req, res) => {
-    const queryText =
-        `SELECT array_agg(good) as votes FROM 
-        (SELECT "vote_instance_id", 
-        ARRAY[ candidate_id,rank_integer] as good
-        FROM single_vote 
-        JOIN vote_instance on vote_instance.id = single_vote.vote_instance_id
-        JOIN polls ON polls.id = vote_instance.poll_id
-        WHERE polls.id = $1 AND vote_instance.last_vote = TRUE) as vote_table
-        GROUP BY "vote_instance_id";`
-    const queryArgs = [req.params.id]
-    pool.query(queryText, queryArgs)
-        .then((result) => {
-            console.log("working with", result.rows)
-            // Empty table for use to strip and sort
-            const voteTable = [];
-            // prints out sorted table need to strip first value
-            result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
-                return a[0] - b[0];
-            })));
+// router.get('/:id', (req, res) => {
+//     const queryText =
+//         `SELECT array_agg(good) as votes FROM 
+//         (SELECT "vote_instance_id", 
+//         ARRAY[ candidate_id,rank_integer] as good
+//         FROM single_vote 
+//         JOIN vote_instance on vote_instance.id = single_vote.vote_instance_id
+//         JOIN polls ON polls.id = vote_instance.poll_id
+//         WHERE polls.id = $1 AND vote_instance.last_vote = TRUE) as vote_table
+//         GROUP BY "vote_instance_id";`
+//     const queryArgs = [req.params.id]
+//     pool.query(queryText, queryArgs)
+//         .then((result) => {
+//             console.log("working with", result.rows)
+//             // Empty table for use to strip and sort
+//             const voteTable = [];
+//             // prints out sorted table need to strip first value
+//             result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
+//                 return a[0] - b[0];
+//             })));
 
-            // Strip out just candidates in the vote array
-            const skinnyCandidates = []
-            voteTable[0].forEach(vote => {
-                skinnyCandidates.push(vote[0])
-            })
-            // Now just the votes
-            const skinnyTable = []
-            voteTable.forEach(row => {
-                const temp = []
-                row.forEach(vote => {
-                    temp.push(vote[1])
-                })
-                skinnyTable.push(temp)
-            })
+//             // Strip out just candidates in the vote array
+//             const skinnyCandidates = []
+//             voteTable[0].forEach(vote => {
+//                 skinnyCandidates.push(vote[0])
+//             })
+//             // Now just the votes
+//             const skinnyTable = []
+//             voteTable.forEach(row => {
+//                 const temp = []
+//                 row.forEach(vote => {
+//                     temp.push(vote[1])
+//                 })
+//                 skinnyTable.push(temp)
+//             })
 
-            // console.log(skinnyCandidates);
-            // console.log(skinnyTable);
+//             // console.log(skinnyCandidates);
+//             // console.log(skinnyTable);
 
-            let winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
-            console.log("Winner is", winner);
-            if (winner.length > 1) {
-                console.log("Random mode initiated")
-                const randomIndex = Math.floor(Math.random() * winner.length);
-                winner = [winner[randomIndex]];
-            }
+//             let winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
+//             console.log("Winner is", winner);
+//             if (winner.length > 1) {
+//                 console.log("Random mode initiated")
+//                 const randomIndex = Math.floor(Math.random() * winner.length);
+//                 winner = [winner[randomIndex]];
+//             }
 
-            const queryUpdatingWinner =
-                `UPDATE polls 
-                    SET winning_candidate = 
-                        CASE 
-                            WHEN polls.winning_candidate IS NULL THEN $1
-                            ELSE polls.winning_candidate
-                            END
-                        WHERE id = $2`
-            console.log("one winner is", winner)
-            const queryUpdatingWinnerArgs = [winner[0], req.params.id]
-            pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
-                .then(() => {
-                    const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
-                    const queryArgs = [winner[0]]
-                    pool.query(queryText, queryArgs)
-                        .then((result) => {
-                            console.log('Winning Idea Text is', result.rows[0])
-                            res.send(result.rows[0])
-                        })
-                        .catch((error) => {
-                            console.log('Error getting back Idea text', error);
-                            res.sendStatus(500);
-                        })
-                })
-                .catch((error) => {
-                    console.log('Error updating winner of poll', error);
-                    res.sendStatus(500);
-                })
+//             const queryUpdatingWinner =
+//                 `UPDATE polls 
+//                     SET winning_candidate = 
+//                         CASE 
+//                             WHEN polls.winning_candidate IS NULL THEN $1
+//                             ELSE polls.winning_candidate
+//                             END
+//                         WHERE id = $2`
+//             console.log("one winner is", winner)
+//             const queryUpdatingWinnerArgs = [winner[0], req.params.id]
+//             pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
+//                 .then(() => {
+//                     const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
+//                     const queryArgs = [winner[0]]
+//                     pool.query(queryText, queryArgs)
+//                         .then((result) => {
+//                             console.log('Winning Idea Text is', result.rows[0])
+//                             res.send(result.rows[0])
+//                         })
+//                         .catch((error) => {
+//                             console.log('Error getting back Idea text', error);
+//                             res.sendStatus(500);
+//                         })
+//                 })
+//                 .catch((error) => {
+//                     console.log('Error updating winner of poll', error);
+//                     res.sendStatus(500);
+//                 })
 
-        })
-        .catch((error) => {
-            console.log('Error in vote.router /:id route', error);
+//         })
+//         .catch((error) => {
+//             console.log('Error in vote.router /:id route', error);
 
-        })
-})
+//         })
+// })
 
 module.exports = router;

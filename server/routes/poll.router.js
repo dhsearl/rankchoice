@@ -1,8 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-// const moment = require('moment');
 const findWinnerMIT = require('../modules/ranked');
+// const moment = require('moment');
 // const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 const poll_length = 2;
@@ -20,7 +20,7 @@ new CronJob('* * * * * *', function () {
         AND collection_period = true RETURNING polls.id`;
     pool.query(minuteOneQuery)
         .then((result) => {
-            if(result.rows[0]) console.log('Updated a first minute for poll', result.rows);
+            if (result.rows[0]) console.log('Updated a first minute for poll', result.rows);
         })
         .catch((error) => {
             console.log('Error with turning collection period off', error);
@@ -37,10 +37,10 @@ new CronJob('* * * * * *', function () {
 
 
     pool.query(minuteTwoQuery)
-    .then((result) => {
-        if(result.rows[0]) console.log('Updated a second minute for poll', result.rows);
+        .then((result) => {
+            if (result.rows[0]) console.log('Updated a second minute for poll', result.rows);
 
-            if(result.rows[0]) console.log('FINDING WINNER', result.rows);
+            if (result.rows[0]) console.log('FINDING WINNER', result.rows);
 
             if (result.rows[0]) {
                 const finished_poll_id = result.rows[0].id
@@ -102,17 +102,17 @@ new CronJob('* * * * * *', function () {
                         const queryUpdatingWinnerArgs = [winner[0], finished_poll_id]
                         pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
                             .then(() => {
-                                const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
-                                const queryArgs = [winner[0]]
-                                pool.query(queryText, queryArgs)
-                                    .then((result) => {
-                                        console.log('Winning Idea Text is', result.rows[0])
-                                        res.send(result.rows[0])
-                                    })
-                                    .catch((error) => {
-                                        console.log('Error getting back Idea text', error);
-                                        res.sendStatus(500);
-                                    })
+                                // const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
+                                // const queryArgs = [winner[0]]
+                                // pool.query(queryText, queryArgs)
+                                //     .then((result) => {
+                                //         console.log('Winning Idea Text is', result.rows[0])
+                                //         // res.send(result.rows[0])
+                                //     })
+                                //     .catch((error) => {
+                                //         console.log('Error getting back Idea text', error);
+                                //         // res.sendStatus(500);
+                                //     })
                             })
                             .catch((error) => {
                                 console.log('Error updating winner of poll', error);
@@ -121,7 +121,7 @@ new CronJob('* * * * * *', function () {
 
                     })
                     .catch((error) => {
-                        console.log('Error in vote.router /:id route', error);
+                        console.log('Error in poll.router /:id route', error);
 
                     })
             }
@@ -131,6 +131,27 @@ new CronJob('* * * * * *', function () {
         }) // END minute two query
 
 }, null, true, 'America/Chicago'); // end CHRON JOB
+
+// send in poll id
+router.get('/winner/:id', (req, res) => {
+    console.log(req.params)
+    const queryText = `SELECT candidate_ideas.idea_text 
+    FROM candidate_ideas 
+    WHERE candidate_ideas.id=(
+        SELECT winning_candidate 
+        FROM polls 
+        WHERE id=$1);`
+    const queryArgs = [req.params.id]
+    pool.query(queryText, queryArgs)
+        .then((result) => {
+            console.log('Winning Idea Text is', result.rows[0])
+            res.send(result.rows[0])
+        })
+        .catch((error) => {
+            console.log('Error getting back Idea text', error);
+            res.sendStatus(500);
+        })
+})
 
 // Gets the poll status by URL,
 // RUNS OFTEN

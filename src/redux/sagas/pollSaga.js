@@ -47,8 +47,20 @@ function* checkUrlSaga(action) {
         
     }
 }
+// {this.props.winner.idea_text}
+function* getWinnerSaga(action) {
+    try {
+        console.log("in getWinnerSaga with",action.payload)
+        const winner = yield axios.get(`/api/poll/winner/${action.payload}`)
+        yield console.log("got Back", winner); 
+        yield put({type:"SET_WINNER", payload: winner.data})
+    } catch (error) {
+        console.log('Error in getWinnerSaga',error);
+    }
+}
 
 function* rootSaga() {
+    yield takeLatest('GET_WINNER',getWinnerSaga);
     yield takeLatest('URL_INPUT', checkUrlSaga);
     yield takeEvery('ADD_ROUTE', addRouteSaga);
     yield takeEvery('FETCH_STATUS', fetchInformationSaga);

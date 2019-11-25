@@ -47,7 +47,7 @@ class Countdown extends React.Component {
                 })
 
             // this.props.pollReducer.pollStatus.voting_period === true
-            this.state.countdownCopy < 101
+            this.state.countdownCopy === 59
                 && this.props.voteReducer.voteNeedsToBeInit === true
                 && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
 
@@ -58,13 +58,21 @@ class Countdown extends React.Component {
                 })
 
 
+            // this.props.pollReducer.pollStatus.complete === true
+            //     && !this.props.voteReducer.winner.idea_text
+            //     && this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id })
+
+            // this.state.countdownCopy <= 2
+            //     && !this.props.voteReducer.winner.idea_text &&
+            //     this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id })
+
             this.props.pollReducer.pollStatus.complete === true
                 && !this.props.voteReducer.winner.idea_text
-                && this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id })
+                && this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
-            this.state.countdownCopy <= 2
+            this.state.countdownCopy === 0
                 && !this.props.voteReducer.winner.idea_text &&
-                this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id })
+                this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
             this.props.voteReducer.winner.idea_text
                 && this.props.pollReducer.pollStatus.complete === true

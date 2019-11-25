@@ -19,31 +19,35 @@ CREATE TABLE "voters" (
   "created_at" timestamp
 );
 
+SET TIMEZONE='utc';
+
 CREATE TABLE "polls" (
   "id" SERIAL PRIMARY KEY,
-  "url_path" varchar,
+  "url" varchar,
   "type" varchar,
   "question" varchar,
-  "winning_candidate" int,
-  "created_at" timestamp,
+  "winning_candidate" int DEFAULT NULL,
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "collection_period" boolean,
   "voting_period" boolean,
   "complete" boolean
 );
 
+
 CREATE TABLE "candidate_ideas" (
   "id" SERIAL PRIMARY KEY,
   "poll_id" int,
-  "description" varchar,
-  "created_at" timestamp,
-  "created_by" int
+  "idea_text" varchar,
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "created_by" varchar
 );
 
 CREATE TABLE "vote_instance" (
   "id" SERIAL PRIMARY KEY,
   "poll_id" int,
-  "voter_id" int,
-  "created_at" timestamp
+  "voter_id" VARCHAR(255),
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "last_vote" boolean default true
 );
 
 CREATE TABLE "single_vote" (
@@ -54,16 +58,8 @@ CREATE TABLE "single_vote" (
 );
 
 
-ALTER TABLE "candidate_ideas" ADD FOREIGN KEY ("created_by") REFERENCES "voters";
-
 ALTER TABLE "candidate_ideas" ADD FOREIGN KEY ("poll_id") REFERENCES "polls";
-
 ALTER TABLE "single_vote" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate_ideas";
-
-ALTER TABLE "vote_instance" ADD FOREIGN KEY ("voter_id") REFERENCES  "voters";
-
 ALTER TABLE "vote_instance" ADD FOREIGN KEY ("poll_id") REFERENCES "polls";
-
 ALTER TABLE "single_vote" ADD FOREIGN KEY ("vote_instance_id") REFERENCES "vote_instance";
-
 ALTER TABLE "polls" ADD FOREIGN KEY ("winning_candidate") REFERENCES "candidate_ideas";
