@@ -1,4 +1,4 @@
-@import "../../../node_modules/nord/src/nord.css";
+@import "./nord.css";
 @import url('https://fonts.googleapis.com/css?family=Lato');
 * {
 	box-sizing: border-box;
