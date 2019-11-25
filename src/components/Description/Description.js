@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField'
 // import { Button } from '@material-ui/core'
-import { Button } from 'semantic-ui-react'
+// import { Button } from 'semantic-ui-react'
 // Input of General Poll Question / description
 class Description extends Component {
     handleInput = (e) => {

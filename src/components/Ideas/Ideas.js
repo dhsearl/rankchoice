@@ -7,6 +7,7 @@ import IdeaBox from '../IdeaBox/IdeaBox.js';
 class Ideas extends Component {
     componentDidMount() {
         this.props.dispatch({ type: "CLEAR_VOTE_INSTANCE" });
+        this.props.dispatch({type:"CLEAR_WINNER"})
         this.props.dispatch({type:"GET_FULL_IDEA_LIST",payload: { id: this.props.pollReducer.pollStatus.id }})
     }
     handleInput = (e) => {

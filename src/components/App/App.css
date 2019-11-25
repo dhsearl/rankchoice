@@ -36,7 +36,9 @@
 }
 
 
-
+.clipboardText {
+    color: var(--nord13) !important;
+}
 
 
 body {

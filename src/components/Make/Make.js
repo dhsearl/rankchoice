@@ -12,7 +12,7 @@ class Make extends Component {
             <>
                 <div>
                     {/*  if we don't have a type show this */}
-                    <Type />
+                    {/* <Type /> */}
 
                     {/* if we don't have a description show this */}
                     <Description />

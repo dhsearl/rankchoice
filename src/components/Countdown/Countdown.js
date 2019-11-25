@@ -1,7 +1,6 @@
 import React from 'react'
 import moment from 'moment'
 import { connect } from 'react-redux'
-import TimerTwo from './TimerTwo'
 
 class Countdown extends React.Component {
     state = {
@@ -12,10 +11,10 @@ class Countdown extends React.Component {
         POLL_LENGTH: 2,
     }
     componentDidMount() {
-        
+
         this.interval = setInterval(() => {
             const then = moment(this.props.time);
-            const last = moment().utc().subtract(this.state.POLL_LENGTH/2, 'minutes');
+            // const last = moment().utc().subtract(this.state.POLL_LENGTH / 2, 'minutes');
             const first = moment().utc().subtract(this.state.POLL_LENGTH, 'minutes');
             const countdown = moment(then - first);
             const countdownCopy = Number(moment(then - first).format('mmss'))
@@ -23,15 +22,15 @@ class Countdown extends React.Component {
             let seconds = countdown.format('ss');
             this.setState({ minutes, seconds, countdownCopy });
 
-            this.state.countdownCopy > 150  &&                                       // Change this
-            !this.props.voteReducer.winner.idea_text  &&
-            this.state.countdownCopy % 10 === 1 &&
-            this.props.dispatch({
-                type: 'FETCH_STATUS',
-                payload: { url: this.props.route }
-            })
+            this.state.countdownCopy > 150 &&                                       // Change this
+                !this.props.voteReducer.winner.idea_text &&
+                this.state.countdownCopy % 10 === 1 &&
+                this.props.dispatch({
+                    type: 'FETCH_STATUS',
+                    payload: { url: this.props.route }
+                })
             // console.log(moment().utc().diff(moment(this.props.time))/ 60000 )
-            
+
             this.props.pollReducer.pollStatus.collection_period &&
                 this.state.countdownCopy % 2 === 1 &&
                 this.props.dispatch({
@@ -56,7 +55,12 @@ class Countdown extends React.Component {
                     type: 'FETCH_STATUS',
                     payload: { url: this.props.route }
                 })
-
+            this.state.countdownCopy > 1000 
+            && !this.props.pollReducer.pollStatus.complete 
+            && this.props.dispatch({
+                    type: 'FETCH_STATUS',
+                    payload: { url: this.props.route }
+                })
 
             // this.props.pollReducer.pollStatus.complete === true
             //     && !this.props.voteReducer.winner.idea_text
@@ -66,12 +70,17 @@ class Countdown extends React.Component {
             //     && !this.props.voteReducer.winner.idea_text &&
             //     this.props.dispatch({ type: 'CALC_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
-            this.props.pollReducer.pollStatus.complete === true
-                && !this.props.voteReducer.winner.idea_text
-                && this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
+            // this.props.pollReducer.pollStatus.complete === true
+            //     && !this.props.voteReducer.winner.idea_text
+            //     && this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
-            this.state.countdownCopy === 0
+            // this.state.countdownCopy < 5
+            //     && !this.props.voteReducer.winner.idea_text &&
+            //     this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
+
+            this.state.countdownCopy > 1000
                 && !this.props.voteReducer.winner.idea_text &&
+                this.props.dispatch({type:"WAITING_MODE",payload:true}) &&
                 this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
             this.props.voteReducer.winner.idea_text
@@ -121,21 +130,21 @@ class Countdown extends React.Component {
                         </div>
                     </>
                 }
-                {moment().utc().diff(moment(this.props.time))/ 60000 < this.state.POLL_LENGTH &&
-                <div>
-                    {this.state.countdownCopy >= 700 &&
-                        <p>{minutes.slice(1)-5} minutes to suggest ideas, <br /> Then five minutes to vote</p>}
-                    {this.state.countdownCopy < 700 && this.state.countdownCopy >= 600 &&
-                        <p>{minutes.slice(1)-5} minute to suggest ideas, <br /> Then five minutes to vote</p>}
-                    {this.state.countdownCopy < 600 && this.state.countdownCopy >= 500 &&
-                        <p>Idea entering time is almost up<br /> Then 5 minutes to vote</p>}
-                    {this.state.countdownCopy < 500 && this.state.countdownCopy >= 200 &&
-                        <p>{minutes.slice(1)} minutes to vote</p>}
-                    {this.state.countdownCopy < 200 && this.state.countdownCopy >= 100 &&
-                        <p>{minutes.slice(1)} minute to vote</p>}
-                    {this.state.countdownCopy < 100 &&
-                        <p>Lock in your vote before time is up</p>}    
-                </div>}
+                {moment().utc().diff(moment(this.props.time)) / 60000 < this.state.POLL_LENGTH &&
+                    <div>
+                        {this.state.countdownCopy >= 700 &&
+                            <p>{minutes.slice(1) - 5} minutes to suggest ideas, <br /> Then five minutes to vote</p>}
+                        {this.state.countdownCopy < 700 && this.state.countdownCopy >= 600 &&
+                            <p>{minutes.slice(1) - 5} minute to suggest ideas, <br /> Then five minutes to vote</p>}
+                        {this.state.countdownCopy < 600 && this.state.countdownCopy >= 500 &&
+                            <p>Idea entering time is almost up<br /> Then 5 minutes to vote</p>}
+                        {this.state.countdownCopy < 500 && this.state.countdownCopy >= 200 &&
+                            <p>{minutes.slice(1)} minutes to vote</p>}
+                        {this.state.countdownCopy < 200 && this.state.countdownCopy >= 100 &&
+                            <p>{minutes.slice(1)} minute to vote</p>}
+                        {this.state.countdownCopy < 100 &&
+                            <p>Lock in your vote before time is up</p>}
+                    </div>}
             </div>
         );
     }

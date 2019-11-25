@@ -1,9 +1,9 @@
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-const turnIntoRoute = (inputString) =>{
-    return inputString.replace(/\W+/g, '-').toLowerCase();
-}
+// const turnIntoRoute = (inputString) =>{
+//     return inputString.replace(/\W+/g, '-').toLowerCase();
+// }
 
 function* fetchInformationSaga(action){
     try {
@@ -50,10 +50,13 @@ function* checkUrlSaga(action) {
 // {this.props.winner.idea_text}
 function* getWinnerSaga(action) {
     try {
+        // yield put({type:"WAITING_MODE", payload:true})
         console.log("in getWinnerSaga with",action.payload)
         const winner = yield axios.get(`/api/poll/winner/${action.payload}`)
         yield console.log("got Back", winner); 
+        // if ( !winner) yield put({type:"WAITING_MODE", payload:true});
         yield put({type:"SET_WINNER", payload: winner.data})
+        if (winner) yield put({type:"WAITING_MODE",payload:false})
     } catch (error) {
         console.log('Error in getWinnerSaga',error);
     }

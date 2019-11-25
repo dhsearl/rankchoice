@@ -25,7 +25,7 @@ class ToClipboard extends Component {
                 {Clipboard.isSupported() &&
                     <div>
                         
-                        <Button ref="button"
+                        <Button ref="button" className="clipboardText"
                             onClick={() => this.setState({ copySuccess:"?  done." })}>
                             Copy Link to Clipboard {this.state.copySuccess}
                             </Button>

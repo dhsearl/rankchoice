@@ -17,14 +17,14 @@ function* voteMode(action) {
         console.log(error);
     }
 }
-function* winnerMode(action) {
-    try {
-        const winner = yield axios.get(`/api/vote/${action.payload}`);
-        yield put ({type:'SET_WINNER', payload: winner.data})
-    } catch (error) {
-        console.log(error)
-    }
-}
+// function* winnerMode(action) {
+//     try {
+//         const winner = yield axios.get(`/api/vote/${action.payload}`);
+//         yield put ({type:'SET_WINNER', payload: winner.data})
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 // When people go to vote but didn't add suggestions they need this to 
 // run when the dragvote component did mount.
 // YES!

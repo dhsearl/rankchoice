@@ -32,7 +32,7 @@ class IdeaBox extends Component {
             <Segment raised className="ideaContainer" key={idea.id}>
                 {this.state.edit ?
                     <form onSubmit={()=>this.handleEditSubmit(idea.id)} style={{display:'inline'}}>
-                        <input type="text" value={idea.idea_text} onChange={this.handleChange} />
+                        <input style={{width:'80%'}} type="text" value={idea.idea_text} onChange={this.handleChange} />
                     </form>
                     : <>{idea.idea_text}</>}
 

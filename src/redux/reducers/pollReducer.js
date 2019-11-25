@@ -36,7 +36,12 @@ const urlTaken = (state=false, action)=>{
     }
     return state
 }
-
+const waitingModeReducer =(state=false, action)=>{
+    if (action.type ==="WAITING_MODE"){
+        return action.payload
+    } 
+    return state;
+}
 // To store the value of the Poll's status
 const pollStatus = (state={}, action) =>{
     switch(action.type) {
@@ -64,4 +69,5 @@ export default combineReducers({
     urlTaken,
     pollStatus,
     idReducer,
+    waitingModeReducer,
   });

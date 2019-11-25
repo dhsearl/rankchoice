@@ -23,7 +23,7 @@ function* voteSaga(action) {
     try {
         console.log("In voteSaga with", action.payload);
         yield axios.post('/api/vote/', action.payload);
-        yield put({type:"CLEAR_VOTE_INSTANCE"})
+        
     } catch (error) {
         console.log("voteSaga error was", error)
     }

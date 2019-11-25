@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css';
 import crypto from 'crypto'
 
@@ -19,7 +19,7 @@ import Home from '../Home/Home';
 import Make from '../Make/Make';
 import Poll from '../Poll/Poll';
 import Header from '../Header/Header'
-import DebugBar from '../DebugBar/DebugBar';
+// import DebugBar from '../DebugBar/DebugBar';
 import FAQ from '../FAQ/FAQ'
 class App extends Component {
 
