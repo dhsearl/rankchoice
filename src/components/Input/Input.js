@@ -7,11 +7,17 @@ import { Button } from 'semantic-ui-react'
 class Input extends Component {
 
     handleInput = (e) => {
-        this.props.dispatch({ type: 'URL_INPUT', payload: { key: "url", value: e.target.value } })
+        this.props.dispatch({ 
+            type: 'URL_INPUT', 
+            payload: { 
+                key: "url", 
+                value: e.target.value 
+            } })
 
     }
     handleSubmit = (e) => {
         e.preventDefault();
+        // urlTaken validates the chosen url
         !this.props.pollReducer.urlTaken &&
             this.props.dispatch({
                 type: 'ADD_ROUTE',
@@ -24,24 +30,21 @@ class Input extends Component {
 
     render() {
         return (
-            <>
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <h3>Poll Url{this.props.pollReducer.urlTaken && this.props.pollReducer.setup.url.length > 1 ? "- url taken" : ''}</h3>
-                        <TextField
-                            label="http://rankchoice.io/#/"
-                            margin="normal"
-                            value={this.props.pollReducer.setup.url}
-                            onChange={this.handleInput}
-                            style={{ width: '100%', marginTop: '0' }}
-                        />
-                        <div className="centered">
-                            <Button fluid onClick={this.handleSubmit} >Start Poll</Button>
-                        </div>
-                    </form>
-                </div>
-
-            </>
+            <div className="centered">
+                <form onSubmit={this.handleSubmit}>
+                    <h3>Poll Url{this.props.pollReducer.urlTaken && this.props.pollReducer.setup.url.length > 1 ? "- url taken" : ''}</h3>
+                    <TextField
+                        label="http://rankchoice.io/#/"
+                        margin="normal"
+                        value={this.props.pollReducer.setup.url}
+                        onChange={this.handleInput}
+                        style={{ width: '100%', marginTop: '0' }}
+                    />
+                    <div>
+                        <Button fluid onClick={this.handleSubmit} >Start Poll</Button>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

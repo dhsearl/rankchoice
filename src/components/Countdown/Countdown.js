@@ -13,8 +13,8 @@ class Countdown extends React.Component {
     componentDidMount() {
 
         this.interval = setInterval(() => {
+
             const then = moment(this.props.time);
-            // const last = moment().utc().subtract(this.state.POLL_LENGTH / 2, 'minutes');
             const first = moment().utc().subtract(this.state.POLL_LENGTH, 'minutes');
             const countdown = moment(then - first);
             const countdownCopy = Number(moment(then - first).format('mmss'))
@@ -55,12 +55,12 @@ class Countdown extends React.Component {
                     type: 'FETCH_STATUS',
                     payload: { url: this.props.route }
                 })
-            this.state.countdownCopy > 1000 
-            && !this.props.pollReducer.pollStatus.complete 
-            && this.props.dispatch({
-                    type: 'FETCH_STATUS',
-                    payload: { url: this.props.route }
-                })
+            // this.state.countdownCopy > 1000 
+            // && !this.props.pollReducer.pollStatus.complete 
+            // && this.props.dispatch({
+            //         type: 'FETCH_STATUS',
+            //         payload: { url: this.props.route }
+            //     })
 
             // this.props.pollReducer.pollStatus.complete === true
             //     && !this.props.voteReducer.winner.idea_text
@@ -78,10 +78,17 @@ class Countdown extends React.Component {
             //     && !this.props.voteReducer.winner.idea_text &&
             //     this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
-            this.state.countdownCopy > 1000
-                && !this.props.voteReducer.winner.idea_text &&
-                this.props.dispatch({type:"WAITING_MODE",payload:true}) &&
-                this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
+            this.state.countdownCopy > 1000 
+            && !this.props.pollReducer.pollStatus.complete 
+            && this.props.dispatch({
+                    type: 'FETCH_STATUS',
+                    payload: { url: this.props.route }
+                })
+
+            this.props.pollReducer.pollStatus.complete === true 
+                && this.state.countdownCopy > 1000
+                && !this.props.voteReducer.winner.idea_text
+                && this.props.dispatch({ type: 'GET_WINNER', payload: this.props.pollReducer.pollStatus.id })
 
             this.props.voteReducer.winner.idea_text
                 && this.props.pollReducer.pollStatus.complete === true

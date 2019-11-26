@@ -5,11 +5,14 @@ import { TextField } from '@material-ui/core';
 import IdeaBox from '../IdeaBox/IdeaBox.js';
 
 class Ideas extends Component {
+    // Clean up old votes
+    // Get Full Idea List for the first time
     componentDidMount() {
         this.props.dispatch({ type: "CLEAR_VOTE_INSTANCE" });
         this.props.dispatch({type:"CLEAR_WINNER"})
         this.props.dispatch({type:"GET_FULL_IDEA_LIST",payload: { id: this.props.pollReducer.pollStatus.id }})
     }
+
     handleInput = (e) => {
         this.props.dispatch({ type: 'IDEA_INPUT', payload: { key: "idea_text", value: e.target.value, url: this.props.route } })
     }
@@ -18,12 +21,7 @@ class Ideas extends Component {
         this.props.dispatch({ type: 'ADD_IDEA', payload: this.props.ideaReducer.idea })
         this.props.dispatch({ type: 'RESET_IDEA' });
     }
-    handleDelete = (id) => {
-        this.props.dispatch({ type: 'DELETE_IDEA', payload: { voter_id: localStorage.id, idea_id: id } })
-    }
-    handleEdit = (id) => {
-        this.props.dispatch({ type: 'DELETE_IDEA', payload: { voter_id: localStorage.id, idea_id: id } })
-    }
+
     render() {
         return (
             <>

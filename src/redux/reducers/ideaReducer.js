@@ -21,7 +21,7 @@ const idea = (state = resetIdea, action) => {
             return state
     }
 }
-
+// { isLoading: true, ideaAray: [], 
 const ideaList = (state = [], action) => {
     switch (action.type) {
         case "ADD_TO_LIST":
@@ -41,13 +41,13 @@ const ideaList = (state = [], action) => {
                 }
             })
         case "ADD_TO_LIST_SHALLOW":
-return [
-    ...state, ...action.payload.slice(state.length)
-]
+            return [
+                ...state, ...action.payload.slice(state.length)
+            ]
         case "CLEAR_IDEA_LIST":
-return []
+            return []
         default:
-return state
+            return state
     }
 }
 export default combineReducers({

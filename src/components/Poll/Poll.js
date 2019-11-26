@@ -17,6 +17,7 @@ class Poll extends Component {
             type: 'FETCH_STATUS',
             payload: { url: this.props.match.params.route }
         })
+    
     }
 
     componentWillUnmount() {
@@ -31,7 +32,7 @@ class Poll extends Component {
 
         return (
             <>
-                <div>
+                <div className="centered">
 
 
 

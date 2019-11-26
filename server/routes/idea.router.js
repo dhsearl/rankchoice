@@ -63,7 +63,7 @@ router.put('/:id', (req,res)=>{
     const queryArgs = [voter_id, idea_new_text, idea_id]
     pool.query(queryText, queryArgs)
     .then(()=>{
-        console.log("Deleted");
+        console.log("Updated");
         res.sendStatus(200);
     })
     .catch((error)=>{
