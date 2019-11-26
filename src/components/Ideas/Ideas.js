@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import IdeaBox from '../IdeaBox/IdeaBox.js';
+import { Button} from 'semantic-ui-react'
 
 class Ideas extends Component {
     // Clean up old votes
@@ -27,6 +28,7 @@ class Ideas extends Component {
             <>
                 {/* Idea Input */}
                 <div className="centered">
+                
                     <form onSubmit={this.handleSubmit}>
                         <TextField
                             style={{ width: '100%' }}
@@ -37,6 +39,13 @@ class Ideas extends Component {
                             value={this.props.ideaReducer.idea.idea_text}
                             margin="normal"
                         />
+                        {/* Maybe text align center Maybe only show if on mobile */}
+                        <Button
+                        type="submit"
+                        onClick={this.handleSubmit}
+                        style={{ textAlign: 'left', borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }}
+                        fluid
+                    >ADD IDEA</Button>
                     </form>
                 </div>
 
