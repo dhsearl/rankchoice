@@ -9,6 +9,7 @@ function* addIdeaSaga(action) {
     try {
         console.log("In addIdeaSaga with", action.payload);
         yield axios.post('/api/idea/', action.payload);
+        // yield put({type:'GET_FULL_IDEA_LIST', payload: {id: action.payload.poll_id}})
     } catch (error) {
         console.log("addIdeaSaga error was", error)
     }

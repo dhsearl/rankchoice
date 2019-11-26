@@ -99,7 +99,8 @@ class Vote extends Component {
                                     ref={provided.innerRef}
                                     style={getListStyle(snapshot.isDraggingOver)}
                                 >
-                                    {this.props.voteReducer.voteInstance&& 
+                                    {this.props.voteReducer.voteInstance &&
+                                    this.props.voteReducer.voteInstance.length >=1 && 
                                     this.props.voteReducer.voteInstance.map((item, index) => (
                                         <Draggable key={item.id} draggableId={item.id} index={index}>
                                             {(provided, snapshot) => (
