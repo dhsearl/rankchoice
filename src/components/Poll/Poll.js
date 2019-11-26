@@ -52,17 +52,17 @@ class Poll extends Component {
                     {this.props.pollReducer.pollStatus.voting_period &&
                         !this.props.pollReducer.pollStatus.complete &&
                         this.props.voteReducer.voteInstance &&
+                        !this.props.pollReducer.waitingModeReducer &&
                         <Vote />}
 
                     {this.props.pollReducer.waitingModeReducer &&
                         !this.props.voteReducer.winner.idea_text &&
                         <h1>WAITING FOR ANSWER</h1>}
 
+
                     {!this.props.pollReducer.waitingModeReducer &&
                         this.props.voteReducer.winner.idea_text &&
                         <Winner winner={this.props.voteReducer.winner} />}
-
-                    {/* <Minutes route={poll_name} /> */}
 
                 </div>
             </>

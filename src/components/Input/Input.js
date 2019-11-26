@@ -18,6 +18,7 @@ class Input extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         // urlTaken validates the chosen url
+        this.props.pollReducer.setup.url &&
         !this.props.pollReducer.urlTaken &&
             this.props.dispatch({
                 type: 'ADD_ROUTE',
@@ -36,6 +37,7 @@ class Input extends Component {
                     <TextField
                         label="http://rankchoice.io/#/"
                         margin="normal"
+                        placeholder="pick-your-path"
                         value={this.props.pollReducer.setup.url}
                         onChange={this.handleInput}
                         style={{ width: '100%', marginTop: '0' }}

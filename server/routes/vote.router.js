@@ -26,7 +26,6 @@ const findWinnerMIT = require('../modules/ranked');
 //   ]
 router.post('/', async (req, res) => {
     const client = await pool.connect();
-
     try {
         const poll_id = req.body.poll_id
         const voter_id = req.body.voter_id
@@ -37,6 +36,8 @@ router.post('/', async (req, res) => {
         WHERE poll_id = $1 
         AND voter_id=$2`
         await client.query('BEGIN')
+        // Check Database for old votes from this user
+        // If there are old votes we'll set them to NOT last_vote so they won't be counted
         const voteInstanceResults = await client.query(queryText, queryArgs)
 
         if (voteInstanceResults.rows[0]) {
@@ -45,11 +46,14 @@ router.post('/', async (req, res) => {
             }));
         }
 
+        // Now that that is over with. 
+        // We'll insert a vote instance into our table with the voter_id and poll_id
         const secondQueryText = `INSERT INTO vote_instance(
                 poll_id, voter_id)
                 VALUES($1,$2) RETURNING ID`
         const secondQueryResult = await client.query(secondQueryText, queryArgs);
-        const vote_instance_id = secondQueryResult.rows[0].id;
+        const vote_instance_id = secondQueryResult.rows[0].id;    
+        
         const thirdQueryText =
             `INSERT INTO single_vote
             ("vote_instance_id","candidate_id","rank_integer")
@@ -61,15 +65,16 @@ router.post('/', async (req, res) => {
 
         await client.query('COMMIT')
         res.sendStatus(201);
-        } 
+    }
     catch (error) {
-            await client.query('ROLLBACK')
-            console.log('ERROR POST api/vote', error)
-            res.sendStatus(500);
-        } finally {
-            client.release();
-        }
-    })
+        await client.query('ROLLBACK')
+        console.log('ERROR POST api/vote', error)
+        res.sendStatus(500);
+    }
+    finally {
+        client.release();
+    }
+})
 
 
 // router.post('/', (req, res) => {
