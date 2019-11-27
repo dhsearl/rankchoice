@@ -1,9 +1,10 @@
 import React from 'react';
 
 const Header = () => (
-  <header>
+  <div>
+      <br clear="all" />
      <h1>Rankchoice.io</h1>
-  </header>
+  </div>
 );
 
 export default Header;

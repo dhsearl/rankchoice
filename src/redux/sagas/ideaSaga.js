@@ -15,13 +15,13 @@ function* addIdeaSaga(action) {
     }
 }
 
-function deleteIdeaSaga(action) {
+function* deleteIdeaSaga(action) {
     // payload of 
     // { type: 'DELETE_IDEA', payload: {voter_id: localStorage.id, idea_id: id}}
     try {
         console.log("In deleteIdeaSaga with", action.payload);
-        axios.delete(`/api/idea/${action.payload.idea_id}/${action.payload.voter_id}`)
-
+        yield axios.delete(`/api/idea/${action.payload.idea_id}/${action.payload.voter_id}`)
+        yield put({type:'GET_FULL_IDEA_LIST', payload: {id: action.payload.poll_id}})
     } catch (error) {
         console.log("deleteIdeaSaga error was",error);
     }
