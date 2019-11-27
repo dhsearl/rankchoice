@@ -14,21 +14,13 @@
     background-color: var(--nord0);
     color: var(--nord4);
 }
-/* .ideabutton{
-   align-self:flex-end;
 
-} */
 .ideaContainer {
     color: var(--nord0);
     height: 51px;
     align-items: center;
 }
-/* .inputDarkMode {
-    height: 2rem;
-    font-size: large;
-    background-color: #121212;
-    color: #CCC;
-} */
+
 
 .generalDescription {
     height: 200px;
@@ -46,8 +38,8 @@ body {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-    /* min-height: 100vh; */
-    min-width: 600px;
+    
+    min-width: 320px;
 	font-family: 'Lato', sans-serif;
     margin: 0;
     padding:1rem;
@@ -72,7 +64,7 @@ h1 {
 	text-align: center;
     text-transform: uppercase;
     color:var(--nord12) ;
-    min-width: 400px;
+    min-width: 320px;
     margin-bottom:1rem;
 }
 h3 {
@@ -123,9 +115,20 @@ h3 {
 }
 
 
+.centered {
+
+}
 @media only screen and (max-width: 600px) {
     body{
+        margin-top: 2rem;
         justify-content:flex-start;
-        min-width: 200px;
+        
+    }
+    .h1{
+        min-width:100vw;
+    }
+    .centered{
+        width: 95vw;
+        margin: 0 auto;
     }
 }
