@@ -58,38 +58,43 @@ new CronJob('* * * * * *', function () {
                     .then((result) => {
                         console.log("working with", result.rows)
                         // Empty table for use to strip and sort
-                        const voteTable = [];
-                        // prints out sorted table need to strip first value
-                        result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
-                            return a[0] - b[0];
-                        })));
+                        let winner;
+                        if (result.rows.length > 0) {
+                            const voteTable = [];
+                            // prints out sorted table need to strip first value
+                            result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
+                                return a[0] - b[0];
+                            })));
 
-                        // Strip out just candidates in the vote array
-                        const skinnyCandidates = []
-                        voteTable[0].forEach(vote => {
-                            skinnyCandidates.push(vote[0])
-                        })
-                        // Now just the votes
-                        const skinnyTable = []
-                        voteTable.forEach(row => {
-                            const temp = []
-                            row.forEach(vote => {
-                                temp.push(vote[1])
+                            // Strip out just candidates in the vote array
+                            const skinnyCandidates = []
+                            voteTable[0].forEach(vote => {
+                                skinnyCandidates.push(vote[0])
                             })
-                            skinnyTable.push(temp)
-                        })
+                            // Now just the votes
+                            const skinnyTable = []
+                            voteTable.forEach(row => {
+                                const temp = []
+                                row.forEach(vote => {
+                                    temp.push(vote[1])
+                                })
+                                skinnyTable.push(temp)
+                            })
 
-                        // console.log(skinnyCandidates);
-                        // console.log(skinnyTable);
+                            // console.log(skinnyCandidates);
+                            // console.log(skinnyTable);
 
-                        let winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
-                        console.log("Winner is", winner);
-                        if (winner.length > 1) {
-                            console.log("Random mode initiated")
-                            const randomIndex = Math.floor(Math.random() * winner.length);
-                            winner = [winner[randomIndex]];
+                            winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
+                            console.log("Winner is", winner);
+                            if (winner.length > 1) {
+                                console.log("Random mode initiated")
+                                const randomIndex = Math.floor(Math.random() * winner.length);
+                                winner = [winner[randomIndex]];
+                            }
+                        } else {
+                            winner = [1]
                         }
-
+                        
                         const queryUpdatingWinner =
                             `UPDATE polls 
                     SET winning_candidate = 
@@ -102,17 +107,9 @@ new CronJob('* * * * * *', function () {
                         const queryUpdatingWinnerArgs = [winner[0], finished_poll_id]
                         pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
                             .then(() => {
-                                // const queryText = `SELECT idea_text FROM candidate_ideas WHERE id=$1`
-                                // const queryArgs = [winner[0]]
-                                // pool.query(queryText, queryArgs)
-                                //     .then((result) => {
-                                //         console.log('Winning Idea Text is', result.rows[0])
-                                //         // res.send(result.rows[0])
-                                //     })
-                                //     .catch((error) => {
-                                //         console.log('Error getting back Idea text', error);
-                                //         // res.sendStatus(500);
-                                //     })
+                              // if anypoll ids in the table match, 
+                              // map to each of them.
+                              // 
                             })
                             .catch((error) => {
                                 console.log('Error updating winner of poll', error);
@@ -131,6 +128,24 @@ new CronJob('* * * * * *', function () {
         }) // END minute two query
 
 }, null, true, 'America/Chicago'); // end CHRON JOB
+
+
+// Add phone number to text_voter table
+// api/poll/text/
+router.post('/text/', (req, res)=>{
+    const poll_id = req.body.poll_id
+    const phone_number = req.body.phone_number
+    const queryArgs = [poll_id, phone_number]
+    const queryText = `INSERT INTO text_voter("poll_id","phone_number")VALUES ($1,$2)`
+    pool.query(queryText, queryArgs)
+    .then(()=>{
+        res.sendStatus(200);
+    })
+    .catch((error)=>{
+        console.log("Error in poll.router /text/ route", error);
+        res.sendStatus(500);
+    })
+});
 
 // send in poll id
 router.get('/winner/:id', (req, res) => {
