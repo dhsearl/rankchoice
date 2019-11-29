@@ -125,8 +125,8 @@ new CronJob('* * * * * *', function () {
                                         results.rows.map(voter => {
                                             client.messages
                                                 .create({
-                                                    body: `Poll Complete/nQ:${voter.question}/nA:${voter.idea_text}`,
-                                                    from: "+16122301699",
+                                                    body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}`,
+                                                    from: process.env.TWILIO_PHONE_NUMBER,
                                                     to: voter.phone_number
                                                 })
                                                 .then(message => {
