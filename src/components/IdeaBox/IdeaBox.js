@@ -12,7 +12,7 @@ class IdeaBox extends Component {
     }
 
     handleDelete = (id) => {
-        this.props.dispatch({ type: 'DELETE_IDEA', payload: { voter_id: localStorage.id, idea_id: id } })
+        this.props.dispatch({ type: 'DELETE_IDEA', payload: { voter_id: localStorage.id, idea_id: id, poll_id: this.props.pollReducer.pollStatus.id } })
     }
 
     handleEditSubmit = (id) => {
