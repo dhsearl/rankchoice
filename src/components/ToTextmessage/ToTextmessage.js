@@ -30,7 +30,7 @@ class ToTextmessage extends Component {
                     ? <>
                     <p>Want to be alerted when the poll is over?</p>
                     <PhoneInput
-                        style={{fontSize:'16px'}}
+                        style={{fontSize:'100%'}}
                         placeholder="Enter phone number"
                         country="US"
                         showCountrySelect="false"

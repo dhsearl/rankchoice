@@ -21,7 +21,7 @@ class Description extends Component {
                 <div className="centered">
 
                     <TextField
-                        style={{ width: '100%',fontSize:'16px' }}
+                        style={{ width: '100%',fontSize:'100%' }}
                         id="outlined-multiline-static"
                         label="The question is"
                         placeholder="The question here will be seen by all voters"
