@@ -42,6 +42,7 @@ class App extends Component {
     render() {
         return (
             <>
+            <div className="centered">
                 <Router>
                     {/* <DebugBar /> */}
                     <Header />
@@ -96,7 +97,7 @@ class App extends Component {
                         <Route render={() => <h1>404</h1>} />
                     </Switch>
                 </Router>
-
+                </div>
                 {/* <pre>{JSON.stringify(this.props, null, 2)}</pre> */}
             </>
         );

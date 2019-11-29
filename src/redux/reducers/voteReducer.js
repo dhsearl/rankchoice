@@ -5,7 +5,9 @@ const voteNeedsToBeInit = (state = true, action) => {
         return false
     } else if (action.type === "FLIP_INIT") {
         return !state;
-    } else {
+    } else if (action.type === "RESET_INIT"){
+        return true}
+         else {
         return state;
     }
 

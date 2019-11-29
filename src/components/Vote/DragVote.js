@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Button, Dimmer } from 'semantic-ui-react'
+import ToTextmessage from '../ToTextmessage/ToTextmessage';
 
 const grid = 8;
 
@@ -128,8 +129,8 @@ class Vote extends Component {
           <Dimmer active={this.state.active}>
             
               
-              You Voted!
-            
+              You Voted!<br/>
+            <ToTextmessage />
           </Dimmer>
         </Dimmer.Dimmable>
                 </>

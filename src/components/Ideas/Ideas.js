@@ -31,7 +31,7 @@ class Ideas extends Component {
                 
                     <form onSubmit={this.handleSubmit}>
                         <TextField
-                            style={{ width: '100%' }}
+                            style={{ width: '100%',fontSize:'16px' }}
                             id="outlined-multiline-static"
                             label="Enter Idea"
                             rows="1"
@@ -41,6 +41,7 @@ class Ideas extends Component {
                         />
                         {/* Maybe text align center Maybe only show if on mobile */}
                         <Button
+                        className="addIdeaBox"
                         type="submit"
                         onClick={this.handleSubmit}
                         style={{ textAlign: 'left', borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }}

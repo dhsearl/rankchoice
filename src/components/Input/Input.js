@@ -17,7 +17,9 @@ class Input extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
+        // check that they've put in information
         // urlTaken validates the chosen url
+        this.props.pollReducer.setup.description &&
         this.props.pollReducer.setup.url &&
         !this.props.pollReducer.urlTaken &&
             this.props.dispatch({
@@ -40,7 +42,7 @@ class Input extends Component {
                         placeholder="pick-your-path"
                         value={this.props.pollReducer.setup.url}
                         onChange={this.handleInput}
-                        style={{ width: '100%', marginTop: '0' }}
+                        style={{ width: '100%', marginTop: '0',fontSize:'16px' }}
                     />
                     <div>
                         <Button fluid onClick={this.handleSubmit} >Start Poll</Button>

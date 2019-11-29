@@ -20,7 +20,7 @@ class Home extends Component {
     render() {
         return (
            
-        <div className="centered">
+        // <div className="centered">
             
             <p>
             {/* <Button style={{border:'0',shad}} basic fluid onClick={this.createButton}><h1>Make Poll</h1></Button> */}
@@ -30,7 +30,7 @@ class Home extends Component {
 
             </p>
             
-        </div>
+        // </div>
           
         );
     }

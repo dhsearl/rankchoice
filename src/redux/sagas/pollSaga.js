@@ -12,6 +12,15 @@ function* fetchInformationSaga(action) {
     }
 }
 
+function* addPhoneNumber(action) {
+    try {
+        yield axios.post('/api/poll/text', action.payload);
+
+    } catch (error) {
+        console.log("Error in addPhoneNumber saga", error)
+    }
+}
+
 function* addRouteSaga(action) {
     try {
         //Sending in two objects:
@@ -50,7 +59,7 @@ function* checkUrlSaga(action) {
 // {this.props.winner.idea_text}
 function* getWinnerSaga(action) {
     try {
-        yield put({ type: "WAITING_MODE", payload: true })
+        // yield put({ type: "WAITING_MODE", payload: true })
         console.log("in getWinnerSaga with", action.payload)
         const winner = yield axios.get(`/api/poll/winner/${action.payload}`)
         yield console.log("got Back", winner);
@@ -69,6 +78,7 @@ function* rootSaga() {
     yield takeLatest('URL_INPUT', checkUrlSaga);
     yield takeEvery('ADD_ROUTE', addRouteSaga);
     yield takeEvery('FETCH_STATUS', fetchInformationSaga);
+    yield takeEvery('ADD_PHONE_NUMBER', addPhoneNumber);
 }
 
 export default rootSaga;

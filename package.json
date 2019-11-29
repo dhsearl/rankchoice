@@ -23,6 +23,7 @@
     "react": "^16.8.6",
     "react-beautiful-dnd": "^12.1.1",
     "react-dom": "^16.8.6",
+    "react-phone-number-input": "^2.4.1",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.1",
@@ -31,7 +32,8 @@
     "redux-saga": "^1.0.2",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "twilio": "^3.37.1"
   },
   "scripts": {
     "start": "node server/server.js",

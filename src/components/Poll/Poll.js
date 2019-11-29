@@ -24,6 +24,7 @@ class Poll extends Component {
         this.props.dispatch({ type: "CLEAR_WINNER" })
         this.props.dispatch({ type: 'CLEAR_STATUS' })
         this.props.dispatch({ type: "CLEAR_VOTE_INSTANCE" })
+        this.props.dispatch({type:"RESET_INIT"})
         this.props.dispatch({ type: "WAITING_MODE", payload: false })
     }
 

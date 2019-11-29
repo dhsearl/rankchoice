@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Input from '../Input/Input';
-import Type from '../Type/Type'
+// import Type from '../Type/Type'
 import Description from '../Description/Description'
 
 
 class Make extends Component {
+    componentDidMount(){
+        // clear idea reducer
+        // init vote
+        this.props.dispatch({type:"CLEAR_IDEA_LIST"})
+        this.props.dispatch({type:"RESET_INIT"})
+    }
     render() {
         return (
             <>

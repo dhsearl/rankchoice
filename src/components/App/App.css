@@ -3,61 +3,33 @@
 * {
 	box-sizing: border-box;
 }
+body {
+    
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+    min-width: 320px;
+    max-width: 600px;
+	font-family: 'Lato', sans-serif;
+    margin: 0 auto;
+    background-color:var(--nord0);
+    color: var(--nord4) !important;
+}
 
 .ideaGallery {
     background-color: #D08770;
     padding:1rem;
 }
-
 .ideaBlock {
     width: 100%;
     background-color: var(--nord0);
     color: var(--nord4);
 }
-
 .ideaContainer {
     color: var(--nord0);
     height: 51px;
     align-items: center;
-}
-
-
-.generalDescription {
-    height: 200px;
-    width: 300px;
-}
-
-
-.clipboardText {
-    color: var(--nord13) !important;
-}
-
-
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-    
-    min-width: 320px;
-	font-family: 'Lato', sans-serif;
-    margin: 0;
-    padding:1rem;
-    background-color:var(--nord0);
-    color: var(--nord4) !important;
-}
-
-.ui.segment {
-    color: var(--nord0);
-}
-.MuiInputBase-input{
-    color: var(--nord4) !important;
-}
-.MuiInputBase-root{
-    color: var(--nord4) !important;
-}
-.MuiFormLabel-root{
-    color: var(--nord4) !important;
 }
 h1 {
 	letter-spacing: 2px;
@@ -74,7 +46,31 @@ h3 {
     margin:0;
     padding-bottom:0;
 }
+/* Centered is the main DIV container of the project */
+.centered {
+margin-top:3rem;
+}
 
+/* Just color overrides */
+.clipboardText {
+    color: var(--nord13) !important;
+}
+.ui.segment {
+    color: var(--nord0);
+}
+.MuiInputBase-input{
+    color: var(--nord4) !important;
+}
+.MuiInputBase-root{
+    color: var(--nord4) !important;
+}
+.MuiFormLabel-root{
+    color: var(--nord4) !important;
+}
+
+
+
+/* Countdown Timer Styles */
 .countdown-wrapper {
     color: var(--nord16);
 	display: flex;
@@ -82,7 +78,6 @@ h3 {
 	justify-content: center;
 	flex-wrap: wrap;
 }
-
 .countdown-item {
 	color: var(--nord4);
 	font-size: 40px;
@@ -97,14 +92,12 @@ h3 {
 	width: 100px;
 	height: 100px;
 }
-
 .countdown-item span {
 	color: var(--nord7);
 	font-size: 12px;
 	font-weight: 600;
 	text-transform: uppercase;
 }
-
 .countdown-svg {
     color: var(--nord16);
 	position: absolute;
@@ -115,12 +108,9 @@ h3 {
 }
 
 
-.centered {
-
-}
 @media only screen and (max-width: 600px) {
     body{
-        margin-top: 2rem;
+        /* margin-top: 1rem; */
         justify-content:flex-start;
         
     }
@@ -129,6 +119,7 @@ h3 {
     }
     .centered{
         width: 95vw;
+        max-width: 400px;
         margin: 0 auto;
     }
 }
