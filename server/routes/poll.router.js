@@ -116,13 +116,14 @@ new CronJob('* * * * * *', function () {
                                 const smsQueryText = `SELECT phone_number, 
                                 (SELECT candidate_ideas.idea_text 
                                     FROM candidate_ideas 
-                                    WHERE id=$1), (SELECT polls.question FROM polls WHERE id=$1) 
+                                    WHERE id=$1), (SELECT polls.question FROM polls WHERE id=$2) 
                                 FROM text_voter 
                                 WHERE text_voter.poll_id = $2`
                                 const queryArgs = [...queryUpdatingWinnerArgs]
                                 pool.query(smsQueryText, queryArgs)
                                     .then((results) => {
                                         results.rows.map(voter => {
+                                            const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
                                             client.messages
                                                 .create({
                                                     body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}`,
