@@ -94,7 +94,7 @@ new CronJob('* * * * * *', function () {
                         } else {
                             winner = [1]
                         }
-                        
+
                         const queryUpdatingWinner =
                             `UPDATE polls 
                     SET winning_candidate = 
@@ -107,9 +107,34 @@ new CronJob('* * * * * *', function () {
                         const queryUpdatingWinnerArgs = [winner[0], finished_poll_id]
                         pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
                             .then(() => {
-                              // if anypoll ids in the table match, 
-                              // map to each of them.
-                              // 
+                                // if anypoll ids in the table match, 
+                                // map to each of them.
+                                // 
+                                console.log('In text voter promise');
+                                const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+                                const smsQueryText = `SELECT phone_number, 
+                                (SELECT candidate_ideas.idea_text 
+                                    FROM candidate_ideas 
+                                    WHERE id=$1), (SELECT polls.question FROM polls WHERE id=$1) 
+                                FROM text_voter 
+                                WHERE text_voter.poll_id = $2`
+                                const queryArgs = [...queryUpdatingWinnerArgs]
+                                pool.query(smsQueryText, queryArgs)
+                                    .then((results) => {
+                                        results.rows.map(voter => {
+                                            client.messages
+                                                .create({
+                                                    body: `Poll Complete/nQ:${voter.question}/nA:${voter.idea_text}`,
+                                                    from: "+16122301699",
+                                                    to: voter.phone_number
+                                                })
+                                                .then(message => {
+                                                    console.log(message.sid)
+                                                    res.sendStatus(200);
+                                                });
+                                        })
+                                    })
                             })
                             .catch((error) => {
                                 console.log('Error updating winner of poll', error);
@@ -132,19 +157,19 @@ new CronJob('* * * * * *', function () {
 
 // Add phone number to text_voter table
 // api/poll/text/
-router.post('/text/', (req, res)=>{
+router.post('/text/', (req, res) => {
     const poll_id = req.body.poll_id
     const phone_number = req.body.phone_number
     const queryArgs = [poll_id, phone_number]
     const queryText = `INSERT INTO text_voter("poll_id","phone_number")VALUES ($1,$2)`
     pool.query(queryText, queryArgs)
-    .then(()=>{
-        res.sendStatus(200);
-    })
-    .catch((error)=>{
-        console.log("Error in poll.router /text/ route", error);
-        res.sendStatus(500);
-    })
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log("Error in poll.router /text/ route", error);
+            res.sendStatus(500);
+        })
 });
 
 // send in poll id
