@@ -21,7 +21,7 @@ class Description extends Component {
                 <div className="centered">
 
                     <TextField
-                        style={{ width: '100%',fontSize:'100%' }}
+                        style={{ width: '100%' }}
                         id="outlined-multiline-static"
                         label="The question is"
                         placeholder="The question here will be seen by all voters"
@@ -31,6 +31,8 @@ class Description extends Component {
                         value={this.props.pollReducer.setup.description}
                         margin="normal"
                         variant="outlined"
+                        inputProps={{style: {fontSize: 16}}} // font size of input text
+                        InputLabelProps={{style: {fontSize: 14}}} // font size of input label
                     />
                 </div>
 

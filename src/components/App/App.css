@@ -63,6 +63,7 @@ margin-top:3rem;
 }
 .MuiInputBase-input{
     color: var(--nord4) !important;
+    font-size: 16px;
 }
 .MuiInputBase-root{
     color: var(--nord4) !important;

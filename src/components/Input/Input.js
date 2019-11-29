@@ -42,7 +42,9 @@ class Input extends Component {
                         placeholder="pick-your-path"
                         value={this.props.pollReducer.setup.url}
                         onChange={this.handleInput}
-                        style={{ width: '100%', marginTop: '0',fontSize:'100%' }}
+                        style={{ width: '100%', marginTop: '0', }}
+                        inputProps={{style: {fontSize: 16}}} // font size of input text
+                        InputLabelProps={{style: {fontSize: 14}}} // font size of input label
                     />
                     <div>
                         <Button fluid onClick={this.handleSubmit} >Start Poll</Button>

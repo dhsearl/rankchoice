@@ -31,13 +31,15 @@ class Ideas extends Component {
                 
                     <form onSubmit={this.handleSubmit}>
                         <TextField
-                            style={{ width: '100%',fontSize:'100%' }}
+                            style={{ width: '100%' }}
                             id="outlined-multiline-static"
                             label="Enter Idea"
                             rows="1"
                             onChange={this.handleInput}
                             value={this.props.ideaReducer.idea.idea_text}
                             margin="normal"
+                            inputProps={{style: {fontSize: 16}}} // font size of input text
+                            InputLabelProps={{style: {fontSize: 14}}} // font size of input label
                         />
                         {/* Maybe text align center Maybe only show if on mobile */}
                         <Button
