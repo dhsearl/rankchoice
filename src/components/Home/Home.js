@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import {Button} from '@material-ui/core'
-import IntroParagraph from "../IntroParagraph/IntroParagraph"
+import IntroParagraph from '../IntroParagraph/IntroParagraph'
 // import { Button } from 'semantic-ui-react'
 class Home extends Component {
     createButton =()=> {
