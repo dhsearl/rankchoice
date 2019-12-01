@@ -119,7 +119,7 @@ class Countdown extends React.Component {
         }
 
         return (
-            <div>
+            <>
                 {/* <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
                 {/* <TimerOne /> */}
                 {/* {this.state.countdownCopy < 500 && <TimerTwo time={this.props.time}  /> } */}
@@ -146,7 +146,7 @@ class Countdown extends React.Component {
                     </>
                 }
                 {moment().utc().diff(moment(this.props.time)) / 60000 < this.state.POLL_LENGTH &&
-                    <div>
+                    <div className="sticky-timer">
                         {this.state.countdownCopy >= 700 &&
                             <p>{minutes.slice(1) - 5} minutes to suggest ideas, <br /> Then five minutes to vote</p>}
                         {this.state.countdownCopy < 700 && this.state.countdownCopy >= 600 &&
@@ -160,7 +160,7 @@ class Countdown extends React.Component {
                         {this.state.countdownCopy < 100 &&
                             <p>Lock in your vote before time is up</p>}
                     </div>}
-            </div>
+            </>
         );
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { Icon } from 'semantic-ui-react'
 const Header = () => (
   <div>
-      <br clear="all" />
-     <h1>Rankchoice.io</h1>
+      
+     <h1 className="app-header">RANKCHOICE</h1>
   </div>
 );
 
