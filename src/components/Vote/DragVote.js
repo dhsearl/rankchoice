@@ -27,7 +27,6 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 const getListStyle = isDraggingOver => ({
-    // background: isDraggingOver ? "white" : "white",
     background: isDraggingOver ? "#D8DEE9" : "#D08770",
     padding: grid,
     width: '100%',
