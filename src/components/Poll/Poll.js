@@ -17,14 +17,14 @@ class Poll extends Component {
             type: 'FETCH_STATUS',
             payload: { url: this.props.match.params.route }
         })
-    
+
     }
 
     componentWillUnmount() {
         this.props.dispatch({ type: "CLEAR_WINNER" })
         this.props.dispatch({ type: 'CLEAR_STATUS' })
         this.props.dispatch({ type: "CLEAR_VOTE_INSTANCE" })
-        this.props.dispatch({type:"RESET_INIT"})
+        this.props.dispatch({ type: "RESET_INIT" })
         this.props.dispatch({ type: "WAITING_MODE", payload: false })
     }
 
@@ -38,7 +38,7 @@ class Poll extends Component {
 
 
                     <Countdown route={poll_name} time={this.props.pollReducer.pollStatus.created_at} />
-                    {/* <h3>{poll_name}</h3> */}
+
                     <ToClipboard poll_name={poll_name} />
 
 
@@ -51,8 +51,8 @@ class Poll extends Component {
                         <Ideas route={poll_name} />}
 
                     {this.props.pollReducer.pollStatus.voting_period &&
-                        !this.props.pollReducer.pollStatus.complete &&
                         this.props.voteReducer.voteInstance &&
+                        !this.props.pollReducer.pollStatus.complete &&
                         !this.props.pollReducer.waitingModeReducer &&
                         <Vote />}
 
