@@ -14,7 +14,6 @@ const pollRouter = require('./routes/poll.router');
 const ideaRouter = require('./routes/idea.router');
 const debugRouter = require('./routes/debug.router');
 const voteRouter = require('./routes/vote.router');
-const textRouter = require('./routes/text.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -33,7 +32,6 @@ app.use('/api/poll', pollRouter);
 app.use('/api/idea', ideaRouter);
 app.use('/debug', debugRouter);
 app.use('/api/vote',voteRouter);
-app.use('/api/text',textRouter);
 
 // Serve static files
 app.use(express.static('build'));

@@ -8,7 +8,7 @@ class IdeaBox extends Component {
     }
 
     handleChange = (e) => {
-        this.props.dispatch({ type: 'EDIT_IN_LIST', payload: { index: this.props.index , value: e.target.value } })
+        this.props.dispatch({ type: 'EDIT_IN_LIST', payload: { index: this.props.index, value: e.target.value } })
     }
 
     handleDelete = (id) => {
@@ -16,23 +16,25 @@ class IdeaBox extends Component {
     }
 
     handleEditSubmit = (id) => {
-        this.handleEditMode();
+        this.props.dispatch({ type: 'SUBTRACT_EDIT_NUMBER' })
+        this.setState({ edit: false })
         this.props.dispatch({ type: 'UPDATE_IDEA', payload: { voter_id: localStorage.id, id: id, newText: this.props.idea.idea_text, poll_id: this.props.pollReducer.pollStatus.id } })
     }
     handleEditMode = () => {
-        this.setState({ edit: !this.state.edit })
+        this.props.dispatch({ type: 'ADD_EDIT_NUMBER' })
+        this.setState({ edit: true })
     }
     render() {
         const idea = this.props.idea
 
         return (
-        
+
 
 
             <Segment raised className="ideaContainer" key={idea.id}>
                 {this.state.edit ?
-                    <form onSubmit={()=>this.handleEditSubmit(idea.id)} style={{display:'inline'}}>
-                        <input style={{width:'80%'}} type="text" value={idea.idea_text} onChange={this.handleChange} />
+                    <form onSubmit={() => this.handleEditSubmit(idea.id)} style={{ display: 'inline' }}>
+                        <input style={{ width: '80%', fontSize:'16px' }} type="text" value={idea.idea_text} onChange={this.handleChange} />
                     </form>
                     : <>{idea.idea_text}</>}
 

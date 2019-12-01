@@ -2,16 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField'
 
-const styles = {
-    
-}
-
-
-
 // Input of General Poll Question / description
 class Description extends Component {
     handleInput = (e) => {
-        this.props.dispatch({ type: 'POLL_INPUT', payload: { key: "description", value: e.target.value } })
+        this.props.dispatch({ type: 'POLL_INPUT', 
+        payload: { key: "description", value: e.target.value } })
     }
 
 
@@ -21,7 +16,7 @@ class Description extends Component {
                 <div className="centered">
 
                     <TextField
-                        style={{ width: '100%' }}
+                        
                         id="outlined-multiline-static"
                         label="The question is"
                         placeholder="The question here will be seen by all voters"
@@ -31,6 +26,7 @@ class Description extends Component {
                         value={this.props.pollReducer.setup.description}
                         margin="normal"
                         variant="outlined"
+                        style={{ width: '100%' }}
                         inputProps={{style: {fontSize: 16}}} // font size of input text
                         InputLabelProps={{style: {fontSize: 14}}} // font size of input label
                     />

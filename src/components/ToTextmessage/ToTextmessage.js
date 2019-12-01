@@ -17,7 +17,7 @@ class ToTextmessage extends Component {
                     phone_number: this.state.value
                 }
             })
-            this.setState({submitted:true})
+            this.setState({ submitted: true })
         }
     }
 
@@ -28,17 +28,19 @@ class ToTextmessage extends Component {
             <div style={{ marginTop: '1rem' }}>
                 {!this.state.submitted
                     ? <>
-                    <p>Want to be alerted when the poll is over?</p>
-                    <PhoneInput
-                        style={{fontSize:'100%'}}
-                        placeholder="Enter phone number"
-                        country="US"
-                        showCountrySelect="false"
-                        international="false"
-                        displayInitialValueAsLocalNumber="true"
-                        value={this.state.value}
-                        onChange={value => this.setState({ value })} />
-                        <button onClick={this.handleSubmit} >Text Me</button>
+                        <p>Want to be alerted when the poll is over?</p>
+                        <PhoneInput
+                            style={{ fontSize: '100%' }}
+                            placeholder="Enter phone number"
+                            country="US"
+                            showCountrySelect="false"
+                            international="false"
+                            displayInitialValueAsLocalNumber="true"
+                            value={this.state.value}
+                            onChange={value => this.setState({ value })} />
+                        <div>
+                            <button onClick={this.handleSubmit} >Text Me</button>
+                        </div>
                     </>
                     : <p>We'll text ya when it's done</p>}
             </div>

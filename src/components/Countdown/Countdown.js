@@ -31,6 +31,7 @@ class Countdown extends React.Component {
                 })
             // console.log(moment().utc().diff(moment(this.props.time))/ 60000 )
 
+            this.props.ideaReducer.editModes > 0 &&
             this.props.pollReducer.pollStatus.collection_period &&
                 this.state.countdownCopy % 2 === 1 &&
                 this.props.dispatch({
@@ -38,6 +39,13 @@ class Countdown extends React.Component {
                     payload: { id: this.props.pollReducer.pollStatus.id }
                 })
 
+            this.props.ideaReducer.editModes === 0 &&
+            this.props.pollReducer.pollStatus.collection_period &&
+            this.state.countdownCopy % 2 === 1 &&
+            this.props.dispatch({
+                type: 'GET_SHALLOW_IDEA_LIST',
+                payload: { id: this.props.pollReducer.pollStatus.id }
+            })
             this.state.countdownCopy <= 105 &&                                         // Change this
                 this.state.countdownCopy >= 55 &&                                     // Change this     
                 this.props.dispatch({

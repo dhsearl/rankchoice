@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 class Ideas extends Component {
-    componentDidMount() {
-        // this.props.pollReducer.pollStatus.voting_period === true
-        //     && this.props.voteReducer.voteNeedsToBeInit === true
-        //     && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
-    }
 
     handleRank = (event) => {
         console.log("in handle rank with", event.target.value, " idea_id",event.target.name)

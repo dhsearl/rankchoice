@@ -6,11 +6,6 @@ class Type extends Component {
     handleInput = (e) =>{
         this.props.dispatch({type:'POLL_INPUT', payload: {key:"type", value: e.target.value} })
     }
-    // handleSubmit = (e)=>{
-    //     e.preventDefault();
-    //     this.props.dispatch({type:'ADD_ROUTE', payload: this.props})
-
-    // }
 
     render() {
         return (
@@ -20,9 +15,9 @@ class Type extends Component {
             <select 
             onChange={this.handleInput} 
             value={this.props.pollReducer.setup.type}>
-                <option default value="general">General</option>
-                <option disabled value="food">Food</option>
-                <option disabled value="movie">Movie</option>
+                <option default value="rcv">Ranked-Choice</option>
+                <option disabled value="food">Weighted</option>
+                {/* <option disabled value="movie">Movie</option> */}
             </select>
             
             </div>

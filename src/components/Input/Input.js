@@ -35,7 +35,7 @@ class Input extends Component {
         return (
             <div className="centered">
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Poll Url{this.props.pollReducer.urlTaken && this.props.pollReducer.setup.url.length > 1 ? "- url taken" : ''}</h3>
+                    <h3>Choose a custom Url{this.props.pollReducer.urlTaken && this.props.pollReducer.setup.url.length > 1 ? "- url taken" : ''}</h3>
                     <TextField
                         label="http://rankchoice.io/#/"
                         margin="normal"

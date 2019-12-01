@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Button} from '@material-ui/core'
-import './Winner.css'
 
 class Winner extends Component {
 

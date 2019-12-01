@@ -126,7 +126,7 @@ new CronJob('* * * * * *', function () {
                                             const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
                                             client.messages
                                                 .create({
-                                                    body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}`,
+                                                    body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}\n\nMake a new poll at\nhttp://rankchoice.io`,
                                                     from: process.env.TWILIO_PHONE_NUMBER,
                                                     to: voter.phone_number
                                                 })
