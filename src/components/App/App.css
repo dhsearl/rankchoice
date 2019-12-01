@@ -4,18 +4,31 @@
 	box-sizing: border-box;
 }
 body {
-    
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
-    min-width: 320px;
-    max-width: 600px;
+    min-width: 400px;
+    max-width: 400px;
 	font-family: 'Lato', sans-serif;
     margin: 0 auto;
-    background-color:var(--nord0);
+    background-color:var(--nord1);
     color: var(--nord4) !important;
     font-size:16px !important;
+}
+.app-header{
+    font-family: 'Bungee', cursive;
+    font-size: 48px;
+    color: var(--nord15);
+    text-transform: none;
+}
+.sticky-timer{
+    align-self: flex-start;
+    position: sticky;
+    top: 0px;
+    height: 50px;
+    background-color:var(--nord1);
+    z-index: 9999;
 }
 .nav-link {
     text-decoration: none;
@@ -41,14 +54,14 @@ h1 {
 	letter-spacing: 2px;
 	text-align: center;
     text-transform: uppercase;
-    color:var(--nord12) ;
+    color:var(--nord13) ;
     min-width: 320px;
     margin-bottom:1rem;
 }
 h3 {
 	letter-spacing: 2px;
     text-transform: uppercase;
-    color:var(--nord12) ;
+    color:var(--nord13) ;
     margin:0;
     padding-bottom:0;
 }
@@ -59,7 +72,7 @@ margin-top:3rem;
 
 /* Just color overrides */
 .clipboardText {
-    color: var(--nord13) !important;
+    color: var(--nord12) !important;
 }
 .ui.segment {
     color: var(--nord0);
