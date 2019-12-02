@@ -92,7 +92,7 @@ float:right;
     margin-bottom: 0;
 }
 .header-minutes{
-    margin: -1rem 0 0 1rem;
+    margin: -1rem 0 0 .9rem;
     padding:0;
 }
 .addIdeaBox {
@@ -229,5 +229,8 @@ h3 {
     }
     .app-header{
         font-size: 48px;
+    }
+    .header-minutes{ 
+        margin: -1rem 0 0 1.8rem;
     }
 }
