@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Button, Dimmer } from 'semantic-ui-react'
+import { Button, Dimmer, Icon } from 'semantic-ui-react'
 import ToTextmessage from '../ToTextmessage/ToTextmessage';
 
 const grid = 8;
@@ -113,7 +113,7 @@ class Vote extends Component {
                                                         provided.draggableProps.style
                                                     )}
                                                 >
-                                                    {item.idea}
+                                                    <div className="ideaVoteBar">{item.idea} <Icon style={{color:'var(--nord3)'}} name='bars' /></div>
                                                 </div>
                                             )}
                                         </Draggable>

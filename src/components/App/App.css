@@ -98,7 +98,11 @@ input {
 .ideaContainer:last-child {
     margin-bottom: 0;
 }
-
+.ideaVoteBar{
+    padding:0;
+    display:flex;
+    justify-content: space-between;
+}
 .addIdeaBox {
     min-width: 400px;
     max-width: 400px;
