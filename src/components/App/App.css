@@ -102,6 +102,11 @@ input {
     margin: -1rem 0 0 .9rem;
     padding:0;
 }
+.ideaVoteBar{
+    padding:0;
+    display:flex;
+    justify-content: space-between;
+}
 .addIdeaBox {
     min-width: 400px;
     max-width: 400px;
