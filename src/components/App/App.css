@@ -17,16 +17,17 @@ body {
     font-size:16px !important;
 }
 .app-header{
-    font-family: 'Bungee', cursive;
+    font-family: 'Bungee', sans-serif;
     font-size: 48px;
     color: var(--nord15);
     text-transform: none;
 }
 .sticky-timer{
+    margin-left:8px;
     align-self: flex-start;
     position: sticky;
     top: 0px;
-    height: 50px;
+    /* height: 50px; */
     background-color:var(--nord1);
     z-index: 9999;
 }
@@ -39,6 +40,8 @@ input{
 .ideaGallery {
     background-color: #D08770;
     padding:1rem;
+    min-width: 400px;
+    max-width: 400px;
 }
 .ideaBlock {
     width: 100%;
@@ -49,6 +52,10 @@ input{
     color: var(--nord0);
     height: 51px;
     align-items: center;
+}
+.addIdeaBox {
+    min-width: 400px;
+    max-width: 400px;
 }
 h1 {
 	letter-spacing: 2px;
@@ -141,5 +148,13 @@ margin-top:3rem;
         width: 95vw;
         max-width: 400px;
         margin: 0 auto;
+    }
+    .ideaGallery {
+        width: 95vw;
+        max-width: 400px;
+    }
+    .addIdeaBox {
+        width: 95vw;
+        max-width: 400px;
     }
 }

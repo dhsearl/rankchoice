@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const findWinnerMIT = require('../modules/ranked');
+const findWeightedWinner = require('../modules/weighted');
 // const moment = require('moment');
 // const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
@@ -16,7 +17,7 @@ new CronJob('* * * * * *', function () {
     // After 5 minutes turn off collecting and shift to voting
     const minuteOneQuery = `UPDATE polls
         SET collection_period = false, voting_period = true 
-        WHERE created_at <= NOW() - interval '1 minute' 
+        WHERE created_at <= NOW() - interval '1 minute'   
         AND collection_period = true RETURNING polls.id`;
     pool.query(minuteOneQuery)
         .then((result) => {
@@ -33,7 +34,7 @@ new CronJob('* * * * * *', function () {
     const minuteTwoQuery = `UPDATE polls
         SET voting_period = false, complete= true 
         WHERE created_at <= NOW() - interval '2 minute' 
-        AND voting_period = true RETURNING polls.id`;
+        AND voting_period = true RETURNING polls.id, polls.type`;
 
 
     pool.query(minuteTwoQuery)
@@ -42,8 +43,10 @@ new CronJob('* * * * * *', function () {
 
             if (result.rows[0]) console.log('FINDING WINNER', result.rows);
 
-            if (result.rows[0]) {
-                const finished_poll_id = result.rows[0].id
+            result.rows.map(finished_poll => {
+                const finished_poll_id = finished_poll.id
+                const finished_poll_type = finished_poll.type
+                console.log("in poll.router and my poll_id is",finished_poll_id,"poll type",finished_poll_type)
                 const queryText =
                     `SELECT array_agg(good) as votes FROM 
                 (SELECT "vote_instance_id", 
@@ -56,98 +59,164 @@ new CronJob('* * * * * *', function () {
                 const queryArgs = [finished_poll_id]
                 pool.query(queryText, queryArgs)
                     .then((result) => {
-                        console.log("working with", result.rows)
-                        // Empty table for use to strip and sort
-                        let winner;
-                        if (result.rows.length > 0) {
-                            const voteTable = [];
-                            // prints out sorted table need to strip first value
-                            result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
-                                return a[0] - b[0];
-                            })));
+                        if (finished_poll_type === 'general') {
+                            console.log("working with", result.rows)
+                            // Empty table for use to strip and sort
+                            let winner;
+                            if (result.rows.length > 0) {
+                                const voteTable = [];
+                                // prints out sorted table need to strip first value
+                                result.rows.map(x => voteTable.push(x.votes.sort(function (a, b) {
+                                    return a[0] - b[0];
+                                })));
 
-                            // Strip out just candidates in the vote array
-                            const skinnyCandidates = []
-                            voteTable[0].forEach(vote => {
-                                skinnyCandidates.push(vote[0])
-                            })
-                            // Now just the votes
-                            const skinnyTable = []
-                            voteTable.forEach(row => {
-                                const temp = []
-                                row.forEach(vote => {
-                                    temp.push(vote[1])
+                                // Strip out just candidates in the vote array
+                                const skinnyCandidates = []
+                                voteTable[0].forEach(vote => {
+                                    skinnyCandidates.push(vote[0])
                                 })
-                                skinnyTable.push(temp)
-                            })
+                                // Now just the votes
+                                const skinnyTable = []
+                                voteTable.forEach(row => {
+                                    const temp = []
+                                    row.forEach(vote => {
+                                        temp.push(vote[1])
+                                    })
+                                    skinnyTable.push(temp)
+                                })
 
-                            // console.log(skinnyCandidates);
-                            // console.log(skinnyTable);
+                                console.log(skinnyCandidates);
+                                console.log(skinnyTable);
 
-                            winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
-                            console.log("Winner is", winner);
-                            if (winner.length > 1) {
-                                console.log("Random mode initiated")
-                                const randomIndex = Math.floor(Math.random() * winner.length);
-                                winner = [winner[randomIndex]];
+                                winner = findWinnerMIT(skinnyCandidates, skinnyTable, true, 51)
+                                console.log("Winner is", winner);
+                                if (winner.length > 1) {
+                                    console.log("Random mode initiated")
+                                    const randomIndex = Math.floor(Math.random() * winner.length);
+                                    winner = [winner[randomIndex]];
+                                }
+                            } else {
+                                winner = [1]
                             }
-                        } else {
-                            winner = [1]
-                        }
 
-                        const queryUpdatingWinner =
-                            `UPDATE polls 
+                            const queryUpdatingWinner =
+                                `UPDATE polls 
                     SET winning_candidate = 
                         CASE 
                             WHEN polls.winning_candidate IS NULL THEN $1
                             ELSE polls.winning_candidate
                             END
                         WHERE id = $2`
-                        console.log("one winner is", winner)
-                        const queryUpdatingWinnerArgs = [winner[0], finished_poll_id]
-                        pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
-                            .then(() => {
-                                // if anypoll ids in the table match, 
-                                // map to each of them.
-                                // 
-                                console.log('In text voter promise');
-                                const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+                            console.log("one winner is", winner)
+                            const queryUpdatingWinnerArgs = [winner[0], finished_poll_id]
+                            pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
+                                .then(() => {
+                                    // if anypoll ids in the table match, 
+                                    // map to each of them.
+                                    // 
+                                    console.log('In text voter promise');
+                                    const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-                                const smsQueryText = `SELECT phone_number, 
+                                    const smsQueryText = `SELECT phone_number, 
                                 (SELECT candidate_ideas.idea_text 
                                     FROM candidate_ideas 
                                     WHERE id=$1), (SELECT polls.question FROM polls WHERE id=$2) 
                                 FROM text_voter 
                                 WHERE text_voter.poll_id = $2`
-                                const queryArgs = [...queryUpdatingWinnerArgs]
-                                pool.query(smsQueryText, queryArgs)
-                                    .then((results) => {
-                                        results.rows.map(voter => {
-                                            const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-                                            client.messages
-                                                .create({
-                                                    body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}\n\nMake a new poll at\nhttp://rankchoice.io`,
-                                                    from: process.env.TWILIO_PHONE_NUMBER,
-                                                    to: voter.phone_number
-                                                })
-                                                .then(message => {
-                                                    console.log(message.sid)
-                                                    res.sendStatus(200);
-                                                });
+                                    const queryArgs = [...queryUpdatingWinnerArgs]
+                                    pool.query(smsQueryText, queryArgs)
+                                        .then((results) => {
+                                            results.rows.map(voter => {
+                                                const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+                                                client.messages
+                                                    .create({
+                                                        body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}\n\nMake a new poll at\nhttp://rankchoice.io`,
+                                                        from: process.env.TWILIO_PHONE_NUMBER,
+                                                        to: voter.phone_number
+                                                    })
+                                                    .then(message => {
+                                                        console.log(message.sid)
+                                                        res.sendStatus(200);
+                                                    });
+                                            })
                                         })
-                                    })
-                            })
-                            .catch((error) => {
-                                console.log('Error updating winner of poll', error);
-                                res.sendStatus(500);
-                            })
+                                })
+                                .catch((error) => {
+                                    console.log('Error updating winner of poll', error);
+                                    res.sendStatus(500);
+                                })
 
+                        } else if (finished_poll_type === 'weighted') {
+                            console.log("Weighted Mode")
+                            console.log("working with", result.rows)
+                            // Empty table for use to strip and sort
+                            let winner;
+                            if (result.rows.length > 0) {
+                                
+                                winner = findWeightedWinner(result.rows)
+                                console.log("Winner is", winner);
+                                if (winner.length > 1) {
+                                    console.log("Random mode initiated")
+                                    const randomIndex = Math.floor(Math.random() * winner.length);
+                                    winner = [winner[randomIndex]];
+                                }
+                            } else {
+                                winner = [1] // candidate that says "you forgot to vote"
+                            }
+
+                            const queryUpdatingWinner =
+                                `UPDATE polls 
+                    SET winning_candidate = 
+                        CASE 
+                            WHEN polls.winning_candidate IS NULL THEN $1
+                            ELSE polls.winning_candidate
+                            END
+                        WHERE id = $2`
+                            console.log("one winner is", winner)
+                            const queryUpdatingWinnerArgs = [winner[0], finished_poll_id]
+                            pool.query(queryUpdatingWinner, queryUpdatingWinnerArgs)
+                                .then(() => {
+                                    // if anypoll ids in the table match, 
+                                    // map to each of them.
+                                    // 
+                                    console.log('In text voter promise');
+                                    const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+                                    const smsQueryText = `SELECT phone_number, 
+                                (SELECT candidate_ideas.idea_text 
+                                    FROM candidate_ideas 
+                                    WHERE id=$1), (SELECT polls.question FROM polls WHERE id=$2) 
+                                FROM text_voter 
+                                WHERE text_voter.poll_id = $2`
+                                    const queryArgs = [...queryUpdatingWinnerArgs]
+                                    pool.query(smsQueryText, queryArgs)
+                                        .then((results) => {
+                                            results.rows.map(voter => {
+                                                const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+                                                client.messages
+                                                    .create({
+                                                        body: `Poll Complete\nQ:${voter.question}\nA:${voter.idea_text}\n\nMake a new poll at\nhttp://rankchoice.io`,
+                                                        from: process.env.TWILIO_PHONE_NUMBER,
+                                                        to: voter.phone_number
+                                                    })
+                                                    .then(message => {
+                                                        console.log(message.sid)
+                                                        res.sendStatus(200);
+                                                    });
+                                            })
+                                        })
+                                })
+                                .catch((error) => {
+                                    console.log('Error updating winner of poll', error);
+                                    res.sendStatus(500);
+                                })
+                        }
                     })
                     .catch((error) => {
                         console.log('Error in poll.router /:id route', error);
 
                     })
-            }
+            })
         })
         .catch((error) => {
             console.log('Error with minute two query', error);

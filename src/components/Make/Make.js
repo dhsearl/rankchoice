@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Input from '../Input/Input';
-// import Type from '../Type/Type'
+import Type from '../Type/Type'
 import Description from '../Description/Description'
 
 
@@ -18,7 +18,7 @@ class Make extends Component {
             <>
                 <div>
                     {/*  if we don't have a type show this */}
-                    {/* <Type /> */}
+                    <Type />
 
                     {/* if we don't have a description show this */}
                     <Description />

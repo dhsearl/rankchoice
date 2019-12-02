@@ -33,7 +33,7 @@ class Ideas extends Component {
                         <TextField
                             style={{ width: '100%' }}
                             id="outlined-multiline-static"
-                            label="Enter Idea"
+                            label="Type Ideas Here"
                             rows="1"
                             onChange={this.handleInput}
                             value={this.props.ideaReducer.idea.idea_text}
@@ -54,7 +54,7 @@ class Ideas extends Component {
 
                 {/* Idea List */}
                 {this.props.ideaReducer.ideaList.length > 0 && this.props.ideaReducer.ideaList[0] &&
-                    <div className="ideaGallery" style={{ width: '100%' }}>
+                    <div className="ideaGallery">
                         {this.props.ideaReducer.ideaList.map((eachIdea,i) =>
                             <IdeaBox index={i} idea={eachIdea} key={eachIdea.id} />
                         )}
