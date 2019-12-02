@@ -18,14 +18,14 @@ class Type extends Component {
     render() {
         return (
             <>
-            <div className="centered" style={{width:'370px',height:'100px'}}>
+            <div className="centered" style={{width:'370px',minHeight:'140px',marginBottom:'1rem'}}>
                 <h3>Pick a voting method</h3>
                 <Button 
                 variant="contained"
                 onClick={this.handleRCV}
                 style={this.state.rcv 
-                    ? {backgroundColor:'var(--nord3)',color:'var(--nord13)',float:'left', width:'50%'} 
-                    : {backgroundColor:'var(--nord3)',color:'var(--nord0)',float:'left',width:'50%'}}
+                    ? {backgroundColor:'var(--nord3)',color:'var(--nord13)',float:'left', width:'50%', marginLeft:'-4px'} 
+                    : {backgroundColor:'var(--nord3)',color:'var(--nord0)',float:'left',width:'50%', marginLeft:'-4px'}}
                 >Big Group</Button>
                 <Button 
                 variant="contained"

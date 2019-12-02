@@ -139,7 +139,7 @@ margin-top:3rem;
     body{
         /* margin-top: 1rem; */
         justify-content:flex-start;
-        
+        min-width: 320px;
     }
     .h1{
         min-width:100vw;
@@ -148,6 +148,7 @@ margin-top:3rem;
         width: 95vw;
         max-width: 400px;
         margin: 0 auto;
+        margin-top: 1rem;
     }
     .ideaGallery {
         width: 95vw;
