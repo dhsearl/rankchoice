@@ -147,6 +147,7 @@ class Countdown extends React.Component {
                 }
                 {moment().utc().diff(moment(this.props.time)) / 60000  < this.state.POLL_LENGTH &&
                     <div className="sticky-timer">
+<<<<<<< HEAD
                         {this.state.countdownCopy < 400 && this.state.countdownCopy >= 300 &&
                             <p>{minutes.slice(1) - 2}:{seconds} to suggest ideas, <br /> Then 2:00 to vote</p>}
                         {this.state.countdownCopy < 300 && this.state.countdownCopy >= 200 &&
@@ -157,6 +158,21 @@ class Countdown extends React.Component {
                             <p>Lock in your vote before time is up, <br/>Just {seconds} remain</p>}
                     </div>
                     }
+=======
+                        {this.state.countdownCopy >= 700 &&
+                            <p>{minutes.slice(1) - 5} minutes to suggest ideas, <br /> Then 5 minutes to vote</p>}
+                        {this.state.countdownCopy < 700 && this.state.countdownCopy >= 600 &&
+                            <p>Just {minutes.slice(1) - 5}:{seconds} left to suggest ideas, <br /> Then 5 minutes to vote</p>}
+                        {this.state.countdownCopy < 600 && this.state.countdownCopy >= 500 &&
+                            <p>Idea entering time is almost up, {seconds} seconds remain<br /> Then 5 minutes to vote</p>}
+                        {this.state.countdownCopy < 500 && this.state.countdownCopy >= 200 &&
+                            <p>{minutes.slice(1)} minutes to vote<br/>Drag and drop to sort top to bottom</p>}
+                        {this.state.countdownCopy < 200 && this.state.countdownCopy >= 100 &&
+                            <p>Just {minutes.slice(1)}:{seconds} left <br/> Arrange and lock in your vote</p>}
+                        {this.state.countdownCopy < 100 &&
+                            <p>Drag and drop ideas then lock in your vote,<br/>Just {seconds} seconds remain</p>}
+                    </div>}
+>>>>>>> master
             </>
         );
     }
