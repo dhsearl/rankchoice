@@ -80,11 +80,7 @@ class Vote extends Component {
 
         return (
             <>
-<<<<<<< HEAD
-<div className="vote-instructions"><p>Drag and drop ideas<br />Order them top to bottom<br />Then lock in your vote</p></div>
-=======
             <div className="vote-instructions"><p>Drag and drop to sort top to bottom<br />Then lock in your vote</p></div>
->>>>>>> master
                 <>
                     <Button
                     className="addIdeaBox"
