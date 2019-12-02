@@ -91,7 +91,10 @@ float:right;
 .ideaContainer:last-child {
     margin-bottom: 0;
 }
-
+.header-minutes{
+    margin: -1rem 0 0 1rem;
+    padding:0;
+}
 .addIdeaBox {
     min-width: 400px;
     max-width: 400px;

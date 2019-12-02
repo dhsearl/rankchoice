@@ -39,6 +39,7 @@ class ToTextmessage extends Component {
                             value={this.state.value}
                             onChange={value => this.setState({ value })} />
                         <div>
+                            <br/>
                             <button onClick={this.handleSubmit} >Text Me</button>
                         </div>
                     </>
