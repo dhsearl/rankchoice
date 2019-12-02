@@ -11,15 +11,13 @@ function FAQ() {
     let history = useHistory();
     function createButton() {
         history.push("/make");
-        // function handleClick() {
-
-        // }
     }
     return (
-        <div>
+        <div className="addIdeaBox">
             <ol>
                 <li>Create Poll</li>
                 <ul>
+                    <li>Pick a voting method (see below)</li>
                     <li>Ask a question</li>
                     <li>Choose a unique url</li>
                     <li>Start the poll</li>
@@ -40,12 +38,16 @@ function FAQ() {
                     <li>When you're done lock them in</li>
                     <li>Winner is posted when time is up</li>
                 </ul>
-
-
-
-
-
-            </ol> <p>Winners are chosen using Ranked Choice Voting</p>
+            </ol> 
+            
+            <h3>Ranked-Choice Voting</h3><p> Good for large groups.<br/>  In Ranked-Choice or Instant Run Off Voting, first place votes are tallied. If one candidate recieves a majority of first place votes they are declared the winner.  If there is no majority, the candidate that recieved the fewest first place votes is removed and the candidate that was in second place on these voters ballots is moved up to first place. The tally begins again, continuing until there is a candidate that recieves a majority of first place votes.<br/>Minneapolis municiple elections use this style of vote counting!<br />
+                <a href="https://en.wikipedia.org/wiki/Ranked_voting" target="_blank" rel="noopener noreferrer">Learn more</a>
+            </p>
+            <h3>Borda Count</h3>
+            <p>Good for small - medium sized groups.<br/> Borda Count Voting is a specific type of positional voting. Candidates are weighted based on their position. In a Borda Count the candate a voter puts at the top of their ballot is awarded as many points as there are candidates (n). Second place gets (n-1). Third (n-2) etc. This style of voting is good for small-medium sized groups because it always weights voters second and third place preferences, where Ranked-Choice Voting only looks at lower preferences when a voters first place has been eliminated.
+                 <br />
+                <a href="https://en.wikipedia.org/wiki/Borda_count" target="_blank" rel="noopener noreferrer">Learn more</a>
+            </p>
             <Button className="makeButton" style={{ width: '100%' }} onClick={createButton}><h1>Make Poll</h1></Button>
 
         </div>

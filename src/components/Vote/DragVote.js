@@ -85,6 +85,7 @@ class Vote extends Component {
 
                 <>
                     <Button
+                    className="addIdeaBox"
                         onClick={this.handleSubmit}
                         style={{ textAlign: 'left', borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }}
                         fluid

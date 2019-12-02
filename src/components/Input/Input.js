@@ -39,10 +39,11 @@ class Input extends Component {
                     <TextField
                         label="http://rankchoice.io/#/"
                         margin="normal"
+                        variant="outlined"
                         placeholder="pick-your-path"
                         value={this.props.pollReducer.setup.url}
                         onChange={this.handleInput}
-                        style={{ width: '100%', marginTop: '0', }}
+                        style={{ width: '100%' }}
                         inputProps={{style: {fontSize: 16}}} // font size of input text
                         InputLabelProps={{style: {fontSize: 14}}} // font size of input label
                     />
