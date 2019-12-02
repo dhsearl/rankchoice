@@ -32,11 +32,11 @@ const getListStyle = isDraggingOver => ({
 });
 
 class Vote extends Component {
-    state = { active:false, message:'Click to Lock Vote'}
+    state = { active:false, message:'Click Here To Lock In Vote'}
 
     handleFlip = () => {
-        if (this.state.message ==="Click to Lock Vote") this.setState({message:'Change Vote'})
-        else this.setState({message:'Click to Lock Vote'})
+        if (this.state.message ==="Click Here To Lock In Vote") this.setState({message:'Change Vote'})
+        else this.setState({message:'Click Here To Lock In Vote'})
 
         this.setState({ active: !this.state.active })
     }
@@ -80,7 +80,7 @@ class Vote extends Component {
 
         return (
             <>
-            <div className="vote-instructions"><p>Drag and drop ideas<br />Order them top to bottom<br />Then lock in your vote</p></div>
+            <div className="vote-instructions"><p>Drag and drop to sort top to bottom<br />Then lock in your vote</p></div>
                 <>
                     <Button
                     className="addIdeaBox"
