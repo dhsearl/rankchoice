@@ -45,7 +45,11 @@ class App extends Component {
             <div className="centered">
                 <Router>
                     {/* <DebugBar /> */}
+<<<<<<< HEAD
                     <Link to="/" style={{margin:'0',padding:'0'}}><Header /></Link>
+=======
+                    <Link to="/" style={{margin:'0', padding:'0'}}><Header /></Link>
+>>>>>>> master
                     <Switch>
                         {/* Visiting localhost:3000 will redirect to localhost:3000/make */}
                         {/* <Redirect exact from="/" to="/make" /> */}
