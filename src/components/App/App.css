@@ -236,3 +236,8 @@ h3 {
         margin: -1rem 0 0 1.8rem;
     }
 }
+@media only screen and (max-width: 400px) {
+    .header-minutes{ 
+        margin: -1rem 0 0 .3rem;
+    }
+}
