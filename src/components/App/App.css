@@ -61,11 +61,13 @@ body {
 input {
     font-size: 16px !important;
 }
-
+.ideaButton{
+/* add fixes here */
+}
 .ideaGallery {
     background-color: #D08770;
     padding: 1rem;
-    min-width: 400px;
+    /* min-width: 400px; */
     max-width: 400px;
 }
 
@@ -85,7 +87,17 @@ input {
     min-width: 400px;
     max-width: 400px;
 }
-
+.height-150{
+    height:150px;
+}
+.button-box{
+    padding-top: 1rem;
+    display:flex;
+    justify-content: space-around;
+}
+.makeButton {
+    width:100%;
+}
 h1 {
     letter-spacing: 2px;
     text-align: center;
@@ -106,7 +118,7 @@ h3 {
 /* Centered is the main DIV container of the project */
 
 .centered {
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 /* Just color overrides */
@@ -195,6 +207,7 @@ h3 {
     .addIdeaBox {
         width: 95vw;
         max-width: 400px;
+        min-width:320px;
     }
     .app-header{
         font-size: 48px;

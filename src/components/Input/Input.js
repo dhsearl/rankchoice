@@ -7,12 +7,13 @@ import { Button } from 'semantic-ui-react'
 class Input extends Component {
 
     handleInput = (e) => {
-        this.props.dispatch({ 
-            type: 'URL_INPUT', 
-            payload: { 
-                key: "url", 
-                value: e.target.value 
-            } })
+        this.props.dispatch({
+            type: 'URL_INPUT',
+            payload: {
+                key: "url",
+                value: e.target.value
+            }
+        })
 
     }
     handleSubmit = (e) => {
@@ -20,8 +21,8 @@ class Input extends Component {
         // check that they've put in information
         // urlTaken validates the chosen url
         this.props.pollReducer.setup.description &&
-        this.props.pollReducer.setup.url &&
-        !this.props.pollReducer.urlTaken &&
+            this.props.pollReducer.setup.url &&
+            !this.props.pollReducer.urlTaken &&
             this.props.dispatch({
                 type: 'ADD_ROUTE',
                 payload: {
@@ -44,8 +45,8 @@ class Input extends Component {
                         value={this.props.pollReducer.setup.url}
                         onChange={this.handleInput}
                         style={{ width: '100%' }}
-                        inputProps={{style: {fontSize: 16}}} // font size of input text
-                        InputLabelProps={{style: {fontSize: 14}}} // font size of input label
+                        inputProps={{ style: { fontSize: 16 } }} // font size of input text
+                        InputLabelProps={{ style: { fontSize: 14 } }} // font size of input label
                     />
                     <div>
                         <Button fluid onClick={this.handleSubmit} >Start Poll</Button>

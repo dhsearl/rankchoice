@@ -8,10 +8,10 @@ class Winner extends Component {
         return (
             <>
                 {this.props.winner.idea_text ?
-                <div><br/><h1>A: {this.props.winner.idea_text}</h1></div>
+                <div><h1>A: {this.props.winner.idea_text}</h1></div>
                 : <div><h3>No votes recoreded. Try Again</h3></div>
                 }<br/><br/>
-                <Link to="/make" className="nav-link centered" ><Button className="makeButton" style={{width:'100%'}} ><h1>New Poll</h1></Button></Link>
+                <Link to="/make" className="nav-link centered" ><Button className="makeButton"><h1>New Poll</h1></Button></Link>
                 
 
             </>

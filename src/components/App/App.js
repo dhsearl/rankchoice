@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route, Switch} from 'react-router-dom'
+import { HashRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import './App.css';
 import crypto from 'crypto'
 
@@ -45,7 +45,7 @@ class App extends Component {
             <div className="centered">
                 <Router>
                     {/* <DebugBar /> */}
-                    <Header />
+                    <Link to="/"><Header /></Link>
                     <Switch>
                         {/* Visiting localhost:3000 will redirect to localhost:3000/make */}
                         {/* <Redirect exact from="/" to="/make" /> */}

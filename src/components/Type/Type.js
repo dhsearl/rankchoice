@@ -18,22 +18,23 @@ class Type extends Component {
     render() {
         return (
             <>
-            <div className="centered" style={{width:'370px',minHeight:'140px',marginBottom:'1rem'}}>
+            <div className="centered addIdeaBox height-150">
                 <h3>Pick a voting method</h3>
+                <div className="button-box">
                 <Button 
                 variant="contained"
                 onClick={this.handleRCV}
                 style={this.state.rcv 
-                    ? {backgroundColor:'var(--nord3)',color:'var(--nord13)',float:'left', width:'50%', marginLeft:'-4px'} 
-                    : {backgroundColor:'var(--nord3)',color:'var(--nord0)',float:'left',width:'50%', marginLeft:'-4px'}}
+                    ? {backgroundColor:'var(--nord3)',color:'var(--nord13)', width:'47%'} 
+                    : {backgroundColor:'var(--nord3)',color:'var(--nord0)',width:'47%'}}
                 >Big Group</Button>
                 <Button 
                 variant="contained"
                 onClick={this.handleBorda}
                 style={this.state.rcv 
-                    ? {backgroundColor:'var(--nord3)',color:'var(--nord0)',float:'right',width:'50%'} 
-                    : {backgroundColor:'var(--nord3)',color:'var(--nord13)',float:'right',width:'50%'}}
-                >Small Group</Button>
+                    ? {backgroundColor:'var(--nord3)',color:'var(--nord0)',width:'47%'} 
+                    : {backgroundColor:'var(--nord3)',color:'var(--nord13)',width:'47%' }}
+                >Small Group</Button></div>
                 <div className="centered">
                 {this.state.rcv ? <p>Ranked-Choice Voting. Good for large groups.<br/><a href="http://rankchoice.io/#/faq" >Learn more</a></p>
                 : <p>Borda Count Positional voting. Good for small-medium sized groups.<br/><a href="http://rankchoice.io/#/faq" >Learn more</a></p>}</div>
