@@ -98,16 +98,14 @@ input {
 .ideaContainer:last-child {
     margin-bottom: 0;
 }
-<<<<<<< HEAD
 .header-minutes{
     margin: -1rem 0 0 .9rem;
     padding:0;
-=======
+}
 .ideaVoteBar{
     padding:0;
     display:flex;
     justify-content: space-between;
->>>>>>> master
 }
 .addIdeaBox {
     min-width: 400px;
