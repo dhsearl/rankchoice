@@ -90,6 +90,7 @@ class Vote extends Component {
                         style={{ textAlign: 'left', borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }}
                         fluid
                     >{this.state.message}</Button>
+                    <div className="addIdeaBox">
                         <Dimmer.Dimmable dimmed={this.state.active}> 
 
                         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -132,7 +133,7 @@ class Vote extends Component {
               You Voted!<br/>
             <ToTextmessage />
           </Dimmer>
-        </Dimmer.Dimmable>
+        </Dimmer.Dimmable></div>
                 </>
 
             </>
