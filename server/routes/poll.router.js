@@ -152,7 +152,7 @@ new CronJob('* * * * * *', function () {
                             // Empty table for use to strip and sort
                             let winner;
                             if (result.rows.length > 0) {
-                                
+
                                 winner = findWeightedWinner(result.rows)
                                 console.log("Winner is", winner);
                                 if (winner.length > 1) {
@@ -307,10 +307,13 @@ router.post('/', (req, res) => {
 // URL Input Validation 
 // returns true if TAKEN
 // returns false if NOT TAKEN
+// Using .trim() and the subsequent .replace to handle how the url is sent and then cleaned up later
+// Because I do not allow trailing dashes in my urls there was a chance 
+// one could have created a poll with the same as a previous poll. Fixed.
 router.post('/url', (req, res) => {
     console.log(req.body)
     const queryText = `SELECT * FROM polls WHERE url = $1`
-    const queryArgs = [req.body.value];
+    const queryArgs = [req.body.value.trim().replace(/-$/, "")];
     pool.query(queryText, queryArgs)
         .then((result) => {
             console.log(result.rows[0]);

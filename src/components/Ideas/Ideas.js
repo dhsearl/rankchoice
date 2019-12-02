@@ -38,6 +38,7 @@ class Ideas extends Component {
                             onChange={this.handleInput}
                             value={this.props.ideaReducer.idea.idea_text}
                             margin="normal"
+                            variant="outlined"
                             inputProps={{style: {fontSize: 16}}} // font size of input text
                             InputLabelProps={{style: {fontSize: 14}}} // font size of input label
                         />

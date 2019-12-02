@@ -39,6 +39,7 @@ class Input extends Component {
                     <TextField
                         label="http://rankchoice.io/#/"
                         margin="normal"
+                        variant="outlined"
                         placeholder="pick-your-path"
                         value={this.props.pollReducer.setup.url}
                         onChange={this.handleInput}
