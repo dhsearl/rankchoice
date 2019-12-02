@@ -35,8 +35,8 @@ class Type extends Component {
                     : {backgroundColor:'var(--nord3)',color:'var(--nord13)',float:'right',width:'50%'}}
                 >Small Group</Button>
                 <div className="centered">
-                {this.state.rcv ? <p>Ranked-Choice Voting. Good for large groups.<br/><a href="https://en.wikipedia.org/wiki/Ranked_voting" target="_blank" rel="noopener noreferrer">Learn more</a></p>
-                : <p>Borda Count Positional voting. Good for small-medium sized groups.<br/><a href="https://en.wikipedia.org/wiki/Borda_count" target="_blank" rel="noopener noreferrer">Learn more</a></p>}</div>
+                {this.state.rcv ? <p>Ranked-Choice Voting. Good for large groups.<br/><a href="http://rankchoice.io/#/faq" >Learn more</a></p>
+                : <p>Borda Count Positional voting. Good for small-medium sized groups.<br/><a href="http://rankchoice.io/#/faq" >Learn more</a></p>}</div>
             </div>
               </>
         );

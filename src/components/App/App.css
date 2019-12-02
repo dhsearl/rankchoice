@@ -1,151 +1,188 @@
 @import "./nord.css";
 @import url('https://fonts.googleapis.com/css?family=Lato');
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 body {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
     min-width: 400px;
     max-width: 400px;
-	font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 0 auto;
-    background-color:var(--nord1);
+    background-color: var(--nord1);
     color: var(--nord4) !important;
-    font-size:16px !important;
+    font-size: 16px !important;
 }
-.app-header{
+
+.app-header {
     font-family: 'Bungee', sans-serif;
-    font-size: 48px;
+    font-size: 53px;
     color: var(--nord15);
     text-transform: none;
+    display: inline;
+    z-index: 1;
 }
-.sticky-timer{
-    margin-left:8px;
+
+.app-header-block {
+    display: block;
+    /* margin: 0 auto; */
+    text-align: center;
+}
+
+.app-suffix {
+    font-size: .8rem;
+    display: inline;
+    margin-left: -1.5rem;
+    padding-right: -1.5rem;
+    z-index: 2;
+    color: var(--nord1);
+    letter-spacing: 2px;
+    font-weight:600;
+}
+
+.sticky-timer {
+    margin-left: 8px;
     align-self: flex-start;
     position: sticky;
     top: 0px;
     /* height: 50px; */
-    background-color:var(--nord1);
+    background-color: var(--nord1);
     z-index: 9999;
 }
+
 .nav-link {
     text-decoration: none;
-  }
-input{
-    font-size:16px !important;
 }
+
+input {
+    font-size: 16px !important;
+}
+
 .ideaGallery {
     background-color: #D08770;
-    padding:1rem;
+    padding: 1rem;
     min-width: 400px;
     max-width: 400px;
 }
+
 .ideaBlock {
     width: 100%;
     background-color: var(--nord0);
     color: var(--nord4);
 }
+
 .ideaContainer {
     color: var(--nord0);
     height: 51px;
     align-items: center;
 }
+
 .addIdeaBox {
     min-width: 400px;
     max-width: 400px;
 }
+
 h1 {
-	letter-spacing: 2px;
-	text-align: center;
+    letter-spacing: 2px;
+    text-align: center;
     text-transform: uppercase;
-    color:var(--nord13) ;
+    color: var(--nord13);
     min-width: 320px;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
+
 h3 {
-	letter-spacing: 2px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color:var(--nord13) ;
-    margin:0;
-    padding-bottom:0;
+    color: var(--nord13);
+    margin: 0;
+    padding-bottom: 0;
 }
+
 /* Centered is the main DIV container of the project */
+
 .centered {
-margin-top:3rem;
+    margin-top: 3rem;
 }
 
 /* Just color overrides */
+
 .clipboardText {
     color: var(--nord12) !important;
 }
+
 .ui.segment {
     color: var(--nord0);
 }
-.MuiInputBase-input{
+
+.MuiInputBase-input {
     color: var(--nord4) !important;
     font-size: 16px;
 }
 
-.MuiInputBase-root{
-    color: var(--nord4) !important;
-}
-.MuiFormLabel-root{
+.MuiInputBase-root {
     color: var(--nord4) !important;
 }
 
-
+.MuiFormLabel-root {
+    color: var(--nord4) !important;
+}
 
 /* Countdown Timer Styles */
+
 .countdown-wrapper {
     color: var(--nord16);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
+
 .countdown-item {
-	color: var(--nord4);
-	font-size: 40px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+    color: var(--nord4);
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     line-height: 30px;
-	margin: 10px;
+    margin: 10px;
     padding-top: 10px;
-	position: relative;
-	width: 100px;
-	height: 100px;
+    position: relative;
+    width: 100px;
+    height: 100px;
 }
+
 .countdown-item span {
-	color: var(--nord7);
-	font-size: 12px;
-	font-weight: 600;
-	text-transform: uppercase;
+    color: var(--nord7);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
+
 .countdown-svg {
     color: var(--nord16);
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100px;
-	height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
 }
 
-
 @media only screen and (max-width: 600px) {
-    body{
+    body {
         /* margin-top: 1rem; */
-        justify-content:flex-start;
+        justify-content: flex-start;
         min-width: 320px;
     }
-    .h1{
-        min-width:100vw;
+    .h1 {
+        min-width: 100vw;
     }
-    .centered{
+    .centered {
         width: 95vw;
         max-width: 400px;
         margin: 0 auto;
@@ -158,5 +195,8 @@ margin-top:3rem;
     .addIdeaBox {
         width: 95vw;
         max-width: 400px;
+    }
+    .app-header{
+        font-size: 48px;
     }
 }
