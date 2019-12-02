@@ -133,7 +133,8 @@ class Vote extends Component {
               You Voted!<br/>
             <ToTextmessage />
           </Dimmer>
-        </Dimmer.Dimmable></div>
+        </Dimmer.Dimmable>
+        </div>
                 </>
 
             </>
