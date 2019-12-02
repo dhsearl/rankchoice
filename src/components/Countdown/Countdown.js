@@ -152,10 +152,9 @@ class Countdown extends React.Component {
                         {this.state.countdownCopy < 200 && this.state.countdownCopy >= 100 &&
                             <p>Idea entering time is almost up, {seconds} seconds remain<br /> Then 1:00 to vote</p>}
                         {this.state.countdownCopy < 100 &&
-                            <p>Drag and drop ideas then lock in your vote,<br/>Just {seconds} seconds remain</p>}
+                            <p>Just {seconds} seconds remain to lock in vote</p>}
                     </div>
                     }
-                        
             </>
         );
     }
