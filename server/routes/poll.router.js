@@ -6,7 +6,7 @@ const findWeightedWinner = require('../modules/weighted');
 // const moment = require('moment');
 // const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-const poll_length = 10;
+const poll_length = 2;
 
 const CronJob = require('cron').CronJob;
 new CronJob('* * * * * *', function () {
@@ -17,7 +17,7 @@ new CronJob('* * * * * *', function () {
     // After 5 minutes turn off collecting and shift to voting
     const minuteOneQuery = `UPDATE polls
         SET collection_period = false, voting_period = true 
-        WHERE created_at <= NOW() - interval '5 minute'   
+        WHERE created_at <= NOW() - interval '1 minute'   
         AND collection_period = true RETURNING polls.id`;
     pool.query(minuteOneQuery)
         .then((result) => {
@@ -33,7 +33,7 @@ new CronJob('* * * * * *', function () {
     // After 10 minutes turn voting off
     const minuteTwoQuery = `UPDATE polls
         SET voting_period = false, complete= true 
-        WHERE created_at <= NOW() - interval '10 minute' 
+        WHERE created_at <= NOW() - interval '2 minute' 
         AND voting_period = true RETURNING polls.id, polls.type`;
 
 
