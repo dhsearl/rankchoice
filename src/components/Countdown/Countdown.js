@@ -148,7 +148,7 @@ class Countdown extends React.Component {
                 {moment().utc().diff(moment(this.props.time)) / 60000  < this.state.POLL_LENGTH &&
                     <div className="sticky-timer">
                         {this.state.countdownCopy < 300 && this.state.countdownCopy >= 200 &&
-                            <p>{minutes.slice(1) - 2}:{seconds} to suggest ideas, <br /> Then 2:00 to vote</p>}
+                            <p>{minutes.slice(1) - 1}:{seconds} to suggest ideas, <br /> Then 1:00 to vote</p>}
                         {this.state.countdownCopy < 200 && this.state.countdownCopy >= 100 &&
                             <p>Idea entering time is almost up, {seconds} seconds remain<br /> Then 2:00 to vote</p>}
                         {this.state.countdownCopy < 100 &&
