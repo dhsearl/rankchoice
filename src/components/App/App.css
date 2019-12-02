@@ -243,11 +243,6 @@ h3 {
     .app-header {
         font-size: 48px;
     }
-<<<<<<< HEAD
-    .header-minutes{ 
-        margin: -1rem 0 0 1.8rem;
-    }
-=======
     /* only used for less than ten minute polls */
     .header-minutes {
         margin: -1rem 0 0 1.8rem;
@@ -258,5 +253,4 @@ h3 {
     .header-minutes {
         margin: -1rem 0 0 .3rem;
     }
->>>>>>> master
 }
