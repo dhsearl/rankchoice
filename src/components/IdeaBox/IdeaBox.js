@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Segment, Icon } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 
 class IdeaBox extends Component {
     state = {
@@ -31,10 +31,10 @@ class IdeaBox extends Component {
 
 
 
-            <Segment raised className="ideaContainer" key={idea.id}>
+            <div raised className="ideaContainer" key={idea.id}>
                 {this.state.edit ?
                     <form onSubmit={() => this.handleEditSubmit(idea.id)} style={{ display: 'inline' }}>
-                        <input style={{ width: '80%', fontSize:'16px' }} type="text" value={idea.idea_text} onChange={this.handleChange} />
+                        <input style={{ width: '280px', fontSize:'16px',color:'var(--nord0)', backgroundColor:'var(--nord6)' }} type="text" value={idea.idea_text} onChange={this.handleChange} />
                     </form>
                     : <>{idea.idea_text}</>}
 
@@ -42,16 +42,16 @@ class IdeaBox extends Component {
                     <>
                         {this.state.edit ?
                             <Button.Group icon className="ideaButton" floated='right'>
-                                <Button basic onClick={() => this.handleEditSubmit(idea.id)}><Icon color="green" name="save outline" /></Button>
+                                <Button className="saveButton" style={{color:'#a3be8c'}} basic onClick={() => this.handleEditSubmit(idea.id)}><Icon style={{color:'#a3be8c'}} name="save outline" className="saveButton"/></Button>
                             </Button.Group> :
                             <Button.Group icon className="ideaButton" floated='right'>
                                 <Button basic onClick={this.handleEditMode}><Icon name="edit outline" /></Button>
                                 <Button basic onClick={() => this.handleDelete(idea.id)}>
-                                    <Icon color="red" name="delete" /></Button>
+                                    <Icon style={{color:'#bf616a'}} name="delete" /></Button>
                             </Button.Group>}
                     </>
                 }
-            </Segment>
+            </div>
 
         );
     }

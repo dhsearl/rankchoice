@@ -10,7 +10,7 @@ CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "voter_identity" VARCHAR(255),
+    "voter_identity" VARCHAR(255)
 );
 
 CREATE TABLE "voters" (
@@ -56,10 +56,25 @@ CREATE TABLE "single_vote" (
   "candidate_id" int,
   "rank_integer" int
 );
-
+CREATE TABLE "text_voter" (
+	"id" SERIAL PRIMARY KEY,
+	"poll_id" int,
+	"phone_number" varchar(255)
+);
 
 ALTER TABLE "candidate_ideas" ADD FOREIGN KEY ("poll_id") REFERENCES "polls";
 ALTER TABLE "single_vote" ADD FOREIGN KEY ("candidate_id") REFERENCES "candidate_ideas";
 ALTER TABLE "vote_instance" ADD FOREIGN KEY ("poll_id") REFERENCES "polls";
 ALTER TABLE "single_vote" ADD FOREIGN KEY ("vote_instance_id") REFERENCES "vote_instance";
 ALTER TABLE "polls" ADD FOREIGN KEY ("winning_candidate") REFERENCES "candidate_ideas";
+
+INSERT INTO polls(
+  "url",
+  "type",
+  "question",
+  "winning_candidate",
+  "collection_period",
+  "voting_period",
+  "complete")VALUES(NULL,NULL,'This is to catch bad polls',NULL,FALSE,FALSE,FALSE);
+
+INSERT INTO candidate_ideas("poll_id","idea_text")VALUES(1,'No Winner Found - Did you vote?');
