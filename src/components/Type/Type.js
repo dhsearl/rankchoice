@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
+// import { HashLink as Link } from 'react-router-hash-link';
 import {Button} from '@material-ui/core'
 class Type extends Component {
     state = {
@@ -36,8 +37,8 @@ class Type extends Component {
                     : {backgroundColor:'var(--nord3)',color:'var(--nord13)',width:'47%' }}
                 >Small Group</Button></div>
                 <div className="centered">
-                {this.state.rcv ? <p>Ranked-Choice Voting. Good for large groups.<br/><a href="http://rankchoice.io/#/faq" >Learn more</a></p>
-                : <p>Borda Count Positional voting. Good for small-medium sized groups.<br/><a href="http://rankchoice.io/#/faq" >Learn more</a></p>}</div>
+                {this.state.rcv ? <p>Ranked-Choice Voting. Good for large groups.<br/><Link to="/faq">Learn more</Link></p>
+                : <p>Borda Count Positional voting. Good for small-medium sized groups.<br/><Link to="/faq">Learn more</Link></p>}</div>
             </div>
               </>
         );

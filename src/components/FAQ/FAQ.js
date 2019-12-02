@@ -40,11 +40,14 @@ function FAQ() {
                 </ul>
             </ol> 
             
-            <h3>Ranked-Choice Voting</h3><p> Good for large groups.<br/>  In Ranked-Choice or Instant Run Off Voting, first place votes are tallied. If one candidate recieves a majority of first place votes they are declared the winner.  If there is no majority, the candidate that recieved the fewest first place votes is removed and the candidate that was in second place on these voters ballots is moved up to first place. The tally begins again, continuing until there is a candidate that recieves a majority of first place votes.<br/>Minneapolis municiple elections use this style of vote counting!<br />
+            <a name="rcv"><h3>Ranked-Choice Voting</h3></a>
+            
+            <p className="faqText"> Good for large groups.<br/>  In Ranked-Choice or Instant Run Off Voting, first place votes are tallied. If one candidate recieves a majority of first place votes they are declared the winner.  If there is no majority, the candidate that recieved the fewest first place votes is removed and the candidate that was in second place on these voters ballots is moved up to first place. The tally begins again, continuing until there is a candidate that recieves a majority of first place votes.<br/>Minneapolis municiple elections use this style of vote counting!<br />
                 <a href="https://en.wikipedia.org/wiki/Ranked_voting" target="_blank" rel="noopener noreferrer">Learn more</a>
             </p>
-            <h3>Borda Count</h3>
-            <p>Good for small - medium sized groups.<br/> Borda Count Voting is a specific type of positional voting. Candidates are weighted based on their position. In a Borda Count the candate a voter puts at the top of their ballot is awarded as many points as there are candidates (n). Second place gets (n-1). Third (n-2) etc. This style of voting is good for small-medium sized groups because it always weights voters second and third place preferences, where Ranked-Choice Voting only looks at lower preferences when a voters first place has been eliminated.
+            <a name="borda"><h3>Borda Count</h3></a>
+            
+            <p className="faqText">Good for small - medium sized groups.<br/> Borda Count Voting is a specific type of positional voting. Candidates are weighted based on their position. In a Borda Count the candate a voter puts at the top of their ballot is awarded as many points as there are candidates (n). Second place gets (n-1). Third (n-2) etc. This style of voting is good for small-medium sized groups because it always weights voters second and third place preferences, where Ranked-Choice Voting only looks at lower preferences when a voters first place has been eliminated.
                  <br />
                 <a href="https://en.wikipedia.org/wiki/Borda_count" target="_blank" rel="noopener noreferrer">Learn more</a>
             </p>
