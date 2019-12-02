@@ -8,7 +8,7 @@ class Countdown extends React.Component {
         minutes: undefined,
         seconds: undefined,
         countdownCopy: 510,
-        POLL_LENGTH: 4,                                                             // Change this // 2-min or 10 min
+        POLL_LENGTH: 3,                                                             // Change this // 2-min or 10 min
     }
     componentDidMount() {
 
@@ -22,7 +22,7 @@ class Countdown extends React.Component {
             let seconds = countdown.format('ss');
             this.setState({ minutes, seconds, countdownCopy });
 
-            this.state.countdownCopy > 350 &&                                       // Change this // 2-Min = 150 // 10-min = 950
+            this.state.countdownCopy > 250 &&                                       // Change this // 2-Min = 150 // 10-min = 950
                 !this.props.voteReducer.winner.idea_text &&
                 this.state.countdownCopy % 10 === 1 &&
                 this.props.dispatch({
@@ -46,15 +46,15 @@ class Countdown extends React.Component {
                 type: 'GET_FULL_IDEA_LIST',
                 payload: { id: this.props.pollReducer.pollStatus.id }
             })
-            this.state.countdownCopy <= 205 &&                                         // Change this // 2-min=105 // 10-min 505
-                this.state.countdownCopy >= 155 &&                                     // Change this  // 2-min=55 // 10-min 455   
+            this.state.countdownCopy <= 105 &&                                         // Change this // 2-min=105 // 10-min 505
+                this.state.countdownCopy >= 55 &&                                     // Change this  // 2-min=55 // 10-min 455   
                 this.props.dispatch({
                     type: 'FETCH_STATUS',
                     payload: { url: this.props.route }
                 })
 
             // this.props.pollReducer.pollStatus.voting_period === true
-            this.state.countdownCopy === 159                                         // Change this  // 2-min=59 // 10-min 459
+            this.state.countdownCopy === 59                                         // Change this  // 2-min=59 // 10-min 459
                 && this.props.voteReducer.voteNeedsToBeInit === true
                 && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
 
@@ -147,12 +147,10 @@ class Countdown extends React.Component {
                 }
                 {moment().utc().diff(moment(this.props.time)) / 60000  < this.state.POLL_LENGTH &&
                     <div className="sticky-timer">
-                        {this.state.countdownCopy < 400 && this.state.countdownCopy >= 300 &&
-                            <p>{minutes.slice(1) - 2}:{seconds} to suggest ideas, <br /> Then 2:00 to vote</p>}
                         {this.state.countdownCopy < 300 && this.state.countdownCopy >= 200 &&
-                            <p>Idea entering time is almost up, {seconds} seconds remain<br /> Then 2:00 to vote</p>}
+                            <p>{minutes.slice(1) - 2}:{seconds} to suggest ideas, <br /> Then 2:00 to vote</p>}
                         {this.state.countdownCopy < 200 && this.state.countdownCopy >= 100 &&
-                            <p>{minutes.slice(1)}:{seconds} left <br/> Arrange and lock in your vote</p>}
+                            <p>Idea entering time is almost up, {seconds} seconds remain<br /> Then 2:00 to vote</p>}
                         {this.state.countdownCopy < 100 &&
                             <p>Drag and drop ideas then lock in your vote,<br/>Just {seconds} seconds remain</p>}
                     </div>
