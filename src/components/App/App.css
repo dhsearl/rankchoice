@@ -36,6 +36,11 @@ body {
     margin: -1rem 0 0 .6rem;
     padding:0;
 }
+.ideaVoteBar{
+    padding:0;
+    display:flex;
+    justify-content: space-between;
+}
 .app-suffix {
     font-size: .8rem;
     display: inline;
@@ -56,17 +61,10 @@ body {
     background-color: var(--nord1);
     z-index: 9999;
 }
-<<<<<<< HEAD
 .vote-instructions{
     padding-bottom:8px;
 }
-=======
 
-.vote-instructions {
-    padding-bottom: 8px;
-}
-
->>>>>>> master
 .nav-link {
     text-decoration: none;
 }
@@ -253,23 +251,12 @@ h3 {
     .app-header {
         font-size: 48px;
     }
-<<<<<<< HEAD
     .header-minutes{ 
         margin: -1rem 0 0 1.8rem;
     }
 }
 @media only screen and (max-width: 400px) {
     .header-minutes{ 
-=======
-    /* only used for less than ten minute polls */
-    .header-minutes {
-        margin: -1rem 0 0 1.8rem;
-    }
-}
-
-@media only screen and (max-width: 400px) {
-    .header-minutes {
->>>>>>> master
         margin: -1rem 0 0 .3rem;
     }
 }
