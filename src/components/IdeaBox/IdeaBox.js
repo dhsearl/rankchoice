@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Segment, Icon } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 
 class IdeaBox extends Component {
     state = {
