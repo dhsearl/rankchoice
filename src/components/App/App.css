@@ -62,7 +62,7 @@ input {
     font-size: 16px !important;
 }
 .ideaButton{
-/* add fixes here */
+float:right;
 }
 .ideaGallery {
     background-color: #D08770;
@@ -78,14 +78,26 @@ input {
 }
 
 .ideaContainer {
+    background-color: var(--nord5);
     color: var(--nord0);
     height: 51px;
+    display:flex;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding:16px;
+    box-shadow: 1px black;
+}
+.ideaContainer:last-child {
+    margin-bottom: 0;
 }
 
 .addIdeaBox {
     min-width: 400px;
     max-width: 400px;
+}
+.saveButton {
+    margin-right: 50px;
 }
 .height-150{
     height:150px;
