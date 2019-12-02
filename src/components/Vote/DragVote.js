@@ -132,12 +132,8 @@ class Vote extends Component {
               You Voted!<br/>
             <ToTextmessage />
           </Dimmer>
-<<<<<<< HEAD
-        </Dimmer.Dimmable></div>
-=======
         </Dimmer.Dimmable>
         </div>
->>>>>>> master
                 </>
 
             </>
