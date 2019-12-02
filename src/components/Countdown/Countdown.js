@@ -8,7 +8,7 @@ class Countdown extends React.Component {
         minutes: undefined,
         seconds: undefined,
         countdownCopy: 510,
-        POLL_LENGTH: 10,                                                             // Change this // 2-min or 10 min
+        POLL_LENGTH: 4,                                                             // Change this // 2-min or 10 min
     }
     componentDidMount() {
 
@@ -22,7 +22,7 @@ class Countdown extends React.Component {
             let seconds = countdown.format('ss');
             this.setState({ minutes, seconds, countdownCopy });
 
-            this.state.countdownCopy > 950 &&                                       // Change this // 2-Min = 150 // 10-min = 950
+            this.state.countdownCopy > 350 &&                                       // Change this // 2-Min = 150 // 10-min = 950
                 !this.props.voteReducer.winner.idea_text &&
                 this.state.countdownCopy % 10 === 1 &&
                 this.props.dispatch({
@@ -46,15 +46,15 @@ class Countdown extends React.Component {
                 type: 'GET_FULL_IDEA_LIST',
                 payload: { id: this.props.pollReducer.pollStatus.id }
             })
-            this.state.countdownCopy <= 505 &&                                         // Change this // 2-min=105 // 10-min 505
-                this.state.countdownCopy >= 455 &&                                     // Change this  // 2-min=55 // 10-min 455   
+            this.state.countdownCopy <= 205 &&                                         // Change this // 2-min=105 // 10-min 505
+                this.state.countdownCopy >= 155 &&                                     // Change this  // 2-min=55 // 10-min 455   
                 this.props.dispatch({
                     type: 'FETCH_STATUS',
                     payload: { url: this.props.route }
                 })
 
             // this.props.pollReducer.pollStatus.voting_period === true
-            this.state.countdownCopy === 459                                         // Change this  // 2-min=59 // 10-min 459
+            this.state.countdownCopy === 159                                         // Change this  // 2-min=59 // 10-min 459
                 && this.props.voteReducer.voteNeedsToBeInit === true
                 && this.props.dispatch({ type: "INIT_BALLOT", payload: this.props.ideaReducer.ideaList })
 
