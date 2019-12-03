@@ -20,12 +20,30 @@ const voteNeedsToBeInit = (state = true, action) => {
 // 1: {id: 34, idea_text: "Idea Two", created_by: "b7e5b91980efd3ebe8fbe9b2b0f16da7213977c0"}
 // 2: {id: 35, idea_text: "Idea Three", created_by: "b7e5b91980efd...
 
+// let testArray = [{id: 33, idea_text: "Idea one", created_by: "b7e5b91980efd3ebe8fbe9b2b0f16da7213977c0"},
+// {id: 34, idea_text: "Idea Two", created_by: "b7e5b91980efd3ebe8fbe9b2b0f16da7213977c0"},
+// {id: 35, idea_text: "Idea Three", created_by: "b7e5b91980efd..."}]
+
+function randomOrder(voteArray){
+    let length = voteArray.length -1
+    for (let i = length; i > 0; i--){
+        const j = Math.floor(Math.random() * i)
+        const temp = voteArray[i]
+        voteArray[i] = voteArray[j]
+        voteArray[j] = temp
+      }
+    //   console.log(voteArray)
+      return voteArray
+}
+// console.log(randomOrder(testArray));
+
 const voteInstance = (state = [], action) => {
     // in init I will be passing it an array of ideas
     // this takes in ideaList
     // [ {   }, {   }, {   }]
     if (action.type === "INIT_BALLOT") {
-        return action.payload.map(x => ({ ...x, id: String(x.id), idea: x.idea_text }))
+        let randomizedArray = randomOrder(action.payload)
+        return randomizedArray.map(x => ({ ...x, id: String(x.id), idea: x.idea_text }))
         // spreading x so I keep it all incase we add other properties in the future.
     } else if (action.type === "SET_ITEM_RANKS") {
         return action.payload
