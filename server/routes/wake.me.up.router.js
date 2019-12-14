@@ -21,6 +21,9 @@ router.get('/', (req, res) => {
     axios.get('http://calculator.searl.org')
     .catch((error)=>{console.log('gallery error:',error)
     })
+    axios.get('http://feedback.searl.org')
+    .catch((error)=>{console.log('gallery error:',error)
+    })
     res.sendStatus(200);
 })
 
