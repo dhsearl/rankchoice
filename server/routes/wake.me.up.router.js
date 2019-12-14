@@ -1,21 +1,27 @@
 const express = require('express');
-const pool = require('../modules/pool');
 const router = express.Router();
-const http = requre('http')
+const axios = require('axios');
 
-router.get('/', async (req, res) => {
-    await http.get({
-        host:'http://two.rankchoice.io'
-    }, (response)=>{
-
+router.get('/', (req, res) => {
+    axios.get('http://two.rankchoice.io')
+    .catch((error)=>{console.log("two error", error)})
+    axios.get('http://movies.searl.org')
+    .catch((error)=>{console.log("movies error", error)})
+    axios.get('http://todo.searl.org')
+    .catch((error)=>{console.log("todo error ",error)})
+    axios.get('http://three.rankchoice.io')
+    .catch((error)=>{console.log('three error:',error)
     })
-    await http.get({
-        host:'http://movies.rankchoice.io'
+    axios.get('http://four.rankchoice.io')
+    .catch((error)=>{console.log('four error:',error)
     })
-    await http.get({
-        host:'http://todo.rankchoice.io'
+    axios.get('http://gallery.searl.org')
+    .catch((error)=>{console.log('gallery error:',error)
     })
-    await res.sendStatus(200);
+    axios.get('http://calculator.searl.org')
+    .catch((error)=>{console.log('gallery error:',error)
+    })
+    res.sendStatus(200);
 })
 
 
