@@ -15,7 +15,8 @@ router.get('/', async (req, res) => {
     await http.get({
         host:'http://todo.rankchoice.io'
     })
-}
+    await res.sendStatus(200);
+})
 
 
 
