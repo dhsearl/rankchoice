@@ -6,7 +6,7 @@ Duration: 2-week sprint
 To see the fully functional site, please visit:   [DEPLOYED VERSION OF Rank Choice.io](https://rankchoice.io/) 
 
 
-## TL:DR
+## TL;DR
 A quick-to-use online voting platform combining a collection period where users can suggest ideas, with a voting period where users drag-and-drop the suggestions in their preferred order from first to last.
 
 Poll creators pose a question, chose a vote counting method, and create a secure link to share with others.  
